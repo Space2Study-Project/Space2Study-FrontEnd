@@ -6,14 +6,12 @@ import { googleAuth } from '~/redux/reducer'
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import { scrollToHash } from '~/utils/hash-scroll'
-import useBreakpoints from '~/hooks/use-breakpoints'
 
 import { snackbarVariants } from '~/constants'
 import { styles } from '~/containers/guest-home-page/google-button/GoogleButton.styles'
 
 const GoogleButton = ({ role, route, buttonWidth, type }) => {
   const dispatch = useDispatch()
-  const mediaQuery = useBreakpoints().isLaptopAndAbove ? 'md' : 'xs'
   const { closeModal } = useModalContext()
   const { setAlert } = useSnackBarContext()
   const ref = useHref(route)
@@ -47,11 +45,10 @@ const GoogleButton = ({ role, route, buttonWidth, type }) => {
 
     googleId.renderButton(document.getElementById('googleButton'), {
       size: 'large',
-      width: buttonWidth[mediaQuery],
       locale: 'en',
       text: `${type}_with`
     })
-  }, [handleCredentialResponse, buttonWidth, type, mediaQuery])
+  }, [handleCredentialResponse, buttonWidth, type])
 
   return <div id='googleButton' style={styles.google} />
 }
