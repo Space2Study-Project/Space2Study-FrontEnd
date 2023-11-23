@@ -1,7 +1,11 @@
 export const styles = {
   form: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    minWidth: { sm: '343px' }
+  },
+  input: {
+    maxWidth: '343px'
   },
   loginButton: {
     width: '100%',
