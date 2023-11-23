@@ -1,5 +1,6 @@
 const link = {
   color: 'primary.900',
+  paddingTop: '5px',
   textDecoration: 'none',
   typography: 'caption',
   whiteSpace: 'nowrap'
