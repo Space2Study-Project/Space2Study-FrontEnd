@@ -92,11 +92,15 @@ const SignupForm = ({
       </Box>
 
       <AppTextField
+        autoFocus
+        data-testid={'email'}
+        errorMsg={t(errors.email)}
         fullWidth
         label={t('common.labels.email')}
         onBlur={handleBlur('email')}
         onChange={handleChange('email')}
         required
+        size='large'
         sx={{ mb: '5px' }}
         type='email'
         value={data.email}
@@ -104,18 +108,19 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={passwordVisibility}
+        errorMsg={t(errors.password)}
         fullWidth
         label={t('common.labels.password')}
         onBlur={handleBlur('password')}
         onChange={handleChange('password')}
         required
-        sx={{ mb: '5px' }}
         type={showPassword ? 'text' : 'password'}
         value={data.password}
       />
 
       <AppTextField
         InputProps={confirmPasswordVisibility}
+        errorMsg={t(errors.confirmPassword)}
         fullWidth
         label={t('common.labels.confirmPassword')}
         onBlur={handleBlur('confirmPassword')}
