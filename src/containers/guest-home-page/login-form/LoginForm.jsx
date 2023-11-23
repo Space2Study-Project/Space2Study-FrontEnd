@@ -71,6 +71,7 @@ const LoginForm = ({
       </Typography>
 
       <AppButton
+        disabled
         loading={authLoading}
         size='large'
         sx={styles.loginButton}
