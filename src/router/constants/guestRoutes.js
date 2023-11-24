@@ -1,3 +1,4 @@
+// import Welcome from '~/containers/guest-home-page/Welcome'
 export const guestRoutes = {
   home: { route: '/', path: '/' },
   welcome: { route: 'welcome', path: '/#welcome' },

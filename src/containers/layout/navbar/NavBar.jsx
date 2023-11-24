@@ -1,4 +1,5 @@
-import { Fragment, useMemo } from 'react'
+import ScrollToTopButton from '~/components/scroll-to-top-button/ScrollToTopButton'
+import { Fragment, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, useLocation, Link } from 'react-router-dom'
 
@@ -24,12 +25,15 @@ import { student, tutor } from '~/constants'
 import { styles } from '~/containers/layout/navbar/NavBar.styles'
 
 const Navbar = () => {
+  const myPageRef = useRef(null)
   const { userRole } = useSelector((state) => state.appMain)
   const { openDrawer, closeDrawer, isOpen } = useDrawer()
   const { pathname } = useLocation()
   const { t } = useTranslation()
 
-  const homePath = userRole ? guestRoutes[userRole].path : guestRoutes.home.path
+  const homePath = userRole
+    ? guestRoutes[userRole].path
+    : guestRoutes.welcome.path
 
   const navigationItems = useMemo(() => {
     if (userRole === student) {
@@ -70,7 +74,8 @@ const Navbar = () => {
   })
 
   return (
-    <Box sx={styles.header}>
+    <Box ref={myPageRef} sx={styles.header}>
+      <ScrollToTopButton element={myPageRef} />
       <Button
         component={Link}
         size={'small'}
