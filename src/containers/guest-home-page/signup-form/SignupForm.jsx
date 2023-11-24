@@ -13,7 +13,6 @@ import useInputVisibility from '~/hooks/use-input-visibility'
 import { guestRoutes } from '~/router/constants/guestRoutes'
 
 import { styles } from '~/containers/guest-home-page/signup-form/SignupForm.styles'
-
 const SignupForm = ({
   handleSubmit,
   handleChange,
