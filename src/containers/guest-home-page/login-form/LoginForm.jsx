@@ -71,7 +71,7 @@ const LoginForm = ({
       </Typography>
 
       <AppButton
-        disabled
+        disabled={!t(errors.email) && data.password ? false : true}
         loading={authLoading}
         size='large'
         sx={styles.loginButton}
