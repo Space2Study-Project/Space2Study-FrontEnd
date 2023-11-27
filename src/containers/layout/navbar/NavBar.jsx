@@ -1,4 +1,5 @@
 import ScrollToTopButton from '~/components/scroll-to-top-button/ScrollToTopButton'
+import ScrollToTop from '~/components/scroll-to-top/ScrollToTop'
 import { Fragment, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, useLocation, Link } from 'react-router-dom'
@@ -25,7 +26,7 @@ import { student, tutor } from '~/constants'
 import { styles } from '~/containers/layout/navbar/NavBar.styles'
 
 const Navbar = () => {
-  const myPageRef = useRef(null)
+  const mainWithFooter = useRef(null)
   const { userRole } = useSelector((state) => state.appMain)
   const { openDrawer, closeDrawer, isOpen } = useDrawer()
   const { pathname } = useLocation()
@@ -52,6 +53,9 @@ const Navbar = () => {
   const handleOpenSidebar = () => {
     openDrawer()
   }
+  const handleLogoClick = () => {
+    ScrollToTop({ element: mainWithFooter })
+  }
 
   const navigationList = navigationItems.map((item, idx, array) => {
     const isLast = array.length - 1 === idx
@@ -74,10 +78,12 @@ const Navbar = () => {
   })
 
   return (
-    <Box ref={myPageRef} sx={styles.header}>
-      <ScrollToTopButton element={myPageRef} />
+    <Box ref={mainWithFooter} sx={styles.header}>
+      <ScrollToTop element={mainWithFooter} />
+      <ScrollToTopButton element={mainWithFooter} />
       <Button
         component={Link}
+        onClick={handleLogoClick}
         size={'small'}
         sx={styles.logoButton}
         to={homePath}
