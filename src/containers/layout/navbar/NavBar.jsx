@@ -1,5 +1,4 @@
 import ScrollToTopButton from '~/components/scroll-to-top-button/ScrollToTopButton'
-import ScrollToTop from '~/components/scroll-to-top/ScrollToTop'
 import { Fragment, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, useLocation, Link } from 'react-router-dom'
@@ -54,7 +53,7 @@ const Navbar = () => {
     openDrawer()
   }
   const handleLogoClick = () => {
-    ScrollToTop({ element: mainWithFooter })
+    ScrollToTopButton.goToTop(mainWithFooter)
   }
 
   const navigationList = navigationItems.map((item, idx, array) => {
@@ -79,7 +78,6 @@ const Navbar = () => {
 
   return (
     <Box ref={mainWithFooter} sx={styles.header}>
-      <ScrollToTop element={mainWithFooter} />
       <ScrollToTopButton element={mainWithFooter} />
       <Button
         component={Link}
