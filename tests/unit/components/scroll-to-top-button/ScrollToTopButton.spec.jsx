@@ -1,7 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import ScrollToTopButton, {
-  scrollToTop
-} from '~/components/scroll-to-top-button/ScrollToTopButton'
+import ScrollToTopButton from '~/components/scroll-to-top-button/ScrollToTopButton'
 
 window.scrollTo = vi.fn()
 
@@ -25,18 +23,6 @@ describe('ScrollToTopButton dialog test', () => {
     fireEvent.click(button)
 
     expect(window.scrollTo).toHaveBeenCalledWith({
-      behavior: 'smooth',
-      top: 0
-    })
-  })
-})
-describe('scrollToTop function test', () => {
-  it('should scroll to top with smooth behavior', () => {
-    const element = { current: { scrollTo: vi.fn() } }
-
-    scrollToTop(element)
-
-    expect(element.current.scrollTo).toHaveBeenCalledWith({
       behavior: 'smooth',
       top: 0
     })
