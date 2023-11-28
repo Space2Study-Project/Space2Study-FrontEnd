@@ -1,5 +1,4 @@
-import ScrollToTopButton from '~/components/scroll-to-top-button/ScrollToTopButton'
-import { Fragment, useMemo, useRef } from 'react'
+import { Fragment, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, useLocation, Link } from 'react-router-dom'
 
@@ -23,9 +22,9 @@ import { tutorRoutes } from '~/router/constants/tutorRoutes'
 import { useSelector } from 'react-redux'
 import { student, tutor } from '~/constants'
 import { styles } from '~/containers/layout/navbar/NavBar.styles'
+import { goToTop } from '~/services/scroll-to-top'
 
-const Navbar = () => {
-  const mainWithFooter = useRef(null)
+const Navbar = ({ mainWithFooter }) => {
   const { userRole } = useSelector((state) => state.appMain)
   const { openDrawer, closeDrawer, isOpen } = useDrawer()
   const { pathname } = useLocation()
@@ -50,7 +49,8 @@ const Navbar = () => {
   }, [userRole])
 
   const handleLogoClick = () => {
-    ScrollToTopButton.goToTop(mainWithFooter)
+    console.log(mainWithFooter)
+    goToTop(mainWithFooter)
   }
 
   const handleOpenSidebar = () => {
@@ -78,8 +78,7 @@ const Navbar = () => {
   })
 
   return (
-    <Box ref={mainWithFooter} sx={styles.header}>
-      <ScrollToTopButton element={mainWithFooter} />
+    <Box sx={styles.header}>
       <Button
         component={Link}
         onClick={handleLogoClick}

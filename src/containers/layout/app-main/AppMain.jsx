@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import { Suspense, useLayoutEffect, useRef } from 'react'
+import { Suspense, useLayoutEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigation } from 'react-router-dom'
 
@@ -11,8 +11,7 @@ import AppBreadCrumbs from '~/containers/layout/app-breadcrumbs/AppBreadCrumbs'
 import Footer from '~/containers/layout/footer/Footer'
 import { checkAuth } from '~/redux/reducer'
 
-const AppMain = () => {
-  const mainWithFooter = useRef(null)
+const AppMain = ({ mainWithFooter }) => {
   const { loading } = useSelector((state) => state.appMain)
   const { state } = useNavigation()
   const dispatch = useDispatch()
