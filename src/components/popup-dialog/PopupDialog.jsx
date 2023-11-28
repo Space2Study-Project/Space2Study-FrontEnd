@@ -27,7 +27,6 @@ const PopupDialog = ({
 
   const handleMouseOver = () => timerId && clearTimeout(timerId)
   const handleMouseLeave = () => timerId && closeModalAfterDelay()
-  const handleClose = () => void onClose()
 
   return (
     <Dialog
@@ -36,8 +35,7 @@ const PopupDialog = ({
       disableRestoreFocus
       fullScreen={isMobile}
       maxWidth='xl'
-      onClick={(e) => e.stopPropagation()}
-      onClose={handleClose}
+      onClose={() => onClose()}
       open
     >
       <Box
@@ -46,7 +44,7 @@ const PopupDialog = ({
         onMouseOver={handleMouseOver}
         sx={styles.box}
       >
-        <IconButton onClick={handleClose} sx={styles.icon}>
+        <IconButton onClick={() => onClose()} sx={styles.icon}>
           <CloseIcon />
         </IconButton>
         <Box sx={styles.contentWraper}>{content}</Box>
