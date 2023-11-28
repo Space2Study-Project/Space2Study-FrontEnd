@@ -113,6 +113,7 @@ const SignupForm = ({
         onBlur={handleBlur('password')}
         onChange={handleChange('password')}
         required
+        sx={{ mb: '5px' }}
         type={showPassword ? 'text' : 'password'}
         value={data.password}
       />
