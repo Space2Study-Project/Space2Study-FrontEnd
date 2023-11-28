@@ -91,7 +91,6 @@ const SignupForm = ({
       </Box>
 
       <AppTextField
-        autoFocus
         data-testid={'email'}
         errorMsg={t(errors.email)}
         fullWidth
