@@ -49,7 +49,6 @@ const Navbar = ({ mainWithFooter }) => {
   }, [userRole])
 
   const handleLogoClick = () => {
-    console.log(mainWithFooter)
     goToTop(mainWithFooter)
   }
 

@@ -31,13 +31,15 @@ vi.mock('react-redux', async () => {
 
 describe('AppMain layout component test', () => {
   it('should render loader', () => {
-    renderWithProviders(<AppMain />, { preloadedState: mockState })
+    renderWithProviders(<AppMain mainWithFooter={{}} />, {
+      preloadedState: mockState
+    })
     const loader = screen.getByTestId('loader')
     expect(loader).toBeInTheDocument()
   })
 
   it('should dispatch checkAuth if accessToken exists in localStorage', async () => {
-    renderWithProviders(<AppMain />, {
+    renderWithProviders(<AppMain mainWithFooter={{}} />, {
       preloadedState: {
         appMain: {
           authLoading: false,
