@@ -11,6 +11,7 @@ const ScrollToTopButton = ({ element }) => {
       behavior: 'smooth'
     })
   }
+  ScrollToTopButton.goToTop = goToTop
 
   return (
     <ScrollVisibilityWrapper heightToShow={450} pageRef={element}>
