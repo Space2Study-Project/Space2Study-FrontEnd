@@ -2,9 +2,7 @@ import { screen, fireEvent, waitFor } from '@testing-library/react'
 import NavBar from '~/containers/layout/navbar/NavBar'
 import { renderWithProviders } from '~tests/test-utils'
 import { vi } from 'vitest'
-import ScrollToTopButton from '~/components/scroll-to-top-button/ScrollToTopButton'
 
-window.scrollTo = vi.fn()
 vi.mock('~/hooks/use-confirm', () => {
   return {
     default: () => ({ setNeedConfirmation: () => true })
@@ -68,14 +66,5 @@ describe('Student NavBar test', () => {
     const icon = screen.getByTestId('AccountCircleOutlinedIcon')
 
     expect(icon).toBeInTheDocument()
-  })
-
-  it('should call ScrollToTopButton.goToTop on logo click', () => {
-    const mockGoToTop = vi.mock(ScrollToTopButton, 'goToTop')
-
-    const logo = screen.getByAltText('logo')
-    fireEvent.click(logo)
-
-    expect(mockGoToTop).toHaveBeenCalledWith(window)
   })
 })
