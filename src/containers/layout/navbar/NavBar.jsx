@@ -49,12 +49,12 @@ const Navbar = () => {
     return Object.values(authRoutes.accountMenu)
   }, [userRole])
 
-  const handleLogoClick = () => {
-    ScrollToTopButton.goToTop(mainWithFooter)
-  }
-
   const handleOpenSidebar = () => {
     openDrawer()
+  }
+
+  const handleLogoClick = () => {
+    ScrollToTopButton.goToTop(mainWithFooter)
   }
 
   const navigationList = navigationItems.map((item, idx, array) => {
