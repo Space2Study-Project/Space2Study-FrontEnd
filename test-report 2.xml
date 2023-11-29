@@ -1,0 +1,311 @@
+<testExecutions version="1">
+  <file path="tests/unit/components/accordion/Accordions.spec.jsx">
+    <testCase name="Accordion component without expandMoreIcon test - Test headings" duration="708" />
+    <testCase name="Accordion component without expandMoreIcon test - Test descriptions" duration="71" />
+    <testCase name="Accordion component without expandMoreIcon test - Onclick test" duration="71" />
+    <testCase name="Accordion component without expandMoreIcon test - shuld render expand more icon" duration="95" />
+    <testCase name="Accordions test with icon - should render expand more icon" duration="309" />
+  </file>
+  <file path="tests/unit/components/app-auto-complete/AppAutoComplete.spec.jsx">
+    <testCase name="AppAutoComplete test - Should render Autocomplete and choose option" duration="2104" />
+  </file>
+  <file path="tests/unit/components/app-carousel/AppCarousel.spec.jsx">
+    <testCase name="AppCarousel test - should render with children" duration="132" />
+  </file>
+  <file path="tests/unit/components/app-chips/AppChipsList.spec.jsx">
+    <testCase name="AppChip test - should show chips" duration="621" />
+    <testCase name="AppChip test - should show chip with +3" duration="202" />
+    <testCase name="AppChip test - should show only 7 chips" duration="202" />
+    <testCase name="AppChip test - should show only 10 chips" duration="782" />
+    <testCase name="AppChip test - should delete one chip" duration="194" />
+  </file>
+  <file path="tests/unit/components/carousel-with-image/CarouselWithImage.spec.jsx">
+    <testCase name="CarouselWithImage component test - Test image" duration="307" />
+  </file>
+  <file path="tests/unit/components/confirm-dialog/ConfirmDialog.spec.jsx">
+    <testCase name="Confirm dialog test - should have title text" duration="827" />
+    <testCase name="Confirm dialog test - should have message text" duration="186" />
+    <testCase name="Confirm dialog test - should confirm" duration="94" />
+    <testCase name="Confirm dialog test - should dismiss" duration="219" />
+  </file>
+  <file path="tests/unit/components/file-uploader/FileUploader.spec.jsx">
+    <testCase name="FileUploader test - should render button with upload icon" duration="381" />
+    <testCase name="FileUploader test with file - should delete file after uploading" duration="218" />
+  </file>
+  <file path="tests/unit/components/info-card/InfoCard.spec.jsx">
+    <testCase name="InfoCard component - should contain image" duration="541" />
+    <testCase name="InfoCard component - should have correct title" duration="34" />
+    <testCase name="InfoCard component - should have correct description" duration="115" />
+    <testCase name="InfoCard component - should have correct button text" duration="74" />
+  </file>
+  <file path="tests/unit/components/layout/AppMain.spec.jsx">
+    <testCase name="AppMain layout component test - should render loader" duration="326" />
+    <testCase name="AppMain layout component test - should dispatch checkAuth if accessToken exists in localStorage" duration="244" />
+  </file>
+  <file path="tests/unit/components/loader/Loader.spec.jsx">
+    <testCase name="Loader - renders the Loader component" duration="57" />
+  </file>
+  <file path="tests/unit/components/scroll-to-top-button/ScrollToTopButton.spec.jsx">
+    <testCase name="ScrollToTopButton dialog test - should show ArrowUpwardRoundedIcon" duration="302" />
+    <testCase name="ScrollToTopButton dialog test - should call function scrollTo" duration="27" />
+  </file>
+  <file path="tests/unit/components/scroll-to-top/ScrollToTop.spec.jsx">
+    <testCase name="ScrollToTop dialog test - should show ArrowUpwardRoundedIcon" duration="43" />
+  </file>
+  <file path="tests/unit/components/scroll-visibility-wrapper/ScrollVisibilityWrapper.spec.jsx">
+    <testCase name="ScrollVisibilityWrapper test - Should show children" duration="218" />
+    <testCase name="ScrollVisibilityWrapper test - Should not show children " duration="133" />
+  </file>
+  <file path="tests/unit/components/step-wrapper/StepWrapper.spec.jsx">
+    <testCase name="StepWrapper test - should render second children after click on tab" duration="579" />
+    <testCase name="StepWrapper test - should render finish button" duration="483" />
+    <testCase name="StepWrapper test - should render first children after click on next and back button" duration="216" />
+  </file>
+  <file path="tests/unit/containers/app-breadcrumbs/AppBreadCrumbs.spec.jsx">
+    <testCase name="AppBreadCrumbs container - should render all breadcrumbs" duration="248" />
+    <testCase name="AppBreadCrumbs container - should render two breadcrumb" duration="21" />
+    <testCase name="AppBreadCrumbs container - should not render breadcrumbs" duration="3" />
+  </file>
+  <file path="tests/unit/containers/app-content/AppContent.spec.jsx">
+    <testCase name="AppContent container - should render container on the page" duration="614" />
+  </file>
+  <file path="tests/unit/containers/email-confirm-modal/EmailConfirmModal.spec.jsx">
+    <testCase name="EmailConfirmModal test - should render negative-scenario image and message (BAD_CONFIRM_TOKEN)" duration="245" />
+    <testCase name="EmailConfirmModal test - should render negative-scenario image and message (EMAIL_ALREADY_CONFIRMED)" duration="185" />
+    <testCase name="EmailConfirmModal test - should render positive-scenario image and message - (response from useAxios)" duration="105" />
+    <testCase name="EmailConfirmModal test - should render Loader - (loading from useAxios)" duration="36" />
+    <testCase name="EmailConfirmModal test - should render button" duration="77" />
+  </file>
+  <file path="tests/unit/containers/footer/Footer.spec.jsx">
+    <testCase name="Footer component test - should have title text" duration="412" />
+    <testCase name="Footer component test - should have link to Privacy Policy" duration="13" />
+    <testCase name="Footer component test - should have link to Term of Use" duration="91" />
+    <testCase name="Footer with role component test - should have Logo" duration="205" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/FeatureBlock.spec.jsx">
+    <testCase name="Carousel test - Test should render carousel component" duration="204" />
+    <testCase name="Accordion test - Test should render accordion component" duration="428" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/Welcome.spec.jsx">
+    <testCase name="Welcome component - should have title img" duration="291" />
+    <testCase name="Welcome component - should have correct description" duration="91" />
+    <testCase name="Welcome component - should have button with correct text" duration="36" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/WhatCanYouDo.spec.jsx">
+    <testCase name="WhatCanYoDo component - should render popup after button click" duration="2945" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/cards-with-button/CardsWithButton.spec.jsx">
+    <testCase name="CardsWithButton container - should render popup after button click" duration="3877" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/forgot-password/ForgotPassword.spec.jsx">
+    <testCase name="ForgotPassword test - should render title" duration="985" />
+    <testCase name="ForgotPassword test - should show error after submit with empty input" duration="250" />
+    <testCase name="ForgotPassword test - should click back to login and open login dialog" duration="1814" />
+    <testCase name="ForgotPassword test - should submit form and open info popup" duration="794" />
+    <testCase name="ForgotPassword test - should show error snackbar" duration="560" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/google-login/GoogleLogin.spec.jsx">
+    <testCase name="GoogleLogin component test for login - should have &quot;or continue&quot; text" duration="322" />
+    <testCase name="GoogleLogin component test for login - should have &quot;have account&quot; text" duration="34" />
+    <testCase name="GoogleLogin component test for login - should have &quot;Join us&quot; text" duration="43" />
+    <testCase name="GoogleLogin component test for login - should close login modal after click" duration="82" />
+    <testCase name="GoogleLogin component test for signup - should render login popup" duration="65" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/login-dialog/LoginDialog.spec.jsx">
+    <testCase name="Login dialog test - should render img" duration="1506" />
+    <testCase name="Login dialog test - should render head text" duration="249" />
+    <testCase name="Login dialog test - should change email value" duration="457" />
+    <testCase name="Login dialog test - should change password value" duration="458" />
+    <testCase name="Login dialog test - should show error" duration="455" />
+    <testCase name="Login dialog test - should dispatch after button submit" duration="473" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/login-form/LoginForm.spec.jsx">
+    <testCase name="Login form test - should render email input label" duration="1345" />
+    <testCase name="Login form test - should render password input label" duration="234" />
+    <testCase name="Login form test - should render forgot password text" duration="261" />
+    <testCase name="Login form test - should render login button" duration="237" />
+    <testCase name="Login form test - should show visibility icon" duration="330" />
+    <testCase name="Login form test - should submit" duration="224" />
+    <testCase name="Login form test - should click forgot password text and open forgot password container" duration="1146" />
+    <testCase name="Login form test with loading - should render loader" duration="465" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/reset-password/ResetPassword.spec.jsx">
+    <testCase name="ResetPassword test - should open login dilog after positive response" duration="1848" />
+    <testCase name="ResetPassword test - should open snackbar with error after reject" duration="669" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/signup-dialog/SignupDialog.spec.jsx">
+    <testCase name="Signup dialog test - should render img" duration="1829" />
+    <testCase name="Signup dialog test - should render head" duration="977" />
+    <testCase name="Signup dialog test - should change email value" duration="802" />
+    <testCase name="Signup dialog test - should change password value" duration="732" />
+    <testCase name="Signup dialog test - should dispatch after button submit" duration="2489" />
+  </file>
+  <file path="tests/unit/containers/guest-home-page/signup-form/SignupForm.spec.jsx">
+    <testCase name="Signup form test - should render firstName input" duration="1748" />
+    <testCase name="Signup form test - should render lastName input" duration="310" />
+    <testCase name="Signup form test - should render email input" duration="351" />
+    <testCase name="Signup form test - should render password input" duration="544" />
+    <testCase name="Signup form test - should render confirmPassword input" duration="474" />
+    <testCase name="Signup form test - should render checkbox label" duration="351" />
+    <testCase name="Signup form test - should render signup button" duration="425" />
+    <testCase name="Signup form test - should enable signup button" duration="1129" />
+    <testCase name="Signup form test - should show visibility icon" duration="641" />
+    <testCase name="Signup form test - should submit form" duration="655" />
+    <testCase name="Signup form test with loading - should render loader" duration="518" />
+  </file>
+  <file path="tests/unit/containers/how-it-works/HowItWorks.spec.jsx">
+    <testCase name="HowItWorks container - should change info by clicking on switch" duration="625" />
+  </file>
+  <file path="tests/unit/containers/navbar/NavBar.spec.jsx">
+    <testCase name="Guest NavBar test - should render logo element" duration="758" />
+    <testCase name="Guest NavBar test - should render navigation item with guestNavBar text" duration="139" />
+    <testCase name="Guest NavBar test - should click login button" duration="2059" />
+    <testCase name="Guest NavBar test - should open sidebar with close icon after click menu icon" duration="542" />
+    <testCase name="Student NavBar test - should render navigation item with navBar text" duration="520" />
+    <testCase name="Student NavBar test - should render account icon" duration="170" />
+  </file>
+  <file path="tests/unit/containers/navigation-icons/NavigationIcons.spec.jsx">
+    <testCase name="test with guest role - should open login popup after click" duration="3780" />
+    <testCase name="test with guest role - should render and click menu icon" duration="115" />
+  </file>
+  <file path="tests/unit/containers/navigation-icons/guest-icons/GuestIcons.spec.jsx">
+    <testCase name="test with guest role - should render click menu icon" duration="951" />
+    <testCase name="test with guest role - should render tooltip title" duration="587" />
+  </file>
+  <file path="tests/unit/containers/navigation-icons/user-icons/UserIcons.spec.jsx">
+    <testCase name="test with user role - should render click menu icon" duration="800" />
+    <testCase name="test with user role - should open account menu" duration="719" />
+  </file>
+  <file path="tests/unit/containers/sidebar/Sidebar.spec.jsx">
+    <testCase name="Sidebar test - should render navigation item with label text" duration="575" />
+    <testCase name="Sidebar test - should render link and call setIsSidebarOpen with false after click link" duration="725" />
+  </file>
+  <file path="tests/unit/containers/student-home-page/faq/Faq.spec.jsx">
+    <testCase name="Faq component test - should render title" duration="1081" />
+    <testCase name="Faq component test - should render findTurot text" duration="210" />
+    <testCase name="Faq component test - should open first item after first click on first title and close after second" duration="448" />
+    <testCase name="Faq component test - should open first item, close first item and open second after click on second title" duration="554" />
+  </file>
+  <file path="tests/unit/containers/student-home-page/student-how-it-works/StudentHowItWorks.spec.jsx">
+    <testCase name="StudentHowItWorks test - should have section title and description" duration="576" />
+    <testCase name="StudentHowItWorks test - should have start learning image, title and description" duration="92" />
+  </file>
+  <file path="tests/unit/context/snackbar-context.spec.jsx">
+    <testCase name="snackbar context - should close snackbar on blur" duration="3177" />
+  </file>
+  <file path="tests/unit/hooks/use-axios.spec.js">
+    <testCase name="Use axios custom hook - should call serviceMock" duration="25" />
+  </file>
+  <file path="tests/unit/hooks/use-breakpoints.spec.jsx">
+    <testCase name="useBreakpoints custom hook - should return correct value for desktop" duration="194" />
+    <testCase name="useBreakpoints custom hook - should return correct value for tablet" duration="5" />
+    <testCase name="useBreakpoints custom hook - should return correct value for mobile" duration="6" />
+  </file>
+  <file path="tests/unit/hooks/use-confirm.spec.jsx">
+    <testCase name="Use confirm custom hook - should not open confirm dialog" duration="65" />
+    <testCase name="Use confirm custom hook - should open confirm dialog" duration="977" />
+  </file>
+  <file path="tests/unit/hooks/use-form.spec.jsx">
+    <testCase name="useForm custom hook test without errors - should have initial values" duration="25" />
+    <testCase name="useForm custom hook test without errors - should change data value" duration="4" />
+    <testCase name="useForm custom hook test without errors - should blur after change with dirty true" duration="6" />
+    <testCase name="useForm custom hook test without errors - should submit" duration="3" />
+    <testCase name="useForm custom hook test with errors - should change with validation after blur" duration="3" />
+    <testCase name="useForm custom hook test with errors - should handle blur" duration="4" />
+    <testCase name="useForm custom hook test with errors - should validate and not submit" duration="8" />
+  </file>
+  <file path="tests/unit/hooks/use-input-visibility.spec.jsx">
+    <testCase name="Use input visibility custom hook - should use input visibility" duration="17" />
+  </file>
+  <file path="tests/unit/hooks/use-upload.spec.js">
+    <testCase name="useUpload custom hook test without errors - should have initial values" duration="23" />
+    <testCase name="useUpload custom hook test without errors - should change isDrag value to true after dragStart" duration="6" />
+    <testCase name="useUpload custom hook test without errors - should change isDrag value to true after dragStart and to false after dragStart" duration="4" />
+    <testCase name="useUpload custom hook test without errors - should change drop fake file" duration="5" />
+    <testCase name="useUpload custom hook test without errors - should add fake file" duration="2" />
+    <testCase name="useUpload custom hook test without errors - should add fake file and delete" duration="6" />
+  </file>
+  <file path="tests/unit/pages/cookie-policy/cookiePolicy.spec.jsx">
+    <testCase name="CookiePolicy component test - should have section container" duration="277" />
+    <testCase name="CookiePolicy component test - should have TitleWithDescription with given title and description" duration="86" />
+    <testCase name="CookiePolicy component test - should have TitleWithDescription with given title, subtitle and description" duration="99" />
+    <testCase name="CookiePolicy component test - should have TitleWithDescription with given title, subtitle and description 2" duration="120" />
+    <testCase name="CookiePolicy component test - should have TitleWithDescription with given title, subtitle" duration="50" />
+  </file>
+  <file path="tests/unit/pages/error/AuthPolicy.spec.jsx">
+    <testCase name="AuthPolicy component - should render title" duration="346" />
+    <testCase name="AuthPolicy component - should render description" duration="51" />
+    <testCase name="AuthPolicy component - should render button" duration="90" />
+    <testCase name="AuthPolicy component - should render image" duration="56" />
+  </file>
+  <file path="tests/unit/pages/error/BadRequest.spec.jsx">
+    <testCase name="BadRequest error page test - should render title" duration="138" />
+    <testCase name="BadRequest error page test - should render description" duration="15" />
+    <testCase name="BadRequest error page test - should render error logo" duration="16" />
+  </file>
+  <file path="tests/unit/pages/error/InternalServerError.spec.jsx">
+    <testCase name="InternalServerError page test - should render title" duration="380" />
+    <testCase name="InternalServerError page test - should render description" duration="66" />
+    <testCase name="InternalServerError page test - should render error logo" duration="18" />
+  </file>
+  <file path="tests/unit/pages/error/NotFound.spec.jsx">
+    <testCase name="InternalServerError page test - should render title" duration="142" />
+    <testCase name="InternalServerError page test - should render description" duration="17" />
+    <testCase name="InternalServerError page test - should render error logo" duration="23" />
+  </file>
+  <file path="tests/unit/pages/guest-home/GuestHome.spec.jsx">
+    <testCase name="GuestHomePage test - should render without opening login modal" duration="2330" />
+    <testCase name="GuestHomePage test - should open login modal when login query in url" duration="499" />
+  </file>
+  <file path="tests/unit/pages/logout/Logout.spec.jsx">
+    <testCase name="Logout - dispatches logoutUser action and redirects to home route" duration="123" />
+  </file>
+  <file path="tests/unit/redux/redux.spec.js">
+    <testCase name="redux test - should return the initial state" duration="2" />
+    <testCase name="redux test - should set an error to store after signup" duration="9" />
+    <testCase name="redux test - should set an error to store after login" duration="2" />
+    <testCase name="redux test - should set user data to store after login" duration="2" />
+    <testCase name="redux test - should set an error to store after checkAuth" duration="3" />
+    <testCase name="redux test - should set user data to store after checkAuth" duration="1" />
+    <testCase name="redux test - should set an error to store after logout" duration="1" />
+    <testCase name="redux test - should remove user data from store after logout" duration="1" />
+    <testCase name="redux test - should clear user data from store" duration="0" />
+  </file>
+  <file path="tests/unit/router/router.spec.jsx">
+    <testCase name="router test - guest routes - shoud render private policy page" duration="0">
+      <skipped message="shoud render private policy page" />
+    </testCase>
+    <testCase name="router test - guest routes - shoud render guest home page" duration="0">
+      <skipped message="shoud render guest home page" />
+    </testCase>
+    <testCase name="router test - student routes - should render student home page" duration="0" />
+    <testCase name="router test - student routes - should render student profile page" duration="0" />
+    <testCase name="router test - student routes - should render student findTutor page" duration="0" />
+    <testCase name="router test - student routes - should render error on protected route" duration="0" />
+    <testCase name="router test - tutor routes - should render tutor home page" duration="0" />
+    <testCase name="router test - tutor routes - should render error on protected route" duration="0" />
+    <testCase name="router test - error routes - should render bad request error" duration="0" />
+    <testCase name="router test - error routes - should render internal server error" duration="0" />
+    <testCase name="router test - error routes - should render not found error on bad path" duration="0" />
+    <testCase name="router test - shoud render loader after logout" duration="0">
+      <skipped message="shoud render loader after logout" />
+    </testCase>
+  </file>
+  <file path="tests/unit/services/local-storage-service.spec.js">
+    <testCase name="Local storage service test - should return null from local storage" duration="2" />
+    <testCase name="Local storage service test - should set item if local storage is empty" duration="1" />
+    <testCase name="Local storage service test - should not remove item from local storage" duration="0" />
+    <testCase name="Local storage service test - should return item from local storage" duration="1" />
+    <testCase name="Local storage service test - should set item to local storage" duration="0" />
+    <testCase name="Local storage service test - should remove item from local storage" duration="0" />
+  </file>
+  <file path="tests/unit/services/location-service.spec.js">
+    <testCase name="locationService tests - should return countries" duration="5" />
+    <testCase name="locationService tests - should return cities" duration="1" />
+  </file>
+  <file path="tests/unit/utils/image-resize.spec.jsx">
+    <testCase name="calculatePhotoCut - shoud resize picture with width &gt; height" duration="2" />
+    <testCase name="calculatePhotoCut - shoud resize picture with height &gt; width" duration="0" />
+    <testCase name="imageResize - should handle onload event and return url for new image" duration="7" />
+  </file>
+</testExecutions>
