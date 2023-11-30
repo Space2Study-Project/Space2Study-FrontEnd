@@ -8,6 +8,13 @@ import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import useConfirm from '~/hooks/use-confirm'
 import useForm from '~/hooks/use-form'
+import {
+  firstName,
+  lastName,
+  email,
+  password,
+  confirmPassword
+} from '~/utils/validations/login'
 
 import { signup, snackbarVariants } from '~/constants'
 import GoogleLogin from '~/containers/guest-home-page/google-login/GoogleLogin'
@@ -62,7 +69,8 @@ const SignupDialog = ({ type }) => {
         email: '',
         password: '',
         confirmPassword: ''
-      }
+      },
+      validations: { firstName, lastName, email, password, confirmPassword }
     })
 
   const description = (

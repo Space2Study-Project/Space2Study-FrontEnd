@@ -22,8 +22,9 @@ import { tutorRoutes } from '~/router/constants/tutorRoutes'
 import { useSelector } from 'react-redux'
 import { student, tutor } from '~/constants'
 import { styles } from '~/containers/layout/navbar/NavBar.styles'
+import { goToTop } from '~/services/scroll-to-top'
 
-const Navbar = () => {
+const Navbar = ({ mainWithFooter }) => {
   const { userRole } = useSelector((state) => state.appMain)
   const { openDrawer, closeDrawer, isOpen } = useDrawer()
   const { pathname } = useLocation()
@@ -44,6 +45,10 @@ const Navbar = () => {
     if (!userRole) return []
     return Object.values(authRoutes.accountMenu)
   }, [userRole])
+
+  const handleLogoClick = () => {
+    goToTop(mainWithFooter)
+  }
 
   const handleOpenSidebar = () => {
     openDrawer()
@@ -73,6 +78,7 @@ const Navbar = () => {
     <Box sx={styles.header}>
       <Button
         component={Link}
+        onClick={handleLogoClick}
         size={'small'}
         sx={styles.logoButton}
         to={homePath}

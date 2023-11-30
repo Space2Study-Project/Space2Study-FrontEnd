@@ -13,7 +13,6 @@ import useInputVisibility from '~/hooks/use-input-visibility'
 import { guestRoutes } from '~/router/constants/guestRoutes'
 
 import { styles } from '~/containers/guest-home-page/signup-form/SignupForm.styles'
-
 const SignupForm = ({
   handleSubmit,
   handleChange,
@@ -69,6 +68,7 @@ const SignupForm = ({
       <Box sx={{ display: { md: 'block', lg: 'flex' }, gap: '15px' }}>
         <AppTextField
           autoFocus
+          errorMsg={t(errors.firstName)}
           fullWidth
           label={t('common.labels.firstName')}
           onBlur={handleBlur('firstName')}
@@ -80,6 +80,7 @@ const SignupForm = ({
         />
 
         <AppTextField
+          errorMsg={t(errors.lastName)}
           fullWidth
           label={t('common.labels.lastName')}
           onBlur={handleBlur('lastName')}
@@ -92,11 +93,14 @@ const SignupForm = ({
       </Box>
 
       <AppTextField
+        data-testid={'email'}
+        errorMsg={t(errors.email)}
         fullWidth
         label={t('common.labels.email')}
         onBlur={handleBlur('email')}
         onChange={handleChange('email')}
         required
+        size='large'
         sx={{ mb: '5px' }}
         type='email'
         value={data.email}
@@ -104,6 +108,7 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={passwordVisibility}
+        errorMsg={t(errors.password)}
         fullWidth
         label={t('common.labels.password')}
         onBlur={handleBlur('password')}
@@ -116,6 +121,7 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={confirmPasswordVisibility}
+        errorMsg={t(errors.confirmPassword)}
         fullWidth
         label={t('common.labels.confirmPassword')}
         onBlur={handleBlur('confirmPassword')}
