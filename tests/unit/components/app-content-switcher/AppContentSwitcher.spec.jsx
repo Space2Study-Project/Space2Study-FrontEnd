@@ -24,10 +24,8 @@ describe('AppContentSwitcher Component', () => {
         typographyVariant='h6'
       />
     )
-
     expect(getByText('left text')).toBeInTheDocument()
     expect(getByText('right text')).toBeInTheDocument()
-
     expect(getByTestId('switch')).toBeInTheDocument()
   })
   it('should call the onChange function when the switch is clicked', () => {
@@ -40,9 +38,7 @@ describe('AppContentSwitcher Component', () => {
         typographyVariant='h6'
       />
     )
-
     getByRole('checkbox').click()
-
     expect(onChangeMock).toHaveBeenCalled()
   })
 
@@ -55,10 +51,8 @@ describe('AppContentSwitcher Component', () => {
         typographyVariant='h6'
       />
     )
-
     const leftTooltip = screen.getByText('left text')
     expect(leftTooltip).toBeInTheDocument()
-
     const rightTooltip = screen.getByText('right text')
     expect(rightTooltip).toBeInTheDocument()
   })
