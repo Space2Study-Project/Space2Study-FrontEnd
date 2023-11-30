@@ -31,6 +31,7 @@ const AppTextArea = ({
       {maxLength && (
         <Typography
           color={value?.length === maxLength ? 'error' : 'primary.300'}
+          data-testid='typography'
           sx={styles.textLength}
           variant={'body2'}
         >
