@@ -5,7 +5,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 describe('Input With Icon component', () => {
   const props = {
     value: 'TEST',
-    startIcon: <CloudUploadIcon /> // random test icon
+    startIcon: <CloudUploadIcon />
   }
 
   beforeEach(() => {
