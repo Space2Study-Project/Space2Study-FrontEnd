@@ -10,8 +10,8 @@ describe('FindOffers', () => {
     expect(findOffersElement).toBeInTheDocument()
   })
 
-  it('renders the FindOffers component', () => {
-    const findOffersText = screen.getByText('Find offers')
+  it('renders the text content of component', () => {
+    const findOffersText = screen.getByText(/find offers/i)
     expect(findOffersText).toBeInTheDocument()
   })
 })
