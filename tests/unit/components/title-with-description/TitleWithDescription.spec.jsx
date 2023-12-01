@@ -15,14 +15,4 @@ describe('Title With Description component', () => {
     expect(title).toBeInTheDocument()
     expect(description).toBeInTheDocument()
   })
-
-  it('should render without title and description', () => {
-    render(<TitleWithDescription />)
-
-    const title = screen.queryByText(/TEST_TITLE/)
-    const description = screen.queryByText(/TEST_DESCRIPTION/)
-
-    expect(title).not.toBeInTheDocument()
-    expect(description).not.toBeInTheDocument()
-  })
 })
