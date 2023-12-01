@@ -38,7 +38,6 @@ const style = {
   },
   form: {
     overflow: 'auto',
-    maxWidth: { xs: '315px', md: '343px' },
     pt: '16px',
     pr: { xs: '8px', sm: '96px', md: '80px', lg: '96px' },
     pb: { xs: '24px', sm: '64px' },

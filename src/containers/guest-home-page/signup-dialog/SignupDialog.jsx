@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
@@ -86,6 +87,15 @@ const SignupDialog = ({ type }) => {
     setNeedConfirmation(isDirty)
   }, [isDirty, setNeedConfirmation])
 
+  const isSmallScreen = useMediaQuery('(max-width:600px)')
+  const isMediumScreen = useMediaQuery(
+    '(min-width:601px) and (max-width:900px)'
+  )
+  const isLargeScreen = useMediaQuery(
+    '(min-width:901px) and (max-width:1200px)'
+  )
+  const isXLargeScreen = useMediaQuery('(min-width:1201px)')
+
   return (
     <Box sx={styles.root}>
       <Box sx={styles.imgContainer}>
@@ -110,11 +120,18 @@ const SignupDialog = ({ type }) => {
             handleChange={handleInputChange}
             handleSubmit={handleSubmit}
           />
-          <GoogleLogin
-            buttonWidth={styles.form.maxWidth}
-            role={type}
-            type={signup}
-          />
+          {isSmallScreen && (
+            <GoogleLogin buttonWidth={330} role={type} type={signup} />
+          )}
+          {isMediumScreen && (
+            <GoogleLogin buttonWidth={333} role={type} type={signup} />
+          )}
+          {isLargeScreen && (
+            <GoogleLogin buttonWidth={340} role={type} type={signup} />
+          )}
+          {isXLargeScreen && (
+            <GoogleLogin buttonWidth={394} role={type} type={signup} />
+          )}
         </Box>
       </Box>
     </Box>
