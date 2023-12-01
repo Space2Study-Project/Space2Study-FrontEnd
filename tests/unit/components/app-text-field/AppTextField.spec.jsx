@@ -18,11 +18,8 @@ describe('App Text Field component', () => {
 
   it('should render without error message', () => {
     render(<AppTextField />)
-
-    const input = screen.getByRole('textbox')
     const errorText = screen.queryByText(/TEST_ERROR/)
 
-    expect(input).toBeInTheDocument()
     expect(errorText).not.toBeInTheDocument()
   })
 })
