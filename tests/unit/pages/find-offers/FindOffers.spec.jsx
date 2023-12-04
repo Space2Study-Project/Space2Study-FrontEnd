@@ -1,6 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import FindOffers from '~/pages/find-offers/FindOffers'
 
+vi.mock('~/components/page-wrapper/PageWrapper', () => ({
+  __esModule: true,
+  default: function () {
+    return <div data-testid='find-offers'>Find offers</div>
+  }
+}))
+
 describe('FindOffers', () => {
   beforeEach(() => {
     render(<FindOffers />)
