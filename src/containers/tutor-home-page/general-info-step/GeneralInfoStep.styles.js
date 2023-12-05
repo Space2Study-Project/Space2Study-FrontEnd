@@ -26,5 +26,9 @@ export const styles = {
   },
   description: {
     width: '100%'
+  },
+  warning: {
+    fontSize: '14px',
+    margin: '15px 0 30px'
   }
 }

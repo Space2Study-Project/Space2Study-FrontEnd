@@ -43,6 +43,10 @@ const GeneralInfoStep = ({ btnsBox }) => {
         <Box alt='GeneralInfo' component='img' src={generalInfo} />
       </Box>
       <Box component='form' sx={styles.form}>
+        <Typography>
+          Amet minim mollit non deserunt ullamco est sit alliqua dolor do amet
+          sint.
+        </Typography>
         <Box sx={styles.appearance}>
           <TextField placeholder='First Name*' sx={styles.textField} />
           <TextField placeholder='Last Name*' sx={styles.textField} />
@@ -70,13 +74,17 @@ const GeneralInfoStep = ({ btnsBox }) => {
         </Box>
         <Box>
           <TextField
+            inputProps={{ maxLength: 70 }}
             multiline
             onChange={changeText}
             placeholder='Describe in short your professional status'
-            rows={5}
+            rows={4}
             sx={styles.description}
           />
-          <Typography>{text.length}/100</Typography>
+          <Typography>{text.length}/70</Typography>
+          <Typography sx={styles.warning}>
+            Input fields with the * sign are required
+          </Typography>
         </Box>
         {btnsBox}
       </Box>
