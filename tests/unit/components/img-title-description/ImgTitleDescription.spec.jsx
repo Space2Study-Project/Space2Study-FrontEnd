@@ -1,6 +1,18 @@
 import { render, screen } from '@testing-library/react'
 import ImgTitleDescription from '~/components/img-title-description/ImgTitleDescription'
 
+vi.mock(`~/components/title-with-description/TitleWithDescription`, () => ({
+  __esModule: true,
+  default: function ({ title, description }) {
+    return (
+      <div>
+        <span>{title}</span>
+        <span>{description}</span>
+      </div>
+    )
+  }
+}))
+
 describe('Checking for correct ImgTitleDescription component render', () => {
   it('checking for render image', () => {
     render(<ImgTitleDescription />)
