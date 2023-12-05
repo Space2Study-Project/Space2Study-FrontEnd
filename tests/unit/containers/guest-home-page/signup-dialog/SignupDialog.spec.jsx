@@ -3,11 +3,21 @@ import { student } from '~/constants'
 import SignupDialog from '~/containers/guest-home-page/signup-dialog/SignupDialog'
 
 import { renderWithProviders } from '~tests/test-utils'
-
-import { vi } from 'vitest'
+import useBreakpointsGoogle from '~/hooks/use-breakpoints-google'
+import { it, vi } from 'vitest'
 
 const mockDispatch = vi.fn()
 const mockSelector = vi.fn()
+
+vi.mock('~/hooks/use-breakpoints-google', () => ({
+  __esModule: true,
+  default: vi.fn(() => ({
+    isSmallScreen: false,
+    isMediumScreen: false,
+    isLargeScreen: false,
+    isXLargeScreen: false
+  }))
+}))
 
 const mockState = {
   appMain: { authLoading: true }
@@ -17,6 +27,13 @@ vi.mock('~/containers/guest-home-page/google-button/GoogleButton', () => ({
   __esModule: true,
   default: function () {
     return <button>Google</button>
+  }
+}))
+
+vi.mock('~/containers/guest-home-page/google-login/GoogleLogin', () => ({
+  __esModule: true,
+  default: function () {
+    return <button>1111</button>
   }
 }))
 
@@ -93,5 +110,37 @@ describe('Signup dialog test', () => {
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledTimes(1)
     })
+  })
+  it('sSmallScreen', () => {
+    useBreakpointsGoogle.mockImplementation(() => ({
+      isSmallScreen: true,
+      isMediumScreen: false,
+      isLargeScreen: false,
+      isXLargeScreen: false
+    }))
+  })
+  it('isMediumScreen', () => {
+    useBreakpointsGoogle.mockImplementation(() => ({
+      isSmallScreen: false,
+      isMediumScreen: true,
+      isLargeScreen: false,
+      isXLargeScreen: false
+    }))
+  })
+  it('isLargeScreen', () => {
+    useBreakpointsGoogle.mockImplementation(() => ({
+      isSmallScreen: false,
+      isMediumScreen: false,
+      isLargeScreen: true,
+      isXLargeScreen: false
+    }))
+  })
+  it('isXLargeScreen', () => {
+    useBreakpointsGoogle.mockImplementation(() => ({
+      isSmallScreen: false,
+      isMediumScreen: false,
+      isLargeScreen: false,
+      isXLargeScreen: true
+    }))
   })
 })
