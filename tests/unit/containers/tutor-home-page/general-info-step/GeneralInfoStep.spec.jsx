@@ -9,9 +9,9 @@ describe('GeneralInfoStep', () => {
   })
 
   it('should check the btn, passed in props, is in the document', () => {
-    const mockBtnsBox = <div data-testid='btn'>MockBtnsBox</div>
+    const mockBtnsBox = <div data-testid='button'>MockBtnsBox</div>
     render(<GeneralInfoStep btnsBox={mockBtnsBox} />)
-    const btn = screen.getByTestId('btn')
+    const btn = screen.getByTestId('button')
     expect(btn).toBeInTheDocument()
   })
 })
