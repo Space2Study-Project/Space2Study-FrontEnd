@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
@@ -28,6 +27,7 @@ import student from '~/assets/img/signup-dialog/student.svg'
 import tutor from '~/assets/img/signup-dialog/tutor.svg'
 
 import { styles } from '~/containers/guest-home-page/signup-dialog/SignupDialog.styles'
+import useBreakpointsGoogle from '~/hooks/use-breakpoints-google'
 
 const SignupDialog = ({ type }) => {
   const { t } = useTranslation()
@@ -86,16 +86,14 @@ const SignupDialog = ({ type }) => {
   useEffect(() => {
     setNeedConfirmation(isDirty)
   }, [isDirty, setNeedConfirmation])
-
-  const isSmallScreen = useMediaQuery('(max-width:600px)')
-  const isMediumScreen = useMediaQuery(
-    '(min-width:601px) and (max-width:900px)'
-  )
-  const isLargeScreen = useMediaQuery(
-    '(min-width:901px) and (max-width:1200px)'
-  )
-  const isXLargeScreen = useMediaQuery('(min-width:1201px)')
-
+  const { isSmallScreen, isMediumScreen, isLargeScreen, isXLargeScreen } =
+    useBreakpointsGoogle()
+  const getButtonWidth = () => {
+    if (isSmallScreen) return 330
+    if (isMediumScreen) return 333
+    if (isLargeScreen) return 340
+    if (isXLargeScreen) return 394
+  }
   return (
     <Box sx={styles.root}>
       <Box sx={styles.imgContainer}>
@@ -120,18 +118,11 @@ const SignupDialog = ({ type }) => {
             handleChange={handleInputChange}
             handleSubmit={handleSubmit}
           />
-          {isSmallScreen && (
-            <GoogleLogin buttonWidth={330} role={type} type={signup} />
-          )}
-          {isMediumScreen && (
-            <GoogleLogin buttonWidth={333} role={type} type={signup} />
-          )}
-          {isLargeScreen && (
-            <GoogleLogin buttonWidth={340} role={type} type={signup} />
-          )}
-          {isXLargeScreen && (
-            <GoogleLogin buttonWidth={394} role={type} type={signup} />
-          )}
+          <GoogleLogin
+            buttonWidth={getButtonWidth()}
+            role={type}
+            type={signup}
+          />
         </Box>
       </Box>
     </Box>
