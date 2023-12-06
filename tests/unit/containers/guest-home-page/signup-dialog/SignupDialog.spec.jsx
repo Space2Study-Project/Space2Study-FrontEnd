@@ -16,7 +16,7 @@ vi.mock('~/hooks/use-breakpoints-google', () => ({
     isSmallScreen: false,
     isMediumScreen: false,
     isLargeScreen: false,
-    isXLargeScreen: false
+    isXLargeScreen: true
   }))
 }))
 
@@ -143,12 +143,6 @@ describe('Signup dialog test', () => {
     expect(result).toBeTruthy()
   })
   it('isXLargeScreen', () => {
-    useBreakpointsGoogle.mockImplementation(() => ({
-      isSmallScreen: false,
-      isMediumScreen: false,
-      isLargeScreen: false,
-      isXLargeScreen: true
-    }))
     const { result } = renderHook(useBreakpointsGoogle)
     expect(result).toBeTruthy()
   })
