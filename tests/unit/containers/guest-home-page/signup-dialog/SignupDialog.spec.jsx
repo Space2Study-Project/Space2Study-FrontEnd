@@ -34,7 +34,7 @@ vi.mock('~/containers/guest-home-page/google-button/GoogleButton', () => ({
 vi.mock('~/containers/guest-home-page/google-login/GoogleLogin', () => ({
   __esModule: true,
   default: function () {
-    return <button>1111</button>
+    return <button>GoogleLogin</button>
   }
 }))
 
