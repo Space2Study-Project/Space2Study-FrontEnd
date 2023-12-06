@@ -68,7 +68,7 @@ const SubjectsStep = ({ btnsBox }) => {
             {t('becomeTutor.categories.title')}
           </Typography>
           <Autocomplete
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => (option ? option.name : '')}
             onChange={handleCategoryChange}
             options={categories}
             renderInput={(params) => (
@@ -77,11 +77,21 @@ const SubjectsStep = ({ btnsBox }) => {
                 label={t('becomeTutor.categories.mainSubjectsLabel')}
               />
             )}
+            renderOption={(props, option) => (
+              <li {...props}>
+                <Typography variant='body2'>
+                  <span>{option.name}</span>&nbsp;
+                  <span style={{ fontSize: 'small', color: 'gray' }}>
+                    Category: {option.name}
+                  </span>
+                </Typography>
+              </li>
+            )}
             sx={styles.inputItem}
             value={selectedCategory}
           />
           <Autocomplete
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => (option ? option.name : '')}
             onChange={handleSubjectChange}
             options={subjects}
             renderInput={(params) => (
@@ -89,6 +99,16 @@ const SubjectsStep = ({ btnsBox }) => {
                 {...params}
                 label={t('becomeTutor.categories.subjectLabel')}
               />
+            )}
+            renderOption={(props, option) => (
+              <li {...props}>
+                <Typography variant='body2'>
+                  <span>{option.name}</span>&nbsp;
+                  <span style={{ fontSize: 'small', color: 'gray' }}>
+                    Category: {option.name}
+                  </span>
+                </Typography>
+              </li>
             )}
             sx={styles.inputItem}
             value={selectedSubject}
