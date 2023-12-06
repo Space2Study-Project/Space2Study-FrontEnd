@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 import { vi } from 'vitest'
 
@@ -31,21 +31,22 @@ describe('Popup dialog test', () => {
     expect(content).toBeInTheDocument()
   })
 
-  it('should imitate click on the close button and popup should be closed', () => {
+  it('should imitate click on the close button and popup should be closed', async () => {
     const closeButton = screen.getByTestId('popup').querySelector('button')
     fireEvent.click(closeButton)
+    console.log('Hello')
 
-    vi.fn(() => {
+    await waitFor(() => {
       expect(closeModal).toHaveBeenCalledTimes(1)
     })
   })
 
   it('should imitate click with delay and popup should be closed', async () => {
-    const popup = screen.getByTestId('popup')
-    fireEvent.click(popup)
+    const popup = screen.queryByTestId('popupContent')
+    fireEvent.mouseLeave(popup)
 
-    await vi.fn(() => {
-      expect(closeModalAfterDelay).toHaveBeenCalled()
+    await waitFor(() => {
+      expect(closeModalAfterDelay).toHaveBeenCalledTimes(1)
     })
   })
 })
