@@ -18,8 +18,8 @@ const SignupForm = ({
   handleChange,
   handleBlur,
   data,
-  errors,
-  closeModal
+  errors
+  // closeModal
 }) => {
   const { t } = useTranslation()
   const { privacyPolicy, termOfUse } = guestRoutes
@@ -41,7 +41,7 @@ const SignupForm = ({
       <Typography variant='subtitle2'>{t('signup.iAgree')}</Typography>
       <Typography
         component={HashLink}
-        onClick={closeModal}
+        // onClick={closeModal}
         sx={styles.underlineText}
         to={termOfUse.path}
         variant='subtitle2'
@@ -52,8 +52,8 @@ const SignupForm = ({
         {t('signup.and')}
       </Typography>
       <Typography
-        component={HashLink}
-        onClick={closeModal}
+        // component={HashLink}
+        // onClick={closeModal}
         sx={styles.underlineText}
         to={privacyPolicy.path}
         variant='subtitle2'
@@ -134,6 +134,7 @@ const SignupForm = ({
       <Box sx={styles.checkboxContainer}>
         <FormControlLabel
           control={<Checkbox />}
+          disabled // add "disabled" for disabling checkbox checking
           label={policyAgreement}
           labelPlacement='end'
           onChange={handleOnAgreementChange}
