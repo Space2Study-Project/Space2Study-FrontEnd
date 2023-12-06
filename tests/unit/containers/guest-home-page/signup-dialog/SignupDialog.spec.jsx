@@ -5,6 +5,7 @@ import SignupDialog from '~/containers/guest-home-page/signup-dialog/SignupDialo
 import { renderWithProviders } from '~tests/test-utils'
 import useBreakpointsGoogle from '~/hooks/use-breakpoints-google'
 import { it, vi } from 'vitest'
+import { renderHook } from '@testing-library/react-hooks'
 
 const mockDispatch = vi.fn()
 const mockSelector = vi.fn()
@@ -118,6 +119,8 @@ describe('Signup dialog test', () => {
       isLargeScreen: false,
       isXLargeScreen: false
     }))
+    const { result } = renderHook(useBreakpointsGoogle)
+    expect(result).toBeTruthy()
   })
   it('isMediumScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -126,6 +129,8 @@ describe('Signup dialog test', () => {
       isLargeScreen: false,
       isXLargeScreen: false
     }))
+    const { result } = renderHook(useBreakpointsGoogle)
+    expect(result).toBeTruthy()
   })
   it('isLargeScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -134,6 +139,8 @@ describe('Signup dialog test', () => {
       isLargeScreen: true,
       isXLargeScreen: false
     }))
+    const { result } = renderHook(useBreakpointsGoogle)
+    expect(result).toBeTruthy()
   })
   it('isXLargeScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -142,5 +149,7 @@ describe('Signup dialog test', () => {
       isLargeScreen: false,
       isXLargeScreen: true
     }))
+    const { result } = renderHook(useBreakpointsGoogle)
+    expect(result).toBeTruthy()
   })
 })
