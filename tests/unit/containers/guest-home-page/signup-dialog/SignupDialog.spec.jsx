@@ -4,9 +4,8 @@ import SignupDialog from '~/containers/guest-home-page/signup-dialog/SignupDialo
 
 import { renderWithProviders } from '~tests/test-utils'
 import useBreakpointsGoogle from '~/hooks/use-breakpoints-google'
-import { it, vi } from 'vitest'
+import { expect, it, vi } from 'vitest'
 import { renderHook } from '@testing-library/react-hooks'
-import getButtonWidth from '~/containers/guest-home-page/signup-dialog/SignupDialog'
 
 const mockDispatch = vi.fn()
 const mockSelector = vi.fn()
@@ -19,8 +18,6 @@ vi.mock('~/hooks/use-breakpoints-google', () => ({
     isXLargeScreen: false
   }))
 }))
-
-const mockgetButtonWidth = vi.fn().mockImplementation(getButtonWidth)
 
 const mockState = {
   appMain: { authLoading: true }
@@ -114,6 +111,13 @@ describe('Signup dialog test', () => {
       expect(mockDispatch).toHaveBeenCalledTimes(1)
     })
   })
+})
+
+describe('reading messages', () => {
+  beforeEach(() => {
+    vi.restoreAllMocks()
+    renderWithProviders(<SignupDialog />)
+  })
   it('sSmallScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
       isSmallScreen: true,
@@ -123,11 +127,8 @@ describe('Signup dialog test', () => {
     }))
     const { result } = renderHook(useBreakpointsGoogle)
     expect(result.current.isSmallScreen).toBeTruthy()
-
-    mockgetButtonWidth.mockImplementationOnce(() => {
-      if (result.current.isSmallScreen) return 'isSmallScreen'
-    })
-    expect(mockgetButtonWidth()).toEqual('isSmallScreen')
+    const Gllogin = screen.getByText('GoogleLogin')
+    expect(Gllogin).toBeInTheDocument
   })
   it('isMediumScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -138,11 +139,8 @@ describe('Signup dialog test', () => {
     }))
     const { result } = renderHook(useBreakpointsGoogle)
     expect(result.current.isMediumScreen).toBeTruthy()
-
-    mockgetButtonWidth.mockImplementationOnce(() => {
-      if (result.current.isMediumScreen) return 'isMediumScreen'
-    })
-    expect(mockgetButtonWidth()).toEqual('isMediumScreen')
+    const Gllogin = screen.getByText('GoogleLogin')
+    expect(Gllogin).toBeInTheDocument
   })
   it('isLargeScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -153,11 +151,8 @@ describe('Signup dialog test', () => {
     }))
     const { result } = renderHook(useBreakpointsGoogle)
     expect(result.current.isLargeScreen).toBeTruthy()
-
-    mockgetButtonWidth.mockImplementationOnce(() => {
-      if (result.current.isLargeScreen) return 'isLargeScreen'
-    })
-    expect(mockgetButtonWidth()).toEqual('isLargeScreen')
+    const Gllogin = screen.getByText('GoogleLogin')
+    expect(Gllogin).toBeInTheDocument
   })
   it('isXLargeScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -168,9 +163,7 @@ describe('Signup dialog test', () => {
     }))
     const { result } = renderHook(useBreakpointsGoogle)
     expect(result.current.isXLargeScreen).toBeTruthy()
-    mockgetButtonWidth.mockImplementationOnce(() => {
-      if (result.current.isXLargeScreen) return 'isXLargeScreen'
-    })
-    expect(mockgetButtonWidth()).toEqual('isXLargeScreen')
+    const Gllogin = screen.getByText('GoogleLogin')
+    expect(Gllogin).toBeInTheDocument
   })
 })
