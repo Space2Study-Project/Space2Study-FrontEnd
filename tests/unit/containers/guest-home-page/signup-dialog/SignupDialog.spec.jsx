@@ -6,10 +6,10 @@ import { renderWithProviders } from '~tests/test-utils'
 import useBreakpointsGoogle from '~/hooks/use-breakpoints-google'
 import { it, vi } from 'vitest'
 import { renderHook } from '@testing-library/react-hooks'
+import getButtonWidth from '~/containers/guest-home-page/signup-dialog/SignupDialog'
 
 const mockDispatch = vi.fn()
 const mockSelector = vi.fn()
-
 vi.mock('~/hooks/use-breakpoints-google', () => ({
   __esModule: true,
   default: vi.fn(() => ({
@@ -19,6 +19,8 @@ vi.mock('~/hooks/use-breakpoints-google', () => ({
     isXLargeScreen: false
   }))
 }))
+
+const mockgetButtonWidth = vi.fn().mockImplementation(getButtonWidth)
 
 const mockState = {
   appMain: { authLoading: true }
@@ -30,11 +32,10 @@ vi.mock('~/containers/guest-home-page/google-button/GoogleButton', () => ({
     return <button>Google</button>
   }
 }))
-
 vi.mock('~/containers/guest-home-page/google-login/GoogleLogin', () => ({
   __esModule: true,
   default: function () {
-    return <div>Google Login</div>
+    return <div>GoogleLogin</div>
   }
 }))
 
@@ -55,6 +56,7 @@ vi.mock('~/hooks/use-confirm', () => {
 
 describe('Signup dialog test', () => {
   beforeEach(() => {
+    vi.restoreAllMocks()
     renderWithProviders(<SignupDialog type={student} />)
   })
 
@@ -120,7 +122,12 @@ describe('Signup dialog test', () => {
       isXLargeScreen: false
     }))
     const { result } = renderHook(useBreakpointsGoogle)
-    expect(result).toBeTruthy()
+    expect(result.current.isSmallScreen).toBeTruthy()
+
+    mockgetButtonWidth.mockImplementationOnce(() => {
+      if (result.current.isSmallScreen) return 'isSmallScreen'
+    })
+    expect(mockgetButtonWidth()).toEqual('isSmallScreen')
   })
   it('isMediumScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -130,7 +137,12 @@ describe('Signup dialog test', () => {
       isXLargeScreen: false
     }))
     const { result } = renderHook(useBreakpointsGoogle)
-    expect(result).toBeTruthy()
+    expect(result.current.isMediumScreen).toBeTruthy()
+
+    mockgetButtonWidth.mockImplementationOnce(() => {
+      if (result.current.isMediumScreen) return 'isMediumScreen'
+    })
+    expect(mockgetButtonWidth()).toEqual('isMediumScreen')
   })
   it('isLargeScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -140,7 +152,12 @@ describe('Signup dialog test', () => {
       isXLargeScreen: false
     }))
     const { result } = renderHook(useBreakpointsGoogle)
-    expect(result).toBeTruthy()
+    expect(result.current.isLargeScreen).toBeTruthy()
+
+    mockgetButtonWidth.mockImplementationOnce(() => {
+      if (result.current.isLargeScreen) return 'isLargeScreen'
+    })
+    expect(mockgetButtonWidth()).toEqual('isLargeScreen')
   })
   it('isXLargeScreen', () => {
     useBreakpointsGoogle.mockImplementation(() => ({
@@ -150,6 +167,10 @@ describe('Signup dialog test', () => {
       isXLargeScreen: true
     }))
     const { result } = renderHook(useBreakpointsGoogle)
-    expect(result).toBeTruthy()
+    expect(result.current.isXLargeScreen).toBeTruthy()
+    mockgetButtonWidth.mockImplementationOnce(() => {
+      if (result.current.isXLargeScreen) return 'isXLargeScreen'
+    })
+    expect(mockgetButtonWidth()).toEqual('isXLargeScreen')
   })
 })
