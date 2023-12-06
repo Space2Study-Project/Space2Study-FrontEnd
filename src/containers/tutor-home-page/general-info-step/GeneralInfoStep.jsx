@@ -6,12 +6,13 @@ import { LocationService } from '~/services/location-service'
 
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 
-const GeneralInfoStep = ({ btnsBox }) => {
+const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
   const [countryList, setCountry] = useState([])
   const [city, setCity] = useState([])
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [selectedCity, setSelectedCity] = useState(null)
-
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [text, setText] = useState('')
 
   useEffect(() => {
@@ -32,9 +33,20 @@ const GeneralInfoStep = ({ btnsBox }) => {
     fetchCities()
   }, [selectedCountry])
 
+  useEffect(() => {
+    setIsFormValid(
+      (firstName && lastName && selectedCountry && selectedCity) !== null &&
+        text
+    )
+  }, [firstName, lastName, selectedCountry, selectedCity, text, setIsFormValid])
+
   const changeText = (e) => {
     const lengthChange = e.target.value
-    setText(lengthChange)
+    if (lengthChange.length <= 100) {
+      setText(lengthChange)
+    } else {
+      e.preventDefault()
+    }
   }
 
   return (
@@ -44,8 +56,24 @@ const GeneralInfoStep = ({ btnsBox }) => {
       </Box>
       <Box component='form' sx={styles.form}>
         <Box sx={styles.appearance}>
-          <TextField placeholder='First Name*' sx={styles.textField} />
-          <TextField placeholder='Last Name*' sx={styles.textField} />
+          <TextField
+            error={!firstName}
+            helperText={!firstName ? 'First Name is required' : ''}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder='First Name*'
+            required
+            sx={styles.textField}
+            value={firstName}
+          />
+          <TextField
+            error={!lastName}
+            helperText={!lastName ? 'Last Name is required' : ''}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder='Last Name*'
+            required
+            sx={styles.textField}
+            value={lastName}
+          />
         </Box>
         <Box sx={styles.appearance}>
           <Autocomplete
@@ -70,11 +98,13 @@ const GeneralInfoStep = ({ btnsBox }) => {
         </Box>
         <Box>
           <TextField
+            maxLength={100}
             multiline
             onChange={changeText}
             placeholder='Describe in short your professional status'
             rows={5}
             sx={styles.description}
+            value={text}
           />
           <Typography>{text.length}/100</Typography>
         </Box>

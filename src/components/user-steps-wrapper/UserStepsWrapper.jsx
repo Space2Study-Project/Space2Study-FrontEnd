@@ -19,28 +19,38 @@ import { student } from '~/constants'
 
 const UserStepsWrapper = ({ userRole }) => {
   const [isUserFetched, setIsUserFetched] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(markFirstLoginComplete())
   }, [dispatch])
 
-  const childrenArr = [
-    <GeneralInfoStep
-      isUserFetched={isUserFetched}
-      key='1'
-      setIsUserFetched={setIsUserFetched}
-    />,
-    <SubjectsStep key='2' />,
-    <LanguageStep key='3' />,
-    <AddPhotoStep key='4' />
-  ]
-
   const stepLabels = userRole === student ? studentStepLabels : tutorStepLabels
 
   return (
     <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
-      <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
+      <StepWrapper
+        activeStep={isFormValid ? 1 : 0}
+        onStepChange={(stepIndex, prevent) => {
+          if (stepIndex === 1 && !isFormValid) {
+            alert('Please fill in all required fields before proceeding.')
+            prevent()
+            return
+          }
+        }}
+        steps={stepLabels}
+      >
+        <GeneralInfoStep
+          isUserFetched={isUserFetched}
+          key='1'
+          setIsFormValid={setIsFormValid}
+          setIsUserFetched={setIsUserFetched}
+        />
+        <SubjectsStep key='2' />
+        <LanguageStep key='3' />
+        <AddPhotoStep key='4' />
+      </StepWrapper>
     </StepProvider>
   )
 }
