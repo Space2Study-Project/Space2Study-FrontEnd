@@ -1,6 +1,6 @@
 import { Box, Autocomplete, TextField, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import studyCategory from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
 
@@ -15,17 +15,21 @@ const SubjectsStep = ({ btnsBox }) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedSubject, setSelectedSubject] = useState(null)
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await categoryService.getCategoriesNames()
-        setCategories(response.data)
-      } catch (error) {
-        console.error('Error fetching categories:', error)
-      }
+  const fetchCategories = useCallback(async () => {
+    if (categories.length > 0) {
+      return
     }
+    try {
+      const response = await categoryService.getCategoriesNames()
+      setCategories(response.data)
+    } catch (error) {
+      console.error('Error fetching categories:', error)
+    }
+  }, [categories])
+
+  useEffect(() => {
     fetchCategories()
-  }, [])
+  }, [fetchCategories])
 
   useEffect(() => {
     const fetchSubjects = async () => {
@@ -105,7 +109,11 @@ const SubjectsStep = ({ btnsBox }) => {
                 <Typography variant='body2'>
                   <span>{option.name}</span>&nbsp;
                   <span style={{ fontSize: 'small', color: 'gray' }}>
-                    Category: {option.name}
+                    {option.category
+                      ? option.category.name
+                      : selectedCategory
+                      ? selectedCategory.name
+                      : ''}
                   </span>
                 </Typography>
               </li>
