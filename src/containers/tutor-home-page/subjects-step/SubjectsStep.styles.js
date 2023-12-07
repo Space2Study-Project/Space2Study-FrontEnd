@@ -29,7 +29,11 @@ export const styles = {
     maxWidth: { md: '430px', lg: '455px' }
   },
   btnsBox: {
-    marginTop: 'auto'
+    marginTop: 'auto',
+    display: 'flex',
+    flexDirection: 'column-reverse',
+    marginBottom: 'auto',
+    height: '32%'
   },
   appButton: {
     width: '100%'
@@ -41,5 +45,8 @@ export const styles = {
   },
   title: {
     marginBottom: '30px'
+  },
+  chipList: {
+    margin: '20px 0 0 0'
   }
 }
