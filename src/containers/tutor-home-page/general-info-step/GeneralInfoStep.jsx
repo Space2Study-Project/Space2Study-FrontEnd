@@ -1,8 +1,9 @@
 import Box from '@mui/material/Box'
 import generalInfo from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { Autocomplete, TextField, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { LocationService } from '~/services/location-service'
+import { userService } from '~/services/user-service'
 
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 
@@ -11,16 +12,26 @@ const GeneralInfoStep = ({ btnsBox }) => {
   const [city, setCity] = useState([])
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [selectedCity, setSelectedCity] = useState(null)
+  const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
 
   const [text, setText] = useState('')
 
-  useEffect(() => {
-    const fetchCountries = async () => {
+  const fetchCountries = useCallback(async () => {
+    if (countryList.length > 0) {
+      return
+    }
+    try {
       const response = await LocationService.getCountries()
       setCountry(response.data)
+    } catch (e) {
+      console.log(`Error type: ${e.message}`)
     }
+  }, [countryList])
+
+  useEffect(() => {
     fetchCountries()
-  }, [])
+  }, [fetchCountries])
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -32,9 +43,24 @@ const GeneralInfoStep = ({ btnsBox }) => {
     fetchCities()
   }, [selectedCountry])
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const storedToken = localStorage.getItem('s2s')
+      const [, payload] = storedToken.split('.')
+      const decodedPayload = JSON.parse(atob(payload))
+      const userId = decodedPayload.id
+      const userRole = decodedPayload.role
+      const response = await userService.getUserById(userId, userRole)
+      const firstName = response.data.firstName
+      setName(firstName)
+      const surName = response.data.lastName
+      setLastName(surName)
+    }
+    fetchUser()
+  }, [])
+
   const changeText = (e) => {
-    const lengthChange = e.target.value
-    setText(lengthChange)
+    setText(e.target.value)
   }
 
   return (
@@ -48,8 +74,16 @@ const GeneralInfoStep = ({ btnsBox }) => {
           sint.
         </Typography>
         <Box sx={styles.appearance}>
-          <TextField placeholder='First Name*' sx={styles.textField} />
-          <TextField placeholder='Last Name*' sx={styles.textField} />
+          <TextField
+            placeholder='First Name*'
+            sx={styles.textField}
+            value={name}
+          />
+          <TextField
+            placeholder='Last Name*'
+            sx={styles.textField}
+            value={lastName}
+          />
         </Box>
         <Box sx={styles.appearance}>
           <Autocomplete
@@ -57,6 +91,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
               setSelectedCountry(newValue)
               setSelectedCity(null)
             }}
+            onFocus={fetchCountries}
             options={countryList}
             renderInput={(params) => (
               <TextField {...params} label='Countries' />
@@ -80,6 +115,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             placeholder='Describe in short your professional status'
             rows={4}
             sx={styles.description}
+            value={text}
           />
           <Typography>{text.length}/70</Typography>
           <Typography sx={styles.warning}>
