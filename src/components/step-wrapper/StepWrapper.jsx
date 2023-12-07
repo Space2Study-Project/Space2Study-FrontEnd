@@ -11,7 +11,8 @@ import AppButton from '~/components/app-button/AppButton'
 import { styles } from '~/components/step-wrapper/StepWrapper.styles'
 import useSteps from '~/hooks/use-steps'
 
-const StepWrapper = ({ children, steps }) => {
+const StepWrapper = ({ children, steps, isFormValid }) => {
+  console.log('isFormValid in StepWrapper:', isFormValid)
   const { activeStep, isLastStep, loading, stepOperation } = useSteps({
     steps
   })
@@ -31,6 +32,7 @@ const StepWrapper = ({ children, steps }) => {
 
   const nextButton = isLastStep ? (
     <AppButton
+      disabled={!isFormValid}
       loading={loading}
       onClick={handleSubmit}
       size='small'
@@ -68,7 +70,8 @@ const StepWrapper = ({ children, steps }) => {
       <Box sx={styles.stepContent}>
         {cloneElement(children[activeStep], {
           btnsBox,
-          stepLabel: steps[activeStep]
+          stepLabel: steps[activeStep],
+          isFormValid: isFormValid
         })}
       </Box>
     </Container>

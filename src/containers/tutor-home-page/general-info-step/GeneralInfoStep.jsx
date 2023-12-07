@@ -34,14 +34,19 @@ const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
   }, [selectedCountry])
 
   useEffect(() => {
+    console.log('Form validation:', {
+      firstName,
+      lastName,
+      selectedCountry,
+      selectedCity
+    })
     setIsFormValid(
       firstName !== '' &&
         lastName !== '' &&
         selectedCountry !== null &&
-        selectedCity !== null &&
-        text !== ''
+        selectedCity !== null
     )
-  }, [firstName, lastName, selectedCountry, selectedCity, text, setIsFormValid])
+  }, [firstName, lastName, selectedCountry, selectedCity, setIsFormValid])
 
   const changeText = (e) => {
     const lengthChange = e.target.value
@@ -61,7 +66,7 @@ const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
         <Box sx={styles.appearance}>
           <TextField
             error={!firstName}
-            helperText={!firstName ? 'First Name is required' : ''}
+            helperText={!firstName ? 'This field cannot be empty' : ''}
             onChange={(e) => setFirstName(e.target.value)}
             placeholder='First Name*'
             required
@@ -70,7 +75,7 @@ const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
           />
           <TextField
             error={!lastName}
-            helperText={!lastName ? 'Last Name is required' : ''}
+            helperText={!lastName ? 'This field cannot be empty' : ''}
             onChange={(e) => setLastName(e.target.value)}
             placeholder='Last Name*'
             required
