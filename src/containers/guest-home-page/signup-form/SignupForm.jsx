@@ -18,8 +18,8 @@ const SignupForm = ({
   handleChange,
   handleBlur,
   data,
-  errors
-  // closeModal
+  errors,
+  closeModal
 }) => {
   const { t } = useTranslation()
   const { privacyPolicy, termOfUse } = guestRoutes
@@ -41,7 +41,7 @@ const SignupForm = ({
       <Typography variant='subtitle2'>{t('signup.iAgree')}</Typography>
       <Typography
         component={HashLink}
-        // onClick={closeModal}
+        onClick={closeModal}
         sx={styles.underlineText}
         to={termOfUse.path}
         variant='subtitle2'
@@ -52,8 +52,8 @@ const SignupForm = ({
         {t('signup.and')}
       </Typography>
       <Typography
-        // component={HashLink}
-        // onClick={closeModal}
+        component={HashLink}
+        onClick={closeModal}
         sx={styles.underlineText}
         to={privacyPolicy.path}
         variant='subtitle2'
@@ -94,7 +94,6 @@ const SignupForm = ({
 
       <AppTextField
         data-testid={'email'}
-        disabled
         errorMsg={t(errors.email)}
         fullWidth
         label={t('common.labels.email')}
@@ -109,7 +108,6 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={passwordVisibility}
-        disabled
         errorMsg={t(errors.password)}
         fullWidth
         label={t('common.labels.password')}
@@ -123,7 +121,6 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={confirmPasswordVisibility}
-        disabled
         errorMsg={t(errors.confirmPassword)}
         fullWidth
         label={t('common.labels.confirmPassword')}
@@ -137,7 +134,6 @@ const SignupForm = ({
       <Box sx={styles.checkboxContainer}>
         <FormControlLabel
           control={<Checkbox />}
-          disabled // add "disabled" for disabling checkbox checking
           label={policyAgreement}
           labelPlacement='end'
           onChange={handleOnAgreementChange}
@@ -147,7 +143,13 @@ const SignupForm = ({
       </Box>
 
       <AppButton
-        disabled={!isAgreementChecked}
+        disabled={
+          !isAgreementChecked ||
+          !data.firstName ||
+          !data.lastName ||
+          t(errors.email) ||
+          data.password !== data.confirmPassword
+        }
         loading={authLoading}
         sx={styles.signupButton}
         type='submit'
