@@ -35,8 +35,11 @@ const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
 
   useEffect(() => {
     setIsFormValid(
-      (firstName && lastName && selectedCountry && selectedCity) !== null &&
-        text
+      firstName !== '' &&
+        lastName !== '' &&
+        selectedCountry !== null &&
+        selectedCity !== null &&
+        text !== ''
     )
   }, [firstName, lastName, selectedCountry, selectedCity, text, setIsFormValid])
 
