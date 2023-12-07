@@ -40,7 +40,7 @@ const GoogleLogin = ({ type, buttonWidth, role }) => {
 
         {type === 'signup' ? (
           <Typography
-            onClick={!openLoginDialog} // added "!" for disable clicking on link
+            onClick={openLoginDialog} // disabled clicking on link
             sx={styles.underlineText}
             variant='body2'
           >
@@ -49,7 +49,7 @@ const GoogleLogin = ({ type, buttonWidth, role }) => {
         ) : (
           <Typography
             component={HashLink}
-            onClick={!closeModal} // added "!" for disable clicking on link
+            onClick={closeModal} // disabled clicking on link
             sx={styles.underlineText}
             to={whatCanYouDo.path}
             variant='body2'

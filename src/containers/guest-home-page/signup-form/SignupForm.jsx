@@ -94,6 +94,7 @@ const SignupForm = ({
 
       <AppTextField
         data-testid={'email'}
+        disabled
         errorMsg={t(errors.email)}
         fullWidth
         label={t('common.labels.email')}
@@ -108,6 +109,7 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={passwordVisibility}
+        disabled
         errorMsg={t(errors.password)}
         fullWidth
         label={t('common.labels.password')}
@@ -121,6 +123,7 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={confirmPasswordVisibility}
+        disabled
         errorMsg={t(errors.confirmPassword)}
         fullWidth
         label={t('common.labels.confirmPassword')}
