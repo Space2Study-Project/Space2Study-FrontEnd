@@ -33,7 +33,7 @@ export const styles = {
     display: 'flex',
     flexDirection: 'column-reverse',
     marginBottom: 'auto',
-    height: '32%'
+    height: '25%'
   },
   appButton: {
     width: '100%'
@@ -48,5 +48,8 @@ export const styles = {
   },
   chipList: {
     margin: '20px 0 0 0'
+  },
+  appChipList: {
+    height: '30px'
   }
 }

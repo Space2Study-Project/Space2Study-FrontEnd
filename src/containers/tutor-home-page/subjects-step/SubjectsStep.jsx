@@ -140,7 +140,9 @@ const SubjectsStep = ({ btnsBox }) => {
         >
           {t('becomeTutor.categories.btnText')}
         </AppButton>
-        <AppChipList {...dataChipList} />
+        <Box sx={styles.appChipList}>
+          <AppChipList {...dataChipList} />
+        </Box>
         <Box sx={styles.btnsBox}>{btnsBox}</Box>
       </Box>
     </Box>
