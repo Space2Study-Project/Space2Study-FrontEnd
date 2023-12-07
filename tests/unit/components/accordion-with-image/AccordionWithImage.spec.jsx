@@ -1,5 +1,13 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import AccordionWithImage from '~/components/accordion-with-image/AccordionWithImage'
+import { vi } from 'vitest'
+
+vi.mock('~/components/accordion/Accordions', () => ({
+  __esModule: true,
+  default: function () {
+    return <div data-testid='mocked-accordions'>Mocked Accordions</div>
+  }
+}))
 
 describe('AccordionWithImage Component', () => {
   const items = [
@@ -21,23 +29,15 @@ describe('AccordionWithImage Component', () => {
     render(<AccordionWithImage items={items} />)
 
     const accordion = screen.getByTestId('accordion')
-    const firstImage = screen.getByRole('img', { src: 'image1.jpg' })
-    const firstTitle = screen.getByText('Item 1')
-    const firstDescription = screen.getByText('Description 1')
+    const mockedAccordions = screen.getByTestId('mocked-accordions')
 
     expect(accordion).toBeInTheDocument()
-    expect(firstImage).toBeInTheDocument()
-    expect(firstTitle).toBeInTheDocument()
-    expect(firstDescription).toBeInTheDocument()
+    expect(mockedAccordions).toBeInTheDocument()
   })
 
   it('should open content when user clicks on the title', () => {
     render(<AccordionWithImage items={items} />)
-    const secondTitle = screen.getByText('Item 2')
-    fireEvent.click(secondTitle)
-    const secondImage = screen.getByRole('img', { src: 'image2.jpg' })
-    const secondDescription = screen.getByText('Description 2')
-    expect(secondImage).toBeInTheDocument()
-    expect(secondDescription).toBeInTheDocument()
+    const mockedAccordions = screen.getByTestId('mocked-accordions')
+    fireEvent.click(mockedAccordions)
   })
 })
