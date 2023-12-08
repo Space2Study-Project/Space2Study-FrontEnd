@@ -1,6 +1,6 @@
 import { Box, Autocomplete, TextField, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
+
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import studyCategory from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
 
@@ -8,6 +8,7 @@ import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 import AppButton from '~/components/app-button/AppButton'
+import { useEffect, useState, useCallback } from 'react'
 
 const SubjectsStep = ({ btnsBox }) => {
   const { t } = useTranslation()
@@ -17,26 +18,22 @@ const SubjectsStep = ({ btnsBox }) => {
   const [selectedSubject, setSelectedSubject] = useState(null)
   const [selectedSubjectName, setSelectedSubjectName] = useState(true)
   const [selectedSubjects, setSelectedSubjects] = useState([])
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await categoryService.getCategoriesNames()
-        setCategories(response.data)
-      } catch (error) {
-        console.error('Error fetching categories:', error)
-      }
+
+  const fetchCategories = useCallback(async () => {
+    if (categories.length > 0) {
+      return
     }
+    try {
+      const response = await categoryService.getCategoriesNames()
+      setCategories(response.data)
+    } catch (error) {
+      console.error('Error fetching categories:', error)
+    }
+  }, [categories])
+
+  useEffect(() => {
     fetchCategories()
-  }, [])
-  const dataChipList = {
-    items: [...selectedSubjects],
-    defaultQuantity: 2,
-    handleChipDelete: (deletedItem) =>
-      setSelectedSubjects(
-        [...selectedSubjects].filter((item) => item !== deletedItem)
-      ),
-    wrapperStyle: styles.chipList
-  }
+  }, [fetchCategories])
 
   useEffect(() => {
     const fetchSubjects = async () => {
@@ -51,10 +48,17 @@ const SubjectsStep = ({ btnsBox }) => {
         console.error('Error fetching subjects:', error)
       }
     }
-
     fetchSubjects()
   }, [selectedCategory])
-
+  const dataChipList = {
+    items: [...selectedSubjects],
+    defaultQuantity: 2,
+    handleChipDelete: (deletedItem) =>
+      setSelectedSubjects(
+        [...selectedSubjects].filter((item) => item !== deletedItem)
+      ),
+    wrapperStyle: styles.chipList
+  }
   const handleCategoryChange = (event, newValue) => {
     setSelectedCategory(newValue)
     setSelectedSubject(null)
@@ -108,16 +112,6 @@ const SubjectsStep = ({ btnsBox }) => {
                 {...params}
                 label={t('becomeTutor.categories.subjectLabel')}
               />
-            )}
-            renderOption={(props, option) => (
-              <li {...props}>
-                <Typography variant='body2'>
-                  <span>{option.name}</span>&nbsp;
-                  <span style={{ fontSize: 'small', color: 'gray' }}>
-                    Category: {option.name}
-                  </span>
-                </Typography>
-              </li>
             )}
             sx={styles.inputItem}
             value={selectedSubject}
