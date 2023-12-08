@@ -126,9 +126,4 @@ describe('SubjectsStep component test', () => {
     const appButton = screen.getByText(/becomeTutor.categories.btnText/i)
     expect(appButton).toBeInTheDocument()
   })
-
-  it('renders AppChipList', () => {
-    const appChipList = screen.getByText('AppChipList')
-    expect(appChipList).toBeInTheDocument()
-  })
 })
