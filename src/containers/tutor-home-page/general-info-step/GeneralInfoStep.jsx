@@ -46,8 +46,8 @@ const GeneralInfoStep = ({ btnsBox }) => {
   }, [selectedCountry])
 
   useEffect(() => {
-    try {
-      const fetchUser = async () => {
+    const fetchUser = async () => {
+      try {
         const storedToken = localStorage.getItem('s2s')
         if (storedToken) {
           const [, payload] = storedToken.split('.')
@@ -60,11 +60,11 @@ const GeneralInfoStep = ({ btnsBox }) => {
           const surName = response.data.lastName
           setLastName(surName)
         }
+      } catch (e) {
+        console.log(`Error message: ${e.message}`)
       }
-      fetchUser()
-    } catch (e) {
-      console.log(`Error message: ${e.message}`)
     }
+    fetchUser()
   }, [])
 
   const changeText = (e) => {
