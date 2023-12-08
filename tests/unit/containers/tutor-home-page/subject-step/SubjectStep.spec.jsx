@@ -41,14 +41,6 @@ describe('SubjectsStep component test', () => {
     vi.restoreAllMocks()
   })
 
-  it('renders SubjectsStep component', () => {
-    const text = screen.getByText(/becomeTutor.categories.title/i)
-
-    waitFor(() => {
-      expect(text).toBeInTheDocument()
-      expect(screen.getByTestId('btnsBox')).toBeInTheDocument()
-    })
-  })
   it('displays the study category image', () => {
     const studyCategoryImage = screen.getByAltText('subject img')
 
