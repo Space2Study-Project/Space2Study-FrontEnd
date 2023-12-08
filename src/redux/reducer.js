@@ -114,15 +114,15 @@ export const mainSlice = createSlice({
       const userData = parseJwt(action.payload)
       state.userId = userData.id
       state.userRole = userData.role
-      state.isFirstLogin = userData.isFirstLogin
+      state.isFirstLogin = true
     },
     logout(state) {
       state.userId = initialState.userId
       state.userRole = initialState.userRole
-      state.isFirstLogin = initialState.isFirstLogin
+      state.isFirstLogin = true
     },
     markFirstLoginComplete(state) {
-      state.isFirstLogin = false
+      state.isFirstLogin = true
     },
     setPageLoading(state, action) {
       state.pageLoad = action.payload

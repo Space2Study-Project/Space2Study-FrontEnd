@@ -12,7 +12,6 @@ import { styles } from '~/components/step-wrapper/StepWrapper.styles'
 import useSteps from '~/hooks/use-steps'
 
 const StepWrapper = ({ children, steps, isFormValid }) => {
-  console.log('isFormValid in StepWrapper:', isFormValid)
   const { activeStep, isLastStep, loading, stepOperation } = useSteps({
     steps
   })

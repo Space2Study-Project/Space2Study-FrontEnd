@@ -30,18 +30,7 @@ const UserStepsWrapper = ({ userRole }) => {
 
   return (
     <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
-      <StepWrapper
-        activeStep={isFormValid ? 1 : 0}
-        isFormValid={isFormValid}
-        onStepChange={(stepIndex, prevent) => {
-          if (stepIndex === 1 && !isFormValid) {
-            alert('Please fill in all required fields before proceeding.')
-            prevent()
-            return
-          }
-        }}
-        steps={stepLabels}
-      >
+      <StepWrapper isFormValid={isFormValid} steps={stepLabels}>
         <GeneralInfoStep
           isUserFetched={isUserFetched}
           key='1'
