@@ -64,7 +64,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
   }
 
   return (
-    <Box sx={styles.container}>
+    <Box data-testid='generalBox' sx={styles.container}>
       <Box>
         <Box alt='GeneralInfo' component='img' src={generalInfo} />
       </Box>
@@ -73,7 +73,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
           Amet minim mollit non deserunt ullamco est sit alliqua dolor do amet
           sint.
         </Typography>
-        <Box sx={styles.appearance}>
+        <Box data-testid='nameInputs' sx={styles.appearance}>
           <TextField
             placeholder='First Name*'
             sx={styles.textField}
@@ -85,7 +85,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             value={lastName}
           />
         </Box>
-        <Box sx={styles.appearance}>
+        <Box data-testid='selects' sx={styles.appearance}>
           <Autocomplete
             onChange={(event, newValue) => {
               setSelectedCountry(newValue)
@@ -107,7 +107,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             value={selectedCity}
           />
         </Box>
-        <Box>
+        <Box data-testid='descField'>
           <TextField
             inputProps={{ maxLength: 70 }}
             multiline
