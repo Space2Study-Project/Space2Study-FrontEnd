@@ -82,7 +82,7 @@ const SubjectsStep = ({ btnsBox }) => {
         />
       </Box>
       <Box>
-        <Box sx={styles.inputContainer}>
+        <Box data-testid='inputContainer' sx={styles.inputContainer}>
           <Typography sx={styles.title}>
             {t('becomeTutor.categories.title')}
           </Typography>
@@ -95,16 +95,6 @@ const SubjectsStep = ({ btnsBox }) => {
                 {...params}
                 label={t('becomeTutor.categories.mainSubjectsLabel')}
               />
-            )}
-            renderOption={(props, option) => (
-              <li {...props}>
-                <Typography variant='body2'>
-                  <span>{option.name}</span>&nbsp;
-                  <span style={{ fontSize: 'small', color: 'gray' }}>
-                    Category: {option.name}
-                  </span>
-                </Typography>
-              </li>
             )}
             sx={styles.inputItem}
             value={selectedCategory}
