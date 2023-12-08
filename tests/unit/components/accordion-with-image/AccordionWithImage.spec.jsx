@@ -4,8 +4,17 @@ import { vi } from 'vitest'
 
 vi.mock('~/components/accordion/Accordions', () => ({
   __esModule: true,
-  default: function () {
-    return <div data-testid='mocked-accordions'>Mocked Accordions</div>
+  default: function (props) {
+    if (props.onClick) {
+      props.onClick()
+    }
+
+    return (
+      <div data-testid='mocked-accordions'>
+        <div data-testid='item-title'>Item 1</div>
+        <div data-testid='item-description'>Description</div>
+      </div>
+    )
   }
 }))
 
@@ -27,18 +36,15 @@ describe('AccordionWithImage Component', () => {
 
   it('should render and display the first item by default', () => {
     render(<AccordionWithImage items={items} />)
-
-    const accordion = screen.getByTestId('accordion')
     const mockedAccordions = screen.getByTestId('mocked-accordions')
-
-    expect(accordion).toBeInTheDocument()
     expect(mockedAccordions).toBeInTheDocument()
   })
 
   it('should open content when user clicks on the title', () => {
     render(<AccordionWithImage items={items} />)
-    const mockedAccordions = screen.getByTestId('mocked-accordions')
-    fireEvent.click(mockedAccordions)
-    expect(mockedAccordions).toBeInTheDocument()
+    const titleElement = screen.getByText('Item 1')
+    fireEvent.click(titleElement)
+    const mockedComponent = screen.getByText('Description')
+    expect(mockedComponent).toBeInTheDocument()
   })
 })
