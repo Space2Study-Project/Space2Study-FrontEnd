@@ -121,7 +121,7 @@ const SignupForm = ({
 
       <AppTextField
         InputProps={confirmPasswordVisibility}
-        errorMsg={t(errors.confirmPassword)}
+        errorMsg={t(errors.confirmPassword) || t(errors.password)}
         fullWidth
         label={t('common.labels.confirmPassword')}
         onBlur={handleBlur('confirmPassword')}
@@ -148,7 +148,7 @@ const SignupForm = ({
           !data.firstName ||
           !data.lastName ||
           t(errors.email) ||
-          data.password !== data.confirmPassword
+          t(errors.confirmPassword)
         }
         loading={authLoading}
         sx={styles.signupButton}
