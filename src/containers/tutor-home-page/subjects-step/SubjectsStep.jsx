@@ -67,7 +67,9 @@ const SubjectsStep = ({ btnsBox }) => {
     setSelectedSubject(null)
     setSelectedSubjectName(true)
     if (!selectedSubjects.includes(selectedSubject.name)) {
-      setSelectedSubjects([...selectedSubjects, selectedSubject?.name])
+      if (selectedSubject != null) {
+        setSelectedSubjects([...selectedSubjects, selectedSubject?.name])
+      }
     }
   }
   const handleSubjectChange = (event, newValue) => {
