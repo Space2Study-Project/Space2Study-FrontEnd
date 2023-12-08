@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 
 const GeneralInfoStep = ({ btnsBox }) => {
-  const [countryList, setCountry] = useState([])
+  const [countryList, setCountryList] = useState([])
   const [city, setCity] = useState([])
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [selectedCity, setSelectedCity] = useState(null)
@@ -25,7 +25,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
     }
     try {
       const response = await LocationService.getCountries()
-      setCountry(response.data)
+      setCountryList(response.data)
     } catch (e) {
       console.log(`Error type: ${e.message}`)
     }
