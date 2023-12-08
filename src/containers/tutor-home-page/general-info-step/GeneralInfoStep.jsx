@@ -49,15 +49,17 @@ const GeneralInfoStep = ({ btnsBox }) => {
     try {
       const fetchUser = async () => {
         const storedToken = localStorage.getItem('s2s')
-        const [, payload] = storedToken.split('.')
-        const decodedPayload = JSON.parse(atob(payload))
-        const userId = decodedPayload.id
-        const userRole = decodedPayload.role
-        const response = await userService.getUserById(userId, userRole)
-        const firstName = response.data.firstName
-        setName(firstName)
-        const surName = response.data.lastName
-        setLastName(surName)
+        if (storedToken) {
+          const [, payload] = storedToken.split('.')
+          const decodedPayload = JSON.parse(atob(payload))
+          const userId = decodedPayload.id
+          const userRole = decodedPayload.role
+          const response = await userService.getUserById(userId, userRole)
+          const firstName = response.data.firstName
+          setName(firstName)
+          const surName = response.data.lastName
+          setLastName(surName)
+        }
       }
       fetchUser()
     } catch (e) {
