@@ -1,5 +1,6 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, vi } from 'vitest'
+
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
 
 vi.mock('react-i18next', () => ({
