@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
-import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.jsx'
+import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep'
 
 vi.mock('~/services/location-service', () => ({
   LocationService: {
