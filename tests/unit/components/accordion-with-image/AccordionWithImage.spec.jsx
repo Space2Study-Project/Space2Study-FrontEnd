@@ -39,5 +39,6 @@ describe('AccordionWithImage Component', () => {
     render(<AccordionWithImage items={items} />)
     const mockedAccordions = screen.getByTestId('mocked-accordions')
     fireEvent.click(mockedAccordions)
+    expect(mockedAccordions).toBeInTheDocument()
   })
 })
