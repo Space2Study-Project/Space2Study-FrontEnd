@@ -24,6 +24,14 @@ vi.mock('~/services/user-service', () => ({
   }
 }))
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str) => str
+    }
+  }
+}))
+
 describe('Tests for GeneralInfoStep component', () => {
   beforeEach(() => {
     render(<GeneralInfoStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
@@ -58,26 +66,32 @@ describe('Tests for GeneralInfoStep component', () => {
     const inputContainer = screen.getByTestId('selects')
     expect(inputContainer).toBeInTheDocument()
 
-    expect(screen.getByLabelText(/Countries/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Cities/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/common.labels.country/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/common.labels.city/i)).toBeInTheDocument()
   })
   it('should render name and lastname fields', () => {
     const inputNamesContainer = screen.getByTestId('nameInputs')
     expect(inputNamesContainer).toBeInTheDocument()
 
-    expect(screen.getByPlaceholderText(/First Name/i)).toBeInTheDocument()
-    expect(screen.getByPlaceholderText(/Last Name/i)).toBeInTheDocument()
+    expect(
+      screen.getByPlaceholderText(/common.labels.firstName/i)
+    ).toBeInTheDocument()
+    expect(
+      screen.getByPlaceholderText(/common.labels.lastName/i)
+    ).toBeInTheDocument()
   })
   it('should render description field', () => {
     const inputDescContainer = screen.getByTestId('descField')
     expect(inputDescContainer).toBeInTheDocument()
 
     expect(
-      screen.getByPlaceholderText(/Describe in short your professional status/i)
+      screen.getByPlaceholderText(/becomeTutor.generalInfo.textFieldLabel/i)
     ).toBeInTheDocument()
   })
   it('fetches countries on mount', () => {
-    const countryAutocompleteField = screen.getByLabelText(/Countries/i)
+    const countryAutocompleteField = screen.getByLabelText(
+      /common.labels.country/i
+    )
 
     fireEvent.click(countryAutocompleteField)
 
@@ -87,7 +101,7 @@ describe('Tests for GeneralInfoStep component', () => {
     })
   })
   it('can`t choose city before country is chosen', () => {
-    const cityAutocompleteField = screen.getByLabelText(/Cities/i)
+    const cityAutocompleteField = screen.getByLabelText(/common.labels.city/i)
 
     fireEvent.click(cityAutocompleteField)
 

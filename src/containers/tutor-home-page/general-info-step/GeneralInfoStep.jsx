@@ -4,6 +4,7 @@ import { Autocomplete, TextField, Typography } from '@mui/material'
 import { useEffect, useState, useCallback } from 'react'
 import { LocationService } from '~/services/location-service'
 import { userService } from '~/services/user-service'
+import { useTranslation } from 'react-i18next'
 
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 
@@ -14,6 +15,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
   const [selectedCity, setSelectedCity] = useState(null)
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
+  const { t } = useTranslation()
 
   const [text, setText] = useState('')
 
@@ -69,18 +71,15 @@ const GeneralInfoStep = ({ btnsBox }) => {
         <Box alt='GeneralInfo' component='img' src={generalInfo} />
       </Box>
       <Box component='form' sx={styles.form}>
-        <Typography>
-          Amet minim mollit non deserunt ullamco est sit alliqua dolor do amet
-          sint.
-        </Typography>
+        <Typography>{t('becomeTutor.generalInfo.title')}</Typography>
         <Box data-testid='nameInputs' sx={styles.appearance}>
           <TextField
-            placeholder='First Name*'
+            placeholder={t('common.labels.firstName')}
             sx={styles.textField}
             value={name}
           />
           <TextField
-            placeholder='Last Name*'
+            placeholder={t('common.labels.lastName')}
             sx={styles.textField}
             value={lastName}
           />
@@ -94,7 +93,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             onFocus={fetchCountries}
             options={countryList}
             renderInput={(params) => (
-              <TextField {...params} label='Countries' />
+              <TextField {...params} label={t('common.labels.country')} />
             )}
             sx={styles.selects}
             value={selectedCountry}
@@ -102,7 +101,9 @@ const GeneralInfoStep = ({ btnsBox }) => {
           <Autocomplete
             onChange={(event, newValue) => setSelectedCity(newValue)}
             options={city}
-            renderInput={(params) => <TextField {...params} label='Cities' />}
+            renderInput={(params) => (
+              <TextField {...params} label={t('common.labels.city')} />
+            )}
             sx={styles.selects}
             value={selectedCity}
           />
@@ -112,14 +113,14 @@ const GeneralInfoStep = ({ btnsBox }) => {
             inputProps={{ maxLength: 70 }}
             multiline
             onChange={changeText}
-            placeholder='Describe in short your professional status'
+            placeholder={t('becomeTutor.generalInfo.textFieldLabel')}
             rows={4}
             sx={styles.description}
             value={text}
           />
           <Typography>{text.length}/70</Typography>
           <Typography sx={styles.warning}>
-            Input fields with the * sign are required
+            {t('becomeTutor.generalInfo.helperText')}
           </Typography>
         </Box>
         {btnsBox}
