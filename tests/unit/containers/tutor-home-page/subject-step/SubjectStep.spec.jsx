@@ -17,6 +17,13 @@ vi.mock('~/components/app-button/AppButton', () => ({
   }
 }))
 
+vi.mock('~/components/app-chips-list/AppChipList', () => ({
+  __esModule: true,
+  default: function AppChipList() {
+    return <div>AppChipList</div>
+  }
+}))
+
 vi.mock('~/services/category-service', () => ({
   categoryService: {
     getCategoriesNames: vi.fn(() =>
@@ -118,5 +125,10 @@ describe('SubjectsStep component test', () => {
   it('renders AppButton', () => {
     const appButton = screen.getByText(/becomeTutor.categories.btnText/i)
     expect(appButton).toBeInTheDocument()
+  })
+
+  it('renders AppChipList', () => {
+    const appChipList = screen.getByText('AppChipList')
+    expect(appChipList).toBeInTheDocument()
   })
 })
