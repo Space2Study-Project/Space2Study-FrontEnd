@@ -6,11 +6,14 @@ vi.mock('~/services/location-service', () => ({
   LocationService: {
     getCountries: vi.fn(() =>
       Promise.resolve({ data: ['Country1', 'Country2'] })
-    ),
+    )
+  }
+}))
+vi.mock('~/services/location-service', () => ({
+  LocationService: {
     getCities: vi.fn(() => Promise.resolve({ data: ['City1', 'City2'] }))
   }
 }))
-
 vi.mock('~/services/user-service', () => ({
   userService: {
     getUserById: vi.fn(() =>
