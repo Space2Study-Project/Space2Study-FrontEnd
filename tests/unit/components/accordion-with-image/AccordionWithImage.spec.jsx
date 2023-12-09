@@ -7,9 +7,15 @@ vi.mock('~/components/accordion/Accordions', () => ({
   default: function MockedAccordions(props) {
     return (
       <div data-testid='mocked-accordions'>
-        <div data-testid='item-title'>
-          {props.items[props.activeIndex].title}
-        </div>
+        {props.items.map((item) => (
+          <div
+            data-testid={`item-title-${item.id}`}
+            key={item.id}
+            onClick={() => props.onChange(item.id)}
+          >
+            {item.title}
+          </div>
+        ))}
         <div data-testid='item-description'>
           {props.items[props.activeIndex].description}
         </div>
@@ -37,7 +43,7 @@ describe('AccordionWithImage Component', () => {
   it('should render and display the first item by default', () => {
     render(<AccordionWithImage items={items} />)
     const mockedAccordions = screen.getByTestId('mocked-accordions')
-    const titleElement = screen.getByTestId('item-title')
+    const titleElement = screen.getByTestId('item-title-0')
     const descriptionElement = screen.getByTestId('item-description')
 
     expect(mockedAccordions).toBeInTheDocument()
@@ -47,7 +53,7 @@ describe('AccordionWithImage Component', () => {
 
   it('should open content when user clicks on the title', () => {
     render(<AccordionWithImage items={items} />)
-    const titleElement = screen.getByText('Item 1')
+    const titleElement = screen.getByTestId('item-title-0')
     fireEvent.click(titleElement)
     const descriptionElement = screen.getByTestId('item-description')
     expect(descriptionElement).toHaveTextContent('Description 1')
