@@ -143,7 +143,15 @@ const SignupForm = ({
       </Box>
 
       <AppButton
-        disabled={!isAgreementChecked}
+        disabled={
+          !isAgreementChecked ||
+          !data.firstName ||
+          !data.lastName ||
+          errors.email ||
+          errors.password ||
+          errors.confirmPassword ||
+          data.password !== data.confirmPassword
+        }
         loading={authLoading}
         sx={styles.signupButton}
         type='submit'
