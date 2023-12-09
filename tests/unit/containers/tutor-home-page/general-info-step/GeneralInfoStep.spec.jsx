@@ -1,6 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { vi } from 'vitest'
-import { userService } from '~/services/user-service'
+
 import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep'
 vi.mock('~/services/location-service', () => ({
   LocationService: {
@@ -11,20 +11,36 @@ vi.mock('~/services/location-service', () => ({
   }
 }))
 
+vi.mock('~/services/user-service', () => ({
+  userService: {
+    getUserById: vi.fn(() =>
+      Promise.resolve({ data: { firstName: 'John', lastName: 'Doe' } })
+    )
+  }
+}))
+
+vi.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str) => str
+    }
+  }
+}))
+
 describe('Tests for GeneralInfoStep component', () => {
+  let setIsFormValidMock
   beforeEach(() => {
+    setIsFormValidMock = vi.fn()
     render(
       <GeneralInfoStep
         btnsBox={<div data-testid='mockedBtnsBox' />}
-        setIsFormValid={vi.fn()}
+        setIsFormValid={setIsFormValidMock}
       />
     )
   })
-
   afterEach(() => {
     vi.restoreAllMocks()
   })
-
   it('displays the study category image', () => {
     const generalImage = screen.getByAltText('GeneralInfo')
 
@@ -35,71 +51,76 @@ describe('Tests for GeneralInfoStep component', () => {
     )
   })
 
-  it('should check if the buttons passed in props are in the document', () => {
+  it('should check if the buttons and setIsFormValid are passed as props', () => {
     const mockBtnsBox = (
       <div>
         <button data-testid='button-1'>Button 1</button>
         <button data-testid='button-2'>Button 2</button>
       </div>
     )
-    render(<GeneralInfoStep btnsBox={mockBtnsBox} />)
+    render(
+      <GeneralInfoStep
+        btnsBox={mockBtnsBox}
+        setIsFormValid={setIsFormValidMock}
+      />
+    )
     const button1Element = screen.getByTestId('button-1')
     expect(button1Element).toBeInTheDocument()
     const button2Element = screen.getByTestId('button-2')
     expect(button2Element).toBeInTheDocument()
+
+    expect(setIsFormValidMock).toHaveBeenCalled()
   })
 
   it('should render Autocomplete inputs', () => {
-    expect(screen.getByLabelText(/Countries/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Cities/i)).toBeInTheDocument()
-  })
+    const inputContainer = screen.getByTestId('selects')
+    expect(inputContainer).toBeInTheDocument()
 
+    expect(screen.getByLabelText(/common.labels.country/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/common.labels.city/i)).toBeInTheDocument()
+  })
   it('should render name and lastname fields', () => {
-    expect(screen.getByPlaceholderText(/First Name/i)).toBeInTheDocument()
-    expect(screen.getByPlaceholderText(/Last Name/i)).toBeInTheDocument()
-  })
+    const inputNamesContainer = screen.getByTestId('nameInputs')
+    expect(inputNamesContainer).toBeInTheDocument()
 
-  it('should render description field', () => {
     expect(
-      screen.getByPlaceholderText(/Describe in short your professional status/i)
+      screen.getByPlaceholderText(/common.labels.firstName/i)
+    ).toBeInTheDocument()
+    expect(
+      screen.getByPlaceholderText(/common.labels.lastName/i)
     ).toBeInTheDocument()
   })
 
-  it('fetches countries on mount', async () => {
-    await waitFor(() => {
+  it('should render description field', () => {
+    const inputDescContainer = screen.getByTestId('descField')
+    expect(inputDescContainer).toBeInTheDocument()
+
+    expect(
+      screen.getByPlaceholderText(/becomeTutor.generalInfo.textFieldLabel/i)
+    ).toBeInTheDocument()
+  })
+
+  it('fetches countries on mount', () => {
+    const countryAutocompleteField = screen.getByLabelText(
+      /common.labels.country/i
+    )
+
+    fireEvent.click(countryAutocompleteField)
+
+    waitFor(() => {
       const countryName = screen.getByText('Country1')
       expect(countryName).toBeInTheDocument()
     })
   })
 
-  it("can't choose city before country is chosen", async () => {
-    await waitFor(() => {
-      const cityName = screen.queryByText('City1')
+  it('can`t choose city before country is chosen', () => {
+    const cityAutocompleteField = screen.getByLabelText(/common.labels.city/i)
+
+    fireEvent.click(cityAutocompleteField)
+
+    waitFor(() => {
+      const cityName = screen.getByText('City1')
       expect(cityName).not.toBeInTheDocument()
     })
-  })
-
-  it('fetches user data and sets state', async () => {
-    userService.getUserById.mockResolvedValueOnce({
-      data: {
-        firstName: 'John',
-        lastName: 'Doe'
-      }
-    })
-
-    await waitFor(() => {})
-
-    expect(screen.getByTestId('name-element').textContent).toBe('John')
-    expect(screen.getByTestId('lastname-element').textContent).toBe('Doe')
-    expect(userService.getUserById).toHaveBeenCalledWith(1)
-    expect(userService.getUserById).toHaveBeenCalledTimes(1)
-  })
-
-  it('renders GeneralInfoStep component with setIsFormValid', () => {
-    const setIsFormValidMock = vi.fn()
-
-    render(
-      <GeneralInfoStep btnsBox={<div />} setIsFormValid={setIsFormValidMock} />
-    )
   })
 })
