@@ -27,6 +27,7 @@ import student from '~/assets/img/signup-dialog/student.svg'
 import tutor from '~/assets/img/signup-dialog/tutor.svg'
 
 import { styles } from '~/containers/guest-home-page/signup-dialog/SignupDialog.styles'
+import useBreakpointsGoogle from '~/hooks/use-breakpoints-google'
 
 const SignupDialog = ({ type }) => {
   const { t } = useTranslation()
@@ -85,7 +86,14 @@ const SignupDialog = ({ type }) => {
   useEffect(() => {
     setNeedConfirmation(isDirty)
   }, [isDirty, setNeedConfirmation])
-
+  const { isSmallScreen, isMediumScreen, isLargeScreen, isXLargeScreen } =
+    useBreakpointsGoogle()
+  const getButtonWidth = () => {
+    if (isSmallScreen) return 330
+    if (isMediumScreen) return 333
+    if (isLargeScreen) return 340
+    if (isXLargeScreen) return 394
+  }
   return (
     <Box sx={styles.root}>
       <Box sx={styles.imgContainer}>
@@ -111,7 +119,7 @@ const SignupDialog = ({ type }) => {
             handleSubmit={handleSubmit}
           />
           <GoogleLogin
-            buttonWidth={styles.form.maxWidth}
+            buttonWidth={getButtonWidth()}
             role={type}
             type={signup}
           />

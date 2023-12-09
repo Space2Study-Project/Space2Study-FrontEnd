@@ -28,6 +28,6 @@ export const styles = {
   googleForm: {
     display: 'flex',
     flexDirection: 'column',
-    minWidth: { sm: '343px' }
+    minWidth: { sm: '330px' }
   }
 }

@@ -44,9 +44,7 @@ const GoogleButton = ({ role, route, buttonWidth, type }) => {
     })
 
     googleId.renderButton(document.getElementById('googleButton'), {
-      size: 'large',
-      locale: 'en',
-      text: `${type}_with`
+      width: buttonWidth
     })
   }, [handleCredentialResponse, buttonWidth, type])
 
