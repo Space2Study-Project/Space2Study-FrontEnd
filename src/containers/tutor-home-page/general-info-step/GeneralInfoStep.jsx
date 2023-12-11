@@ -5,16 +5,23 @@ import { useEffect, useState, useCallback } from 'react'
 import { LocationService } from '~/services/location-service'
 import { userService } from '~/services/user-service'
 import { useTranslation } from 'react-i18next'
+import useName from '~/hooks/use-name'
+import useCountryCityInfo from '~/hooks/use-country-city-info'
 
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 
 const GeneralInfoStep = ({ btnsBox }) => {
-  const [countryList, setCountryList] = useState([])
-  const [city, setCity] = useState([])
-  const [selectedCountry, setSelectedCountry] = useState(null)
-  const [selectedCity, setSelectedCity] = useState(null)
-  const [name, setName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const { name, setName, lastName, setLastName } = useName()
+  const {
+    countryList,
+    setCountryList,
+    city,
+    setCity,
+    selectedCountry,
+    setSelectedCountry,
+    selectedCity,
+    setSelectedCity
+  } = useCountryCityInfo()
   const { t } = useTranslation()
 
   const [text, setText] = useState('')
@@ -40,6 +47,8 @@ const GeneralInfoStep = ({ btnsBox }) => {
       if (selectedCountry) {
         const response = await LocationService.getCities(selectedCountry)
         setCity(response.data)
+      } else {
+        setCity([])
       }
     }
     fetchCities()
