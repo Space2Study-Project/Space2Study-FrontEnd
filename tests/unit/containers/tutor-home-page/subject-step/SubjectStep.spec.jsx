@@ -133,26 +133,21 @@ describe('SubjectsStep component test', () => {
       screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
       'Category1'
     )
+    fireEvent.change(
+      screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
+      { target: { value: 'NewCategory' } }
+    )
     waitFor(() => {
       const categoryName = screen.getByText('Category1')
       expect(categoryName).toBeInTheDocument()
+      expect(handleCategoryChange).toHaveBeenCalled()
+      expect(setSelectedCategoryMock).toHaveBeenCalledWith('NewCategory')
+      expect(setSelectedSubjectMock).toHaveBeenCalledWith(null)
     })
   })
 
   it('renders AppButton', () => {
     const appButton = screen.getByText(/becomeTutor.categories.btnText/i)
     expect(appButton).toBeInTheDocument()
-  })
-
-  it('handleCategoryChange ', () => {
-    fireEvent.change(
-      screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
-      { target: { value: 'NewCategory' } }
-    )
-    waitFor(() => {
-      expect(handleCategoryChange).toHaveBeenCalled()
-      expect(setSelectedCategoryMock).toHaveBeenCalledWith('NewCategory')
-      expect(setSelectedSubjectMock).toHaveBeenCalledWith(null)
-    })
   })
 })
