@@ -1,7 +1,8 @@
-import { render, fireEvent, screen, waitFor } from '@testing-library/react'
+import { render, fireEvent, screen, waitFor, act } from '@testing-library/react'
 import { beforeEach, vi } from 'vitest'
 
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
+import React from 'react'
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -16,6 +17,10 @@ vi.mock('~/components/app-button/AppButton', () => ({
     return <button>{children}</button>
   }
 }))
+
+const setSelectedCategoryMock = vi.fn()
+const setSelectedSubjectMock = vi.fn()
+const setSelectedSubjectsMock = vi.fn()
 
 vi.mock('~/components/app-chips-list/AppChipList', () => ({
   __esModule: true,
@@ -43,6 +48,9 @@ vi.mock('~/services/subject-service', () => ({
 describe('SubjectsStep component test', () => {
   beforeEach(() => {
     render(<SubjectsStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
+    vi.spyOn(React, 'useState').mockReturnValue([null, setSelectedCategoryMock])
+    vi.spyOn(React, 'useState').mockReturnValue([null, setSelectedSubjectMock])
+    vi.spyOn(React, 'useState').mockReturnValue([null, setSelectedSubjectsMock])
   })
   afterEach(() => {
     vi.restoreAllMocks()
@@ -125,5 +133,29 @@ describe('SubjectsStep component test', () => {
   it('renders AppButton', () => {
     const appButton = screen.getByText(/becomeTutor.categories.btnText/i)
     expect(appButton).toBeInTheDocument()
+  })
+
+  it('should update selected category and reset selected subject', () => {
+    fireEvent.click(
+      screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
+      { target: { value: 'NewCategory' } }
+    )
+    waitFor(() => {
+      expect(setSelectedCategoryMock).toHaveBeenCalledWith('NewCategory')
+      expect(setSelectedSubjectMock).toHaveBeenCalledWith(null)
+    })
+  })
+  it('should add subject to selectedSubjects', () => {
+    act(() => {
+      setSelectedSubjectMock.mockReturnValueOnce({ name: 'TestSubject' })
+    })
+
+    act(() => {
+      fireEvent.click(screen.getByText(/becomeTutor.categories.btnText/i))
+    })
+    waitFor(() => {
+      expect(setSelectedSubjectMock).toHaveBeenCalledWith(null)
+      expect(setSelectedSubjectsMock).toHaveBeenCalledWith(['TestSubject'])
+    })
   })
 })
