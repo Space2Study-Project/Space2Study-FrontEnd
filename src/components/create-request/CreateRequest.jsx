@@ -142,7 +142,8 @@ const CreateRequest = () => {
             <Typography sx={styles.subjectInfo}>
               {t('categoriesPage.newSubject.info')}
             </Typography>
-            <AppTextField
+            <TextField
+              inputProps={{ maxLength: 1000 }}
               multiline
               onChange={descriptionText}
               placeholder='Additional information'
@@ -153,7 +154,11 @@ const CreateRequest = () => {
             <Typography sx={styles.descLength}>
               {reqDescription.length}/1000
             </Typography>
-            <Button onClick={handleOpen} variant='contained'>
+            <Button
+              onClick={handleOpen}
+              sx={styles.btnSendRequest}
+              variant='contained'
+            >
               Send Request
             </Button>
           </Box>

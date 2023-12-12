@@ -30,26 +30,40 @@ export const styles = {
   },
   createSubjectTitle: {
     fontSize: '14px',
-    color: '#607D8B'
+    color: '#607D8B',
+    letterSpacing: '0.035px'
   },
   newSubjectField: {
     width: '100%'
   },
   descriptionRequest: {
     display: 'block',
-    paddingBottom: '20px'
+    paddingBottom: '20px',
+    letterSpacing: '0.55px',
+    fontSize: '16px',
+    lineHeight: '24px',
+    fontFamily: 'Rubik'
   },
   addSubject: {
     fontSize: '14px',
     color: '#607D8B',
-    paddingBottom: '2px'
+    paddingBottom: '2px',
+    letterSpacing: '0.035px'
   },
   subjectInfo: {
     fontSize: '14px',
     color: '#607D8B',
-    paddingTop: '20px'
+    paddingTop: '20px',
+    letterSpacing: '0.035px'
   },
   descLength: {
-    display: 'inline-block'
+    display: 'flex',
+    marginRight: 'auto',
+    fontSize: '14px',
+    color: '#90A4AE',
+    justifyContent: 'right'
+  },
+  btnSendRequest: {
+    marginTop: '20px'
   }
 }
