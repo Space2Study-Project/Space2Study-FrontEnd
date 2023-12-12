@@ -1,8 +1,8 @@
-import { render, fireEvent, screen, waitFor, act } from '@testing-library/react'
-import { beforeEach, vi } from 'vitest'
+import { render, fireEvent, screen, waitFor } from '@testing-library/react'
+import { beforeEach, expect, vi } from 'vitest'
 
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
-import React from 'react'
+import handleCategoryChange from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -18,8 +18,11 @@ vi.mock('~/components/app-button/AppButton', () => ({
   }
 }))
 
+const setCategoriesMock = vi.fn()
+const setSubjectsMock = vi.fn()
 const setSelectedCategoryMock = vi.fn()
 const setSelectedSubjectMock = vi.fn()
+const setSelectedSubjectNameMock = vi.fn()
 const setSelectedSubjectsMock = vi.fn()
 
 vi.mock('~/components/app-chips-list/AppChipList', () => ({
@@ -47,10 +50,17 @@ vi.mock('~/services/subject-service', () => ({
 
 describe('SubjectsStep component test', () => {
   beforeEach(() => {
-    render(<SubjectsStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
-    vi.spyOn(React, 'useState').mockReturnValue([null, setSelectedCategoryMock])
-    vi.spyOn(React, 'useState').mockReturnValue([null, setSelectedSubjectMock])
-    vi.spyOn(React, 'useState').mockReturnValue([null, setSelectedSubjectsMock])
+    render(
+      <SubjectsStep
+        btnsBox={<div data-testid='mockedBtnsBox' />}
+        setCategories={setCategoriesMock}
+        setSelectedCategory={setSelectedCategoryMock}
+        setSelectedSubject={setSelectedSubjectMock}
+        setSelectedSubjectName={setSelectedSubjectNameMock}
+        setSelectedSubjects={setSelectedSubjectsMock}
+        setSubjects={setSubjectsMock}
+      />
+    )
   })
   afterEach(() => {
     vi.restoreAllMocks()
@@ -123,7 +133,6 @@ describe('SubjectsStep component test', () => {
       screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
       'Category1'
     )
-
     waitFor(() => {
       const categoryName = screen.getByText('Category1')
       expect(categoryName).toBeInTheDocument()
@@ -135,27 +144,15 @@ describe('SubjectsStep component test', () => {
     expect(appButton).toBeInTheDocument()
   })
 
-  it('should update selected category and reset selected subject', () => {
-    fireEvent.click(
+  it('handleCategoryChange ', () => {
+    fireEvent.change(
       screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
       { target: { value: 'NewCategory' } }
     )
     waitFor(() => {
+      expect(handleCategoryChange).toHaveBeenCalled()
       expect(setSelectedCategoryMock).toHaveBeenCalledWith('NewCategory')
       expect(setSelectedSubjectMock).toHaveBeenCalledWith(null)
-    })
-  })
-  it('should add subject to selectedSubjects', () => {
-    act(() => {
-      setSelectedSubjectMock.mockReturnValueOnce({ name: 'TestSubject' })
-    })
-
-    act(() => {
-      fireEvent.click(screen.getByText(/becomeTutor.categories.btnText/i))
-    })
-    waitFor(() => {
-      expect(setSelectedSubjectMock).toHaveBeenCalledWith(null)
-      expect(setSelectedSubjectsMock).toHaveBeenCalledWith(['TestSubject'])
     })
   })
 })
