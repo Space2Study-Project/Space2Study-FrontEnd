@@ -65,8 +65,8 @@ describe('LanguageStep Container', () => {
     )
 
     waitFor(() => {
-      const categoryName = screen.getByText('English')
-      expect(categoryName).toBeInTheDocument()
+      const languageName = screen.getByText('English')
+      expect(languageName).toBeInTheDocument()
     })
   })
 })
