@@ -1,5 +1,5 @@
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
-import CreateRequest from './create-request-block/CreateRequest'
+import CreateRequest from '~/components/create-request/CreateRequest'
 
 const Categories = () => {
   return (
