@@ -1,17 +1,19 @@
 import { fadeAnimation } from '~/styles/app-theme/custom-animations'
-
+const containerCommon = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  height: { sm: '485px' },
+  paddingBottom: { xs: '30px', sm: '0px' },
+  flexDirection: { xs: 'column', md: 'row' },
+  ...fadeAnimation
+}
 export const styles = {
   container: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: { md: '25px', lg: '80px' },
-    height: { sm: '485px' },
-    paddingBottom: { xs: '30px', sm: '0px' },
-    flexDirection: { xs: 'column', md: 'row' },
-    ...fadeAnimation
+    ...containerCommon,
+    gap: { md: '25px', lg: '80px' }
   },
   imgContainer: {
-    display: 'flex',
+    ...containerCommon,
     alignItems: 'flex-start',
     width: { sm: '100%', md: '38%', lg: '50%' },
     maxWidth: { md: '370px', lg: '472px' },
@@ -23,7 +25,7 @@ export const styles = {
     marginBottom: '30px'
   },
   inputContainer: {
-    display: 'flex',
+    ...containerCommon,
     flexDirection: 'column',
     width: { sm: '100%', md: '100%', lg: '100%' },
     maxWidth: { md: '430px', lg: '455px' }
@@ -36,7 +38,7 @@ export const styles = {
     height: '65%'
   },
   inputItem: {
-    display: 'flex',
+    ...containerCommon,
     justifyContent: 'space-between',
     marginBottom: '30px'
   },
