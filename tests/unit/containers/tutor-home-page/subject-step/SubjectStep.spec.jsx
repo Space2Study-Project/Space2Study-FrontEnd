@@ -52,9 +52,7 @@ describe('SubjectsStep component test', () => {
   beforeEach(() => {
     render(<SubjectsStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
   })
-  afterEach(() => {
-    vi.restoreAllMocks()
-  })
+
   it('displays the study category image', () => {
     const studyCategoryImage = screen.getByAltText('subject img')
 
@@ -111,10 +109,8 @@ describe('SubjectsStep component test', () => {
 
     fireEvent.click(subjectAutocompleteField)
 
-    waitFor(() => {
-      const categoryName = screen.getByText('Subject1')
-      expect(categoryName).not.toBeInTheDocument()
-    })
+    const categoryName = screen.getByText('Subject1')
+    expect(categoryName).not.toBeInTheDocument()
   })
 
   it('handles subject change', () => {
