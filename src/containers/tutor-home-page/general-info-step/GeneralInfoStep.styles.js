@@ -4,8 +4,11 @@ export const styles = {
   container: {
     display: 'flex',
     justifyContent: 'space-between',
+    gap: { md: '10px', lg: '80px' },
+    paddingBottom: { xs: '30px', sm: '0px' },
     height: { sm: '485px' },
-    paddingBottom: { xs: '30px', sm: '0' },
+    width: '100%',
+    flexDirection: { xs: 'column', md: 'row' },
     ...fadeAnimation
   },
   form: {

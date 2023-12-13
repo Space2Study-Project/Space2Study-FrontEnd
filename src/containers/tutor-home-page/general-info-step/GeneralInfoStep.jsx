@@ -1,9 +1,7 @@
 import Box from '@mui/material/Box'
 import generalInfo from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { Autocomplete, TextField, Typography } from '@mui/material'
-import { useEffect, useState, useCallback } from 'react'
-import { LocationService } from '~/services/location-service'
-import { userService } from '~/services/user-service'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import useName from '~/hooks/use-name'
 import useCountryCityInfo from '~/hooks/use-country-city-info'
@@ -11,12 +9,10 @@ import useCountryCityInfo from '~/hooks/use-country-city-info'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 
 const GeneralInfoStep = ({ btnsBox }) => {
-  const { name, setName, lastName, setLastName } = useName()
+  const { name, lastName } = useName()
   const {
     countryList,
-    setCountryList,
     city,
-    setCity,
     selectedCountry,
     setSelectedCountry,
     selectedCity,
@@ -25,56 +21,6 @@ const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
 
   const [text, setText] = useState('')
-
-  const fetchCountries = useCallback(async () => {
-    if (countryList.length > 0) {
-      return
-    }
-    try {
-      const response = await LocationService.getCountries()
-      setCountryList(response.data)
-    } catch (e) {
-      console.log(`Error type: ${e.message}`)
-    }
-  }, [countryList])
-
-  useEffect(() => {
-    fetchCountries()
-  }, [fetchCountries])
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      if (selectedCountry) {
-        const response = await LocationService.getCities(selectedCountry)
-        setCity(response.data)
-      } else {
-        setCity([])
-      }
-    }
-    fetchCities()
-  }, [selectedCountry])
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const storedToken = localStorage.getItem('s2s')
-        if (storedToken) {
-          const [, payload] = storedToken.split('.')
-          const decodedPayload = JSON.parse(atob(payload))
-          const userId = decodedPayload.id
-          const userRole = decodedPayload.role
-          const response = await userService.getUserById(userId, userRole)
-          const firstName = response.data.firstName
-          setName(firstName)
-          const surName = response.data.lastName
-          setLastName(surName)
-        }
-      } catch (e) {
-        console.log(`Error message: ${e.message}`)
-      }
-    }
-    fetchUser()
-  }, [])
 
   const changeText = (e) => {
     setText(e.target.value)
@@ -105,7 +51,6 @@ const GeneralInfoStep = ({ btnsBox }) => {
               setSelectedCountry(newValue)
               setSelectedCity(null)
             }}
-            onFocus={fetchCountries}
             options={countryList}
             renderInput={(params) => (
               <TextField {...params} label={t('common.labels.country')} />
