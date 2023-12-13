@@ -3,6 +3,10 @@ import { beforeEach, vi } from 'vitest'
 
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
 
+vi.mock('~/context/snackbar-context', () => ({
+  useSnackBarContext: vi.fn(() => ({ setAlert: vi.fn() }))
+}))
+
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
@@ -10,6 +14,7 @@ vi.mock('react-i18next', () => ({
     }
   }
 }))
+
 vi.mock('~/components/app-button/AppButton', () => ({
   __esModule: true,
   default: function AppButtonMock({ children }) {
@@ -20,7 +25,12 @@ vi.mock('~/components/app-button/AppButton', () => ({
 vi.mock('~/services/category-service', () => ({
   categoryService: {
     getCategoriesNames: vi.fn(() =>
-      Promise.resolve({ data: ['Category1', 'Category2'] })
+      Promise.resolve({
+        data: [
+          { id: 1, name: 'Category1' },
+          { id: 2, name: 'Category2' }
+        ]
+      })
     )
   }
 }))
@@ -28,7 +38,12 @@ vi.mock('~/services/category-service', () => ({
 vi.mock('~/services/subject-service', () => ({
   subjectService: {
     getSubjectsNames: vi.fn(() =>
-      Promise.resolve({ data: ['Subject1', 'Subject2'] })
+      Promise.resolve({
+        data: [
+          { id: 1, name: 'Subject1' },
+          { id: 2, name: 'Subject2' }
+        ]
+      })
     )
   }
 }))
@@ -36,9 +51,6 @@ vi.mock('~/services/subject-service', () => ({
 describe('SubjectsStep component test', () => {
   beforeEach(() => {
     render(<SubjectsStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
-  })
-  afterEach(() => {
-    vi.restoreAllMocks()
   })
 
   it('displays the study category image', () => {
@@ -118,5 +130,123 @@ describe('SubjectsStep component test', () => {
   it('renders AppButton', () => {
     const appButton = screen.getByText(/becomeTutor.categories.btnText/i)
     expect(appButton).toBeInTheDocument()
+  })
+  it('handles category change correctly', () => {
+    const categoryAutocompleteField = screen.getByLabelText(
+      /becomeTutor.categories.mainSubjectsLabel/i
+    )
+
+    waitFor(() => {
+      fireEvent.click(categoryAutocompleteField)
+    })
+
+    waitFor(() => {
+      fireEvent.change(categoryAutocompleteField, {
+        target: { value: 'Category1' }
+      })
+    })
+
+    expect(categoryAutocompleteField).toHaveValue('Category1')
+  })
+  it('handles subject change correctly', () => {
+    const categoryAutocompleteField = screen.getByLabelText(
+      /becomeTutor.categories.mainSubjectsLabel/i
+    )
+    const subjectAutocompleteField = screen.getByLabelText(
+      /becomeTutor.categories.subjectLabel/i
+    )
+
+    fireEvent.click(categoryAutocompleteField)
+    fireEvent.change(categoryAutocompleteField, {
+      target: { value: 'Category1' }
+    })
+
+    expect(categoryAutocompleteField).toHaveValue('Category1')
+
+    fireEvent.click(subjectAutocompleteField)
+    fireEvent.change(subjectAutocompleteField, {
+      target: { value: 'Subject1' }
+    })
+
+    expect(subjectAutocompleteField).toHaveValue('Subject1')
+  })
+
+  it('handles error when fetching categories on mount', () => {
+    vi.mock('~/services/category-service', () => ({
+      categoryService: {
+        getCategoriesNames: vi.fn(() => Promise.reject('Fake error'))
+      }
+    }))
+
+    waitFor(() => {
+      const errorMessage = screen.getByText('common.errorMessages.fetchingData')
+      expect(errorMessage).toBeInTheDocument()
+    })
+  })
+  it('handles error when fetching subjects', () => {
+    vi.mock('~/services/subject-service', () => ({
+      subjectService: {
+        getSubjectsNames: vi.fn(() => Promise.reject('Fake error'))
+      }
+    }))
+
+    waitFor(() => {
+      const categoryAutocompleteField = screen.getByText(
+        /becomeTutor.categories.mainSubjectsLabel/i
+      )
+      fireEvent.click(categoryAutocompleteField)
+    })
+
+    waitFor(() => {
+      const categoryName = screen.getByText('Category1')
+      expect(categoryName).toBeInTheDocument()
+      fireEvent.click(categoryName)
+    })
+
+    waitFor(() => {
+      fireEvent.click(
+        screen.getByLabelText(/becomeTutor.categories.subjectsLabel/i)
+      )
+    })
+
+    waitFor(() => {
+      const errorMessage = screen.getByText('common.errorMessages.fetchingData')
+      expect(errorMessage).toBeInTheDocument()
+    })
+  })
+  it('handles catch category fetch error', () => {
+    vi.mock('~/services/category-service', () => ({
+      categoryService: {
+        getCategoriesNames: vi.fn(() => Promise.reject('Fake error'))
+      }
+    }))
+
+    console.error = vi.fn()
+
+    const categoryAutocompleteField = screen.getByLabelText(
+      /becomeTutor.categories.mainSubjectsLabel/i
+    )
+    fireEvent.click(categoryAutocompleteField)
+
+    waitFor(() => {
+      expect(console.error).toHaveBeenCalledWith(
+        expect.stringContaining('Error fetching categories')
+      )
+    })
+  })
+  it('handles category change correctly', async () => {
+    const categoryAutocompleteField = screen.getByLabelText(
+      /becomeTutor.categories.mainSubjectsLabel/i
+    )
+
+    fireEvent.click(categoryAutocompleteField)
+
+    await waitFor(() => {
+      fireEvent.change(categoryAutocompleteField, {
+        target: { value: 'Category1' }
+      })
+    })
+
+    expect(categoryAutocompleteField).toHaveValue('Category1')
   })
 })

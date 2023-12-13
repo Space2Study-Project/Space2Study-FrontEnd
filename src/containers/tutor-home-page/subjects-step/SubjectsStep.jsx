@@ -8,12 +8,16 @@ import AppButton from '~/components/app-button/AppButton'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 
+import { useSnackBarContext } from '~/context/snackbar-context'
+
 const SubjectsStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const [categories, setCategories] = useState([])
   const [subjects, setSubjects] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedSubject, setSelectedSubject] = useState(null)
+
+  const { setAlert } = useSnackBarContext()
 
   const fetchCategories = useCallback(async () => {
     if (categories.length > 0) {
@@ -24,8 +28,12 @@ const SubjectsStep = ({ btnsBox }) => {
       setCategories(response.data)
     } catch (error) {
       console.error('Error fetching categories:', error)
+      setAlert({
+        severity: 'error',
+        message: 'common.errorMessages.fetchingData'
+      })
     }
-  }, [categories])
+  }, [categories, setAlert])
 
   useEffect(() => {
     fetchCategories()
@@ -42,11 +50,14 @@ const SubjectsStep = ({ btnsBox }) => {
         }
       } catch (error) {
         console.error('Error fetching subjects:', error)
+        setAlert({
+          severity: 'error',
+          message: 'common.errorMessages.fetchingData'
+        })
       }
     }
-
     fetchSubjects()
-  }, [selectedCategory])
+  }, [selectedCategory, setAlert])
 
   const handleCategoryChange = (event, newValue) => {
     setSelectedCategory(newValue)
