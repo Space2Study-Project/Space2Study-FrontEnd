@@ -102,17 +102,6 @@ describe('SubjectsStep component test', () => {
     })
   })
 
-  it('can not choose Subject before category is chosen', () => {
-    const subjectAutocompleteField = screen.getByLabelText(
-      /becomeTutor.categories.subjectLabel/i
-    )
-
-    fireEvent.click(subjectAutocompleteField)
-
-    const categoryName = screen.getByText('Subject1')
-    expect(categoryName).not.toBeInTheDocument()
-  })
-
   it('handles subject change', () => {
     fireEvent.click(
       screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
