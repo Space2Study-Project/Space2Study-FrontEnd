@@ -52,7 +52,9 @@ describe('SubjectsStep component test', () => {
   beforeEach(() => {
     render(<SubjectsStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
   })
-
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
   it('displays the study category image', () => {
     const studyCategoryImage = screen.getByAltText('subject img')
 
