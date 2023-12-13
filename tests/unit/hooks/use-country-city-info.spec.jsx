@@ -2,10 +2,6 @@ import { vi } from 'vitest'
 import { act, renderHook } from '@testing-library/react-hooks'
 import useCountryCityInfo from '~/hooks/use-country-city-info'
 
-vi.mock('~/context/snackbar-context', () => ({
-  useSnackBarContext: vi.fn(() => ({ setAlert: vi.fn() }))
-}))
-
 vi.mock('~/services/location-service', () => ({
   LocationService: {
     getCountries: vi.fn(() =>
