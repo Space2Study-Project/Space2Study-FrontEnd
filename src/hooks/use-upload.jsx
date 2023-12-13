@@ -8,15 +8,18 @@ const useUpload = ({ files, validationData, emitter }) => {
     e.preventDefault()
     setIsDrag(true)
   }
+
   const dragLeave = (e) => {
     e.preventDefault()
     setIsDrag(false)
   }
+
   const dragDrop = (e) => {
     e.preventDefault()
-    const newFiles = [...files, ...e.dataTransfer.files].slice(
+    const maxQuantityFiles = validationData?.maxQuantityFiles || 0
+    const newFiles = [...(files || []), ...e.dataTransfer.files].slice(
       0,
-      validationData.maxQuantityFiles
+      maxQuantityFiles
     )
     const error = filesValidation(newFiles, validationData)
     setIsDrag(false)
@@ -26,10 +29,8 @@ const useUpload = ({ files, validationData, emitter }) => {
 
   const addFiles = (e) => {
     e.preventDefault()
-    const newFiles = [...files, ...e.target.files].slice(
-      0,
-      validationData.maxQuantityFiles
-    )
+    const maxQuantityFiles = validationData?.maxQuantityFiles || 0
+    const newFiles = [...files, ...e.target.files].slice(0, maxQuantityFiles)
     const error = filesValidation(newFiles, validationData)
     const filesForEmitter = error ? files : newFiles
     emitter({ files: filesForEmitter, error })

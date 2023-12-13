@@ -1,0 +1,51 @@
+/* .file-uploader__upload-button {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.file-uploader__custom-button {
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 20px;
+    height: 2px;
+    font-weight: bold;
+    font-size: medium;
+    color: black;
+} */
+
+/* .file-uploader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+} */
+
+.file-uploader__preview {
+    width: 300px;
+    height: 300px;
+    border: 1px dashed gray;
+    border-radius: 12px;
+}
+
+/* .file-uploader__my {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 50px;
+    align-items: flex-start;
+} */
+
+/* .file-uploader__file-name {
+    font-size: small;
+}
+
+.file-size {
+    font-size: small;
+} */
+
+/* .UploadPhoto {
+    margin-top: -10px;
+} */
