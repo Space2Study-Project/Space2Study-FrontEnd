@@ -4,7 +4,8 @@ import {
   Typography,
   Dialog,
   Autocomplete,
-  TextField
+  TextField,
+  IconButton
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import SubjectPhoto from '~/assets/img/student-home-page/subject_icon.png'
@@ -15,6 +16,7 @@ import { styles } from './CreateRequest.styles'
 import sendRequestPhoto from '~/assets/img/find-offer-request/sign-up/sendRequest.svg'
 import AppTextField from '../app-text-field/AppTextField'
 import { categoryService } from '~/services/category-service'
+import CloseIcon from '@mui/icons-material/Close'
 
 const CreateRequest = () => {
   const { t } = useTranslation()
@@ -106,6 +108,9 @@ const CreateRequest = () => {
         sx={styles.dialog}
       >
         <Box sx={styles.requestBox}>
+          <IconButton onClick={handleClose} sx={styles.icon}>
+            <CloseIcon />
+          </IconButton>
           <Box component='img' src={sendRequestPhoto} />
           <Box sx={styles.formBlock}>
             <Typography sx={styles.title} variant='h4'>
@@ -154,11 +159,7 @@ const CreateRequest = () => {
             <Typography sx={styles.descLength}>
               {reqDescription.length}/1000
             </Typography>
-            <Button
-              onClick={handleOpen}
-              sx={styles.btnSendRequest}
-              variant='contained'
-            >
+            <Button sx={styles.btnSendRequest} variant='contained'>
               Send Request
             </Button>
           </Box>

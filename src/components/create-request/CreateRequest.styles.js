@@ -65,5 +65,10 @@ export const styles = {
   },
   btnSendRequest: {
     marginTop: '20px'
+  },
+  icon: {
+    position: 'absolute',
+    top: 35,
+    right: 35
   }
 }
