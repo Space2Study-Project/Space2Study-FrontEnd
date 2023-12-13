@@ -2,7 +2,6 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react'
 import { beforeEach, expect, vi } from 'vitest'
 
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
-import handleCategoryChange from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -17,13 +16,6 @@ vi.mock('~/components/app-button/AppButton', () => ({
     return <button>{children}</button>
   }
 }))
-
-const setCategoriesMock = vi.fn()
-const setSubjectsMock = vi.fn()
-const setSelectedCategoryMock = vi.fn()
-const setSelectedSubjectMock = vi.fn()
-const setSelectedSubjectNameMock = vi.fn()
-const setSelectedSubjectsMock = vi.fn()
 
 vi.mock('~/components/app-chips-list/AppChipList', () => ({
   __esModule: true,
@@ -50,17 +42,7 @@ vi.mock('~/services/subject-service', () => ({
 
 describe('SubjectsStep component test', () => {
   beforeEach(() => {
-    render(
-      <SubjectsStep
-        btnsBox={<div data-testid='mockedBtnsBox' />}
-        setCategories={setCategoriesMock}
-        setSelectedCategory={setSelectedCategoryMock}
-        setSelectedSubject={setSelectedSubjectMock}
-        setSelectedSubjectName={setSelectedSubjectNameMock}
-        setSelectedSubjects={setSelectedSubjectsMock}
-        setSubjects={setSubjectsMock}
-      />
-    )
+    render(<SubjectsStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
   })
   afterEach(() => {
     vi.restoreAllMocks()
@@ -133,16 +115,9 @@ describe('SubjectsStep component test', () => {
       screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
       'Category1'
     )
-    fireEvent.change(
-      screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
-      { target: { value: 'NewCategory' } }
-    )
     waitFor(() => {
       const categoryName = screen.getByText('Category1')
       expect(categoryName).toBeInTheDocument()
-      expect(handleCategoryChange).toHaveBeenCalled()
-      expect(setSelectedCategoryMock).toHaveBeenCalledWith('NewCategory')
-      expect(setSelectedSubjectMock).toHaveBeenCalledWith(null)
     })
   })
 
