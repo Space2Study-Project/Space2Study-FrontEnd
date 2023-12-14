@@ -86,15 +86,15 @@ const CreateRequest = () => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.offerBlock}>
-        <Typography variant='h4'>
+        <Typography data-testid='title' variant='h4'>
           {userStatus === 'student'
             ? t('findOffers.offerRequestBlock.title.student')
             : t('findOffers.offerRequestBlock.title.tutor')}
         </Typography>
-        <Typography sx={styles.description}>
+        <Typography data-testid='description' sx={styles.description}>
           {t('findOffers.offerRequestBlock.description')}
         </Typography>
-        <Button onClick={handleOpen} variant='contained'>
+        <Button data-testid='button' onClick={handleOpen} variant='contained'>
           {userStatus === 'student'
             ? t('offerPage.createOffer.buttonTitles.student')
             : t('offerPage.createOffer.buttonTitles.tutor')}
@@ -102,24 +102,40 @@ const CreateRequest = () => {
       </Box>
       <Box alt='Circles' component='img' src={SubjectPhoto} />
       <Dialog
+        data-testid='dialog'
         maxWidth='100%'
         onClose={handleClose}
         open={open}
         sx={styles.dialog}
       >
         <Box sx={styles.requestBox}>
-          <IconButton onClick={handleClose} sx={styles.icon}>
+          <IconButton
+            data-testid='closeButton'
+            onClick={handleClose}
+            sx={styles.icon}
+          >
             <CloseIcon />
           </IconButton>
-          <Box component='img' src={sendRequestPhoto} />
+          <Box alt='Request photo' component='img' src={sendRequestPhoto} />
           <Box sx={styles.formBlock}>
-            <Typography sx={styles.title} variant='h4'>
+            <Typography
+              data-testid='titleDialog'
+              sx={styles.title}
+              variant='h4'
+            >
               {t('categoriesPage.newSubject.title')}
             </Typography>
-            <Typography sx={styles.descriptionRequest} variant='text'>
+            <Typography
+              data-testid='descDialog'
+              sx={styles.descriptionRequest}
+              variant='text'
+            >
               {t('categoriesPage.newSubject.description')}
             </Typography>
-            <Typography sx={styles.createSubjectTitle}>
+            <Typography
+              data-testid='newSubjectLabel'
+              sx={styles.createSubjectTitle}
+            >
               {t('categoriesPage.newSubject.subject')}
             </Typography>
             <AppTextField
@@ -128,7 +144,7 @@ const CreateRequest = () => {
               sx={styles.newSubjectField}
               value={reqSubject}
             />
-            <Typography sx={styles.addSubject}>
+            <Typography data-testid='addSubjectLabel' sx={styles.addSubject}>
               {t('categoriesPage.newSubject.category')}
             </Typography>
             <Autocomplete
@@ -137,14 +153,19 @@ const CreateRequest = () => {
                 setReqSelectedCategory(newValue)
               }}
               options={reqCategory}
-              placeholder='New subject'
               renderInput={(params) => (
-                <TextField {...params} label='Category' />
+                <TextField
+                  {...params}
+                  label={t('categoriesPage.newSubject.labels.category')}
+                />
               )}
               sx={styles.newSubjectField}
               value={reqSelectedCategory}
             />
-            <Typography sx={styles.subjectInfo}>
+            <Typography
+              data-testid='additionalInfoLabel'
+              sx={styles.subjectInfo}
+            >
               {t('categoriesPage.newSubject.info')}
             </Typography>
             <TextField
