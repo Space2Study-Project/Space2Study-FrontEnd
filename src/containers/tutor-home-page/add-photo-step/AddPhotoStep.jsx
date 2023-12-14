@@ -30,7 +30,7 @@ const AddPhotoStep = ({ btnsBox }) => {
         }}
         validationData={{ maxQuantityFiles: 1 }}
       >
-        <Box sx={style.previewContainer}>
+        <Box data-testid='AddPhoto-step' sx={style.previewContainer}>
           <img
             alt='AddPhoto step'
             className='file-uploader__preview'

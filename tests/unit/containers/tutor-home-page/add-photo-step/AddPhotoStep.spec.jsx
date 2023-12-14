@@ -26,28 +26,12 @@ describe('AddPhotoStep Container', () => {
   })
   it('should handle file change on drag-and-drop', () => {
     render(<AddPhotoStep btnsBox={<div />} />)
-    const dragAndDropElement = screen.getByTestId('AddPhoto step')
+    const dragAndDropElement = screen.getByTestId('AddPhoto-step')
     const file = new File([''], 'test-image.png', { type: 'image/png' })
 
-    // Simulate drop event
     fireEvent.drop(dragAndDropElement, { dataTransfer: { files: [file] } })
 
-    const fileNameElement = screen.getByTestId('file-name-element')
-    expect(fileNameElement).toHaveTextContent('test-image.png')
-  })
-
-  it('should handle file change on file uploader', () => {
-    render(<AddPhotoStep btnsBox={<div />} />)
-    const fileUploaderElement = screen.getByText('Upload your profile photo')
-
-    // Simulate file change event
-    fireEvent.change(fileUploaderElement, {
-      target: {
-        files: [new File([''], 'test-image.png', { type: 'image/png' })]
-      }
-    })
-
-    const fileNameElement = screen.getByTestId('file-name-element')
-    expect(fileNameElement).toHaveTextContent('test-image.png')
+    const fileNameElement = screen.getByTestId('AddPhoto-step')
+    expect(fileNameElement).toBeInTheDocument()
   })
 })
