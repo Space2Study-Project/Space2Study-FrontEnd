@@ -2,22 +2,16 @@ import { render, fireEvent, waitFor } from '@testing-library/react'
 import AppPopover from '~/components/app-popover/AppPopover'
 import { beforeEach, vi } from 'vitest'
 
-const onClose = vi.fn()
-const onClick = vi.fn()
-
-// vi.mock('@mui/material/Popover', () => ({
-//   __esModule: true,
-//   default: function () {
-//     return <div onClose={onClose} data-testid={'app-popover'}></div>
-//   }
-// }))
+const closePopover = vi.fn()
+const openPopover = vi.fn()
 
 const initialItems = <div data-testid='initial-items'>Initial Items</div>
 const showMoreElem = (
-  <div data-testid='show-more' onClick={onClick}>
+  <div data-testid='show-more' onClick={openPopover}>
     Show More
   </div>
 )
+
 describe('AppPopover component', () => {
   let getByTestId
 
@@ -35,7 +29,7 @@ describe('AppPopover component', () => {
 
   it('opens popover when showMoreElem is clicked', () => {
     fireEvent.click(getByTestId('show-more'))
-    expect(onClick).toHaveBeenCalled()
+    expect(openPopover).toHaveBeenCalled()
     expect(getByTestId('app-popover')).toBeInTheDocument()
   })
 
@@ -44,7 +38,7 @@ describe('AppPopover component', () => {
       fireEvent.click(getByTestId('show-more'))
       fireEvent.click(document)
 
-      expect(onClose).toHaveBeenCalled()
+      expect(closePopover).toHaveBeenCalledTimes(1)
       expect(getByTestId('app-popover')).not.toBeInTheDocument()
     })
   })
@@ -65,7 +59,7 @@ describe('AppPopover component', () => {
   it('triggers onClick handler when showMoreElem is clicked', () => {
     fireEvent.click(getByTestId('show-more'))
 
-    expect(onClick).toHaveBeenCalled()
+    expect(openPopover).toHaveBeenCalled()
     expect(getByTestId('app-popover')).toBeInTheDocument()
   })
 })
