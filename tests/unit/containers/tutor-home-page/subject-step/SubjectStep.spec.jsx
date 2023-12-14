@@ -237,6 +237,46 @@ describe('SubjectsStep component test', () => {
 
     expect(categoryAutocompleteField).toHaveValue('Category1')
   })
+})
+
+describe('SubjectsStep componentuse SnackBarContext test', () => {
+  it('fetches categories on mount', () => {
+    const { setAlert } = useSnackBarContext()
+
+    waitFor(() => {
+      expect(setAlert).not.toHaveBeenCalled()
+    })
+
+    waitFor(() => {
+      expect(setAlert).toHaveBeenCalledWith({
+        severity: 'error',
+        message: 'common.errorMessages.fetchingData'
+      })
+    })
+  })
+
+  it('handles error when fetching subjects', () => {
+    vi.mock('~/services/category-service', () => ({
+      categoryService: {
+        getCategoriesNames: vi.fn(() => Promise.reject('Fake error'))
+      }
+    }))
+
+    const { setAlert } = useSnackBarContext()
+
+    waitFor(() => {
+      fireEvent.click(
+        screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i)
+      )
+    })
+
+    waitFor(() => {
+      expect(setAlert).toHaveBeenCalledWith({
+        severity: 'error',
+        message: 'common.errorMessages.fetchingData'
+      })
+    })
+  })
   it('should use setAlert from useSnackBarContext', () => {
     expect(useSnackBarContext).toHaveBeenCalled()
 
