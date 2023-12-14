@@ -43,7 +43,7 @@ describe('AppPopover component', () => {
     })
   })
 
-  it('triggers openPopover function when clicking on the popover', async () => {
+  it('triggers openPopover function when clicking on the popover', () => {
     fireEvent.click(getByTestId('show-more'))
 
     const popover = getByTestId('app-popover')
@@ -51,7 +51,7 @@ describe('AppPopover component', () => {
 
     fireEvent.click(popover)
 
-    await waitFor(() => {
+    waitFor(() => {
       expect(popover).toBeInTheDocument()
     })
   })
