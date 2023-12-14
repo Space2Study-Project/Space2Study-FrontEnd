@@ -2,6 +2,7 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react'
 import { beforeEach, vi } from 'vitest'
 
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
+import { useSnackBarContext } from '~/context/snackbar-context'
 
 vi.mock('~/context/snackbar-context', () => ({
   useSnackBarContext: vi.fn(() => ({ setAlert: vi.fn() }))
@@ -235,5 +236,12 @@ describe('SubjectsStep component test', () => {
     })
 
     expect(categoryAutocompleteField).toHaveValue('Category1')
+  })
+  it('should use setAlert from useSnackBarContext', () => {
+    expect(useSnackBarContext).toHaveBeenCalled()
+
+    const { setAlert } = useSnackBarContext()
+
+    expect(typeof setAlert).toBe('function')
   })
 })
