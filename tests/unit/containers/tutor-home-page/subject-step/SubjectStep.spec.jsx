@@ -197,10 +197,8 @@ describe('SubjectsStep component test', () => {
       )
     })
 
-    waitFor(() => {
-      const errorMessage = screen.getByText('common.errorMessages.fetchingData')
-      expect(errorMessage).toBeInTheDocument()
-    })
+    const errorMessage = screen.getByText('common.errorMessages.fetchingData')
+    expect(errorMessage).toBeInTheDocument()
   })
   it('handles catch category fetch error', () => {
     vi.mock('~/services/category-service', () => ({
