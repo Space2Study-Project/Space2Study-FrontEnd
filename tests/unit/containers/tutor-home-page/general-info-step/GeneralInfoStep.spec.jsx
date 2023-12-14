@@ -100,14 +100,14 @@ describe('Tests for GeneralInfoStep component', () => {
       expect(countryName).toBeInTheDocument()
     })
   })
-  // it('can`t choose city before country is chosen', () => {
-  //   const cityAutocompleteField = screen.getByLabelText(/common.labels.city/i)
+  it('can`t choose city before country is chosen', () => {
+    const cityAutocompleteField = screen.getByLabelText(/common.labels.city/i)
 
-  //   fireEvent.click(cityAutocompleteField)
+    fireEvent.click(cityAutocompleteField)
 
-  //   waitFor(() => {
-  //     const cityName = screen.getByText('City1')
-  //     expect(cityName).not.toBeInTheDocument()
-  //   })
-  // })
+    waitFor(() => {
+      const cityName = screen.getByText('City1')
+      expect(cityName).not.toBeInTheDocument()
+    })
+  })
 })

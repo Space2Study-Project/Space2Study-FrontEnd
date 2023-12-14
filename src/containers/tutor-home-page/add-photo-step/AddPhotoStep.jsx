@@ -34,7 +34,7 @@ const AddPhotoStep = ({ btnsBox }) => {
           <img
             alt='AddPhoto step'
             className='file-uploader__preview'
-            src={imageURL ? imageURL : previewImage}
+            src={imageURL ?? previewImage}
             style={style.previewImage}
           />
         </Box>

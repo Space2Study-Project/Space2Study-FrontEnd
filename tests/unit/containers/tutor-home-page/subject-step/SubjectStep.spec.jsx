@@ -103,17 +103,17 @@ describe('SubjectsStep component test', () => {
     })
   })
 
-  // it('handles subject change', () => {
-  //   fireEvent.click(
-  //     screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
-  //     'Category1'
-  //   )
+  it('handles subject change', () => {
+    fireEvent.click(
+      screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
+      'Category1'
+    )
 
-  //   waitFor(() => {
-  //     const categoryName = screen.getByText('Category1')
-  //     expect(categoryName).toBeInTheDocument()
-  //   })
-  // })
+    waitFor(() => {
+      const categoryName = screen.getByText('Category1')
+      expect(categoryName).toBeInTheDocument()
+    })
+  })
 
   it('renders AppButton', () => {
     const appButton = screen.getByText(/becomeTutor.categories.btnText/i)
