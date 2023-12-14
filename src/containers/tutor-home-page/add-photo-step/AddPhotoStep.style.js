@@ -9,11 +9,5 @@ export const style = {
     height: { sm: '485px' },
     paddingBottom: { sm: '210px', md: '0px' },
     ...fadeAnimation
-  },
-  fileUploaderPreview: {
-    width: '300px',
-    height: '300px',
-    border: '1px dashed gray',
-    borderRadius: '12px'
   }
 }
