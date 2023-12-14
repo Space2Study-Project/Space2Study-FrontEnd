@@ -97,22 +97,22 @@ describe('SubjectsStep component test', () => {
 
     fireEvent.click(subjectAutocompleteField)
 
-    // waitFor(() => {
-    //   const categoryName = screen.getByText('Subject1')
-    //   expect(categoryName).not.toBeInTheDocument()
-    // })
+    waitFor(() => {
+      const categoryName = screen.getByText('Subject1')
+      expect(categoryName).not.toBeInTheDocument()
+    })
   })
 
-  // it('handles subject change', () => {
-  //   fireEvent.click(
-  //     screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
-  //     'Category1'
-  //   )
-  //   waitFor(() => {
-  //     const categoryName = screen.getByText('Category1')
-  //     expect(categoryName).toBeInTheDocument()
-  //   })
-  // })
+  it('handles subject change', () => {
+    fireEvent.click(
+      screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
+      'Category1'
+    )
+    waitFor(() => {
+      const categoryName = screen.getByText('Category1')
+      expect(categoryName).toBeInTheDocument()
+    })
+  })
 
   it('renders AppButton', () => {
     const appButton = screen.getByText(/becomeTutor.categories.btnText/i)
