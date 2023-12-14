@@ -216,11 +216,9 @@ describe('SubjectsStep component test', () => {
     )
     fireEvent.click(categoryAutocompleteField)
 
-    waitFor(() => {
-      expect(console.error).toHaveBeenCalledWith(
-        expect.stringContaining('Error fetching categories')
-      )
-    })
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining('Error fetching categories')
+    )
   })
   it('handles category change correctly', async () => {
     const categoryAutocompleteField = screen.getByLabelText(
