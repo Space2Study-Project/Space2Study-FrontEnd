@@ -21,7 +21,7 @@ const AddPhotoStep = ({ btnsBox }) => {
   }
 
   return (
-    <Box sx={style.root}>
+    <Box data-testid='AddPhoto step' sx={style.root}>
       <form className='file-uploader'>
         <DragAndDrop
           emitter={({ files, error }) => {

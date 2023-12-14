@@ -5,7 +5,7 @@ describe('AddPhotoStep Container', () => {
   it('should render the container', () => {
     const mockBtnsBox = <div data-testid='mock-btns-box'>Mock Buttons Box</div>
     render(<AddPhotoStep btnsBox={mockBtnsBox} />)
-    const containerElement = screen.getByText('AddPhoto step')
+    const containerElement = screen.getByTestId('AddPhoto step')
     expect(containerElement).toBeInTheDocument()
     const btnsBoxElement = screen.getByTestId('mock-btns-box')
     expect(btnsBoxElement).toBeInTheDocument()
