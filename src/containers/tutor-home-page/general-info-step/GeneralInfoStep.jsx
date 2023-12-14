@@ -1,31 +1,24 @@
 import Box from '@mui/material/Box'
 import generalInfo from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { Autocomplete, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import useName from '~/hooks/use-name'
-import useCountryCityInfo from '~/hooks/use-country-city-info'
-
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
+import { useContext } from 'react'
+import { SteperContext } from '~/components/user-steps-wrapper-with-data/UserStepsWrapperWithData'
 
 const GeneralInfoStep = ({ btnsBox }) => {
-  const { name, lastName } = useName()
   const {
+    t,
+    name,
+    lastName,
+    text,
+    changeText,
     countryList,
     city,
     selectedCountry,
     setSelectedCountry,
     selectedCity,
     setSelectedCity
-  } = useCountryCityInfo()
-  const { t } = useTranslation()
-
-  const [text, setText] = useState('')
-
-  const changeText = (e) => {
-    setText(e.target.value)
-  }
-
+  } = useContext(SteperContext)
   return (
     <Box data-testid='generalBox' sx={styles.container}>
       <Box>

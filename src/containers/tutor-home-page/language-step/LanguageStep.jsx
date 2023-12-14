@@ -1,20 +1,14 @@
 import { Box, Autocomplete, TextField, Typography } from '@mui/material'
-import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
-
 import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.styles'
 import languageImg from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
-
 import { languages } from './constants'
 
+import { useContext } from 'react'
+import { SteperContext } from '~/components/user-steps-wrapper-with-data/UserStepsWrapperWithData'
+
 const LanguageStep = ({ btnsBox }) => {
-  const { t } = useTranslation()
-  const [selectedLanguage, setSelectedLanguage] = useState(null)
-
-  const handleLanguageChange = (event, newValue) => {
-    setSelectedLanguage(newValue)
-  }
-
+  const { t, selectedLanguage, handleLanguageChange } =
+    useContext(SteperContext)
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import { useEffect } from 'react'
-import UserStepsWrapper from '~/components/user-steps-wrapper/UserStepsWrapper'
+import UserStepsWrapperWithData from '~/components/user-steps-wrapper-with-data/UserStepsWrapperWithData'
 
 import { useSelector } from 'react-redux'
 import Faq from '~/containers/student-home-page/faq/Faq'
@@ -15,7 +15,7 @@ const StudentHome = () => {
   useEffect(() => {
     if (isFirstLogin) {
       openModal({
-        component: <UserStepsWrapper userRole={userRole} />,
+        component: <UserStepsWrapperWithData userRole={userRole} />,
         paperProps: {
           sx: {
             maxHeight: { sm: '652px' },

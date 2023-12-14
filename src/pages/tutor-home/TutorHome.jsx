@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux'
 import { useModalContext } from '~/context/modal-context'
 
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
-import UserStepsWrapper from '~/components/user-steps-wrapper/UserStepsWrapper'
 
 import { styles } from '~/pages/tutor-home/TutorHome.styles'
+import UserStepsWrapperWithData from '~/components/user-steps-wrapper-with-data/UserStepsWrapperWithData'
 
 const TutorHome = () => {
   const { openModal } = useModalContext()
@@ -15,7 +15,7 @@ const TutorHome = () => {
   useEffect(() => {
     if (isFirstLogin) {
       openModal({
-        component: <UserStepsWrapper userRole={userRole} />,
+        component: <UserStepsWrapperWithData userRole={userRole} />,
         paperProps: {
           sx: styles.modal
         }
