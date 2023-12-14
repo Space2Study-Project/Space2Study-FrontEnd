@@ -55,7 +55,7 @@ const SubjectsStep = ({ btnsBox }) => {
     defaultQuantity: 2,
     handleChipDelete: (deletedItem) =>
       setSelectedSubjects(
-        [...selectedSubjects].filter((item) => item !== deletedItem)
+        selectedSubjects.filter((item) => item !== deletedItem)
       ),
     wrapperStyle: styles.chipList
   }
@@ -66,10 +66,8 @@ const SubjectsStep = ({ btnsBox }) => {
   const addSubjects = () => {
     setSelectedSubject(null)
     setSelectedSubjectName(true)
-    if (selectedSubject != null) {
-      if (!selectedSubjects.includes(selectedSubject.name)) {
-        setSelectedSubjects([...selectedSubjects, selectedSubject?.name])
-      }
+    if (!selectedSubjects.includes(selectedSubject.name)) {
+      setSelectedSubjects([...selectedSubjects, selectedSubject?.name])
     }
   }
   const handleSubjectChange = (event, newValue) => {
