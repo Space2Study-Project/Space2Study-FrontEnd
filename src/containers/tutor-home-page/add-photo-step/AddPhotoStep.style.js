@@ -11,6 +11,7 @@ export const style = {
     ...fadeAnimation
   },
   bottomBox: {
+    width: '450px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -20,8 +21,8 @@ export const style = {
     ...fadeAnimation
   },
   previewImage: {
-    width: '350px',
-    height: '350px',
+    width: '400px',
+    height: '400px',
     border: '1px dashed gray',
     borderRadius: '12px'
   }
