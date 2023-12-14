@@ -90,4 +90,20 @@ describe('useUpload custom hook test without errors', () => {
 
     expect(emitter).toHaveBeenCalledWith({ error: undefined, files: [] })
   })
+  it('should handle edge case: exceed max file size', () => {
+    const { result } = renderHook(() =>
+      useUpload({
+        files,
+        emitter,
+        validationData: { ...validationData, maxFileSize: 1 }
+      })
+    )
+
+    act(() => result.current.addFiles(getFakeTestEvent(fakeFile)))
+
+    expect(emitter).toHaveBeenCalledWith({
+      error: 'becomeTutor.documents.fileSizeError',
+      files: []
+    })
+  })
 })
