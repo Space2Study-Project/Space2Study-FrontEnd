@@ -96,10 +96,8 @@ describe('SubjectsStep component test', () => {
       'Category1'
     )
 
-    waitFor(() => {
-      const categoryName = screen.getByText('Category1')
-      expect(categoryName).toBeInTheDocument()
-    })
+    const categoryName = screen.getByText('Category1')
+    expect(categoryName).toBeInTheDocument()
   })
 
   it('renders AppButton', () => {
