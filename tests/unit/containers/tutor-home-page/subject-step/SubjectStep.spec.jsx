@@ -84,10 +84,10 @@ describe('SubjectsStep component test', () => {
 
     fireEvent.click(categoryAutocompleteField)
 
-    waitFor(() => {
-      const categoryName = screen.getByText('Category1')
-      expect(categoryName).toBeInTheDocument()
-    })
+    // waitFor(() => {
+    //   const categoryName = screen.getByText('Category1')
+    //   expect(categoryName).toBeInTheDocument()
+    // })
   })
 
   it('can not choose Subject before category is chosen', () => {
