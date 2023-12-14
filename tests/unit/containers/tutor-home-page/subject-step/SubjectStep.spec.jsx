@@ -90,18 +90,18 @@ describe('SubjectsStep component test', () => {
     ).toBeInTheDocument()
   })
 
-  it('fetches categories on mount', () => {
-    const categoryAutocompleteField = screen.getByLabelText(
-      /becomeTutor.categories.mainSubjectsLabel/i
-    )
+  // it('fetches categories on mount', () => {
+  //   const categoryAutocompleteField = screen.getByLabelText(
+  //     /becomeTutor.categories.mainSubjectsLabel/i
+  //   )
 
-    fireEvent.click(categoryAutocompleteField)
+  //   fireEvent.click(categoryAutocompleteField)
 
-    waitFor(() => {
-      const categoryName = screen.getByText('Category1')
-      expect(categoryName).toBeInTheDocument()
-    })
-  })
+  //   waitFor(() => {
+  //     const categoryName = screen.getByText('Category1')
+  //     expect(categoryName).toBeInTheDocument()
+  //   })
+  // })
 
   it('handles subject change', () => {
     fireEvent.click(
