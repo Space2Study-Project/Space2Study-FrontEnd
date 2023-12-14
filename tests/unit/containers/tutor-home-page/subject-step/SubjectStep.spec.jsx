@@ -5,7 +5,12 @@ import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsSte
 import { useSnackBarContext } from '~/context/snackbar-context'
 
 vi.mock('~/context/snackbar-context', () => ({
-  useSnackBarContext: vi.fn(() => ({ setAlert: vi.fn() }))
+  useSnackBarContext: vi.fn(() => ({
+    setAlert: vi.fn().mockReturnValue({
+      severity: 'error',
+      message: 'common.errorMessages.fetchingData'
+    })
+  }))
 }))
 
 vi.mock('react-i18next', () => ({
