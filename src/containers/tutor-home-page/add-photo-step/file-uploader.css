@@ -14,14 +14,14 @@
     font-weight: bold;
     font-size: medium;
     color: black;
-} */
+}
 
-/* .file-uploader {
+.file-uploader {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 12px;
-} */
+}  */
 
 .file-uploader__preview {
     width: 300px;
@@ -38,13 +38,13 @@
     align-items: flex-start;
 } */
 
-/* .file-uploader__file-name {
-    font-size: small;
-}
-
-.file-size {
+ /* .file-uploader__file-name {
     font-size: small;
 } */
+
+/* .file-size {
+    font-size: small;
+}  */
 
 /* .UploadPhoto {
     margin-top: -10px;
