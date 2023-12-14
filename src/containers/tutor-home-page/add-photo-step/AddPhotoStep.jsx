@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Box } from '@mui/material'
-import './file-uploader.css'
+
 import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
 import previewImage from '~/assets/img/guest-home-page/preview.png'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
@@ -22,20 +22,25 @@ const AddPhotoStep = ({ btnsBox }) => {
 
   return (
     <Box data-testid='AddPhoto step' sx={style.root}>
-      <form className='file-uploader'>
-        <DragAndDrop
-          emitter={({ files, error }) => {
-            if (!error && files.length > 0) {
-              handleFileChange(files[0])
-            }
-          }}
-          validationData={{ maxQuantityFiles: 1 }}
-        >
+      <DragAndDrop
+        emitter={({ files, error }) => {
+          if (!error && files.length > 0) {
+            handleFileChange(files[0])
+          }
+        }}
+        validationData={{ maxQuantityFiles: 1 }}
+      >
+        <Box sx={style.previewContainer}>
           <img
             alt='AddPhoto step'
             className='file-uploader__preview'
             src={imageURL ? imageURL : previewImage}
+            style={style.previewImage}
           />
+        </Box>
+      </DragAndDrop>
+      <Box sx={style.bottomBox}>
+        <Box>
           <FileUploader
             buttonText='Upload your profile photo'
             emitter={({ files, error }) => {
@@ -48,9 +53,9 @@ const AddPhotoStep = ({ btnsBox }) => {
           <div className='file-uploader__file-name'>
             {image ? image.name : ''}
           </div>
-          {btnsBox}
-        </DragAndDrop>
-      </form>
+        </Box>
+        <Box sx={{ marginTop: 'auto' }}>{btnsBox}</Box>
+      </Box>
     </Box>
   )
 }
