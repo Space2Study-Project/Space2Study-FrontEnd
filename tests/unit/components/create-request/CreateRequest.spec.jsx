@@ -1,18 +1,22 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { expect } from 'vitest'
+import { expect, vi } from 'vitest'
 import CreateRequest from '~/components/create-request/CreateRequest'
-
-vi.mock('~/services/category-service', () => ({
-  categoryService: {
-    getCategoriesNames: vi.fn(() =>
-      Promise.resolve({ data: ['Category1', 'Category2'] })
-    )
-  }
-}))
+import { userService } from '~/services/user-service'
+import { renderHook } from '@testing-library/react-hooks'
 
 vi.mock('~/services/user-service', () => ({
   userService: {
-    getUserStatus: vi.fn(() => Promise.resolve({ data: { status: 'tutor' } }))
+    getUserById: vi.fn(() => {
+      return Promise.resolve({ data: { status: 'student' } })
+    })
+  }
+}))
+
+vi.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str) => str
+    }
   }
 }))
 
@@ -22,7 +26,18 @@ describe('Testing CreateRequest component', () => {
   })
 
   it('should render title', () => {
-    const title = screen.getByTestId('title')
+    const title = screen.getByText(/findOffers.offerRequestBlock.title.tutor/i)
+    expect(title).toBeInTheDocument()
+  })
+  it('should render title', () => {
+    userService.getUserById.mockImplementation(
+      () => () => Promise.resolve({ data: { status: 'student' } })
+    )
+    const { result } = renderHook(userService)
+    expect(result).toBeTruthy()
+    const title = screen.getByText(
+      /findOffers.offerRequestBlock.title.student/i
+    )
     expect(title).toBeInTheDocument()
   })
   it('should render description', () => {
