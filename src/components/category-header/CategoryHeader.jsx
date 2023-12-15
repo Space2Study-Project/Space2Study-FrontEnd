@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Button, Icon, TextField, Typography } from '@mui/material'
+import { Box, Button, Icon, TextField, Typography, Link } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { styles } from './CategoryHeader.styles'
 import { ArrowForward } from '@mui/icons-material'
@@ -21,10 +21,10 @@ const CategoryHeader = () => {
           {t('categoriesPage.description')}
         </Typography>
       </Box>
-      <Button sx={styles.showOffersText}>
+      <Link href='~/pages/find-offers/FindOffers' sx={styles.showOffersText}>
         {t('categoriesPage.showAllOffers')}
         <Icon component={ArrowForward} sx={styles.showOffers} />
-      </Button>
+      </Link>
       <TextField
         InputProps={{
           startAdornment: <SearchIcon />,
@@ -41,6 +41,13 @@ const CategoryHeader = () => {
         sx={styles.searchField}
         value={search}
       ></TextField>
+      <Typography
+        data-testid='underInputText'
+        sx={styles.descRequest}
+        variant='text'
+      >
+        Can`t find what you are looking for? Request a new category or subject!
+      </Typography>
     </Box>
   )
 }

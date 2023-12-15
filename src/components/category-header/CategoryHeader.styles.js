@@ -8,15 +8,11 @@ export const styles = {
   showOffersText: {
     color: '#607D8B',
     padding: '0',
-    '&:hover': {
-      background: 'none'
-    },
     display: 'flex',
+    justifyContent: 'right',
     alignItems: 'center',
-    marginTop: '20px',
-    marginLeft: 'auto',
-    marginRight: '45px',
-    marginBottom: '20px'
+    margin: '20px 45px 20px auto',
+    textDecoration: 'none'
   },
   searchField: {
     [`& fieldset`]: {
@@ -25,5 +21,10 @@ export const styles = {
   },
   buttonSearch: {
     backgroundColor: '#607D8B'
+  },
+  descRequest: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '30px'
   }
 }
