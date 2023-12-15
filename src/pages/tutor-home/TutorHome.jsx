@@ -6,7 +6,7 @@ import { useModalContext } from '~/context/modal-context'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 
 import { styles } from '~/pages/tutor-home/TutorHome.styles'
-import UserStepsWrapperWithData from '~/components/user-steps-wrapper-with-data/UserStepsWrapperWithData'
+import UserStepsWrapper from '~/components/user-steps-wrapper/UserStepsWrapper'
 
 const TutorHome = () => {
   const { openModal } = useModalContext()
@@ -15,7 +15,7 @@ const TutorHome = () => {
   useEffect(() => {
     if (isFirstLogin) {
       openModal({
-        component: <UserStepsWrapperWithData userRole={userRole} />,
+        component: <UserStepsWrapper userRole={userRole} />,
         paperProps: {
           sx: styles.modal
         }

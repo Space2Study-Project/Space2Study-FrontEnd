@@ -2,8 +2,7 @@ import Box from '@mui/material/Box'
 import generalInfo from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { Autocomplete, TextField, Typography } from '@mui/material'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
-import { useContext } from 'react'
-import { SteperContext } from '~/components/user-steps-wrapper-with-data/UserStepsWrapperWithData'
+import { useStepsDataContext } from '~/context/steps-data-context'
 
 const GeneralInfoStep = ({ btnsBox }) => {
   const {
@@ -18,7 +17,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
     setSelectedCountry,
     selectedCity,
     setSelectedCity
-  } = useContext(SteperContext)
+  } = useStepsDataContext()
   return (
     <Box data-testid='generalBox' sx={styles.container}>
       <Box>

@@ -4,8 +4,7 @@ import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.
 import studyCategory from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 import AppButton from '~/components/app-button/AppButton'
-import { useContext } from 'react'
-import { SteperContext } from '~/components/user-steps-wrapper-with-data/UserStepsWrapperWithData'
+import { useStepsDataContext } from '~/context/steps-data-context'
 
 const SubjectsStep = ({ btnsBox }) => {
   const {
@@ -19,7 +18,7 @@ const SubjectsStep = ({ btnsBox }) => {
     handleCategoryChange,
     addSubjects,
     handleSubjectChange
-  } = useContext(SteperContext)
+  } = useStepsDataContext()
 
   return (
     <Box sx={styles.container}>

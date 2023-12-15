@@ -1,5 +1,10 @@
-import UserStepsWrapper from '../user-steps-wrapper/UserStepsWrapper'
-import { createContext, useState, useEffect, useCallback } from 'react'
+import {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useContext
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import useName from '~/hooks/use-name'
 import useCountryCityInfo from '~/hooks/use-country-city-info'
@@ -9,7 +14,7 @@ import { subjectService } from '~/services/subject-service'
 
 export const SteperContext = createContext()
 
-const UserStepsWrapperWithData = ({ userRole }) => {
+const StepsDataProvider = ({ children }) => {
   const { name, lastName } = useName()
   const {
     countryList,
@@ -139,8 +144,10 @@ const UserStepsWrapperWithData = ({ userRole }) => {
         t
       }}
     >
-      <UserStepsWrapper userRole={userRole} />
+      {children}
     </SteperContext.Provider>
   )
 }
-export default UserStepsWrapperWithData
+const useStepsDataContext = () => useContext(SteperContext)
+
+export { StepsDataProvider, useStepsDataContext }

@@ -2,13 +2,10 @@ import { Box, Autocomplete, TextField, Typography } from '@mui/material'
 import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.styles'
 import languageImg from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
 import { languages } from './constants'
-
-import { useContext } from 'react'
-import { SteperContext } from '~/components/user-steps-wrapper-with-data/UserStepsWrapperWithData'
+import { useStepsDataContext } from '~/context/steps-data-context'
 
 const LanguageStep = ({ btnsBox }) => {
-  const { t, selectedLanguage, handleLanguageChange } =
-    useContext(SteperContext)
+  const { t, selectedLanguage, handleLanguageChange } = useStepsDataContext()
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>

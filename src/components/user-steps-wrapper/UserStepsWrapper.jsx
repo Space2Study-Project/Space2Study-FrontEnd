@@ -16,6 +16,7 @@ import {
   tutorStepLabels
 } from '~/components/user-steps-wrapper/constants'
 import { student } from '~/constants'
+import { StepsDataProvider } from '~/context/steps-data-context'
 
 const UserStepsWrapper = ({ userRole }) => {
   const [isUserFetched, setIsUserFetched] = useState(false)
@@ -40,7 +41,9 @@ const UserStepsWrapper = ({ userRole }) => {
 
   return (
     <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
-      <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
+      <StepsDataProvider>
+        <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
+      </StepsDataProvider>
     </StepProvider>
   )
 }
