@@ -24,6 +24,7 @@ export const style = {
     width: '400px',
     height: '400px',
     border: '1px dashed gray',
-    borderRadius: '12px'
+    borderRadius: '12px',
+    objectFit: 'cover'
   }
 }
