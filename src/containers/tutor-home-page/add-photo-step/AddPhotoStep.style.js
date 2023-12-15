@@ -26,5 +26,8 @@ export const style = {
     border: '1px dashed gray',
     borderRadius: '12px',
     objectFit: 'cover'
+  },
+  photoError: {
+    color: 'red'
   }
 }

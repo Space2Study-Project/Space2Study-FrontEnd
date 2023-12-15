@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Box } from '@mui/material'
 
 import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
@@ -9,15 +9,30 @@ import FileUploader from '~/components/file-uploader/FileUploader'
 const AddPhotoStep = ({ btnsBox }) => {
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
+  const [errorPhoto, setErrorPhoto] = useState('')
+
   const fileReader = new FileReader()
 
   fileReader.onloadend = () => {
     setImageURL(fileReader.result)
   }
-
+  const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg']
+  const isFileTypeValid = (file) => {
+    return allowedFileTypes.includes(file.type)
+  }
   const handleFileChange = (file) => {
-    setImage(file)
-    fileReader.readAsDataURL(file)
+    setErrorPhoto('')
+
+    if (!file || !isFileTypeValid(file)) {
+      setErrorPhoto(
+        'Invalid file type. Please choose a PNG, JPEG, or JPG file.'
+      )
+      setImage(null)
+      setImageURL(previewImage)
+    } else {
+      setImage(file)
+      fileReader.readAsDataURL(file)
+    }
   }
 
   return (
@@ -33,7 +48,6 @@ const AddPhotoStep = ({ btnsBox }) => {
         <Box data-testid='AddPhoto-step' sx={style.previewContainer}>
           <img
             alt='AddPhoto step'
-            className='file-uploader__preview'
             src={imageURL ?? previewImage}
             style={style.previewImage}
           />
@@ -50,9 +64,19 @@ const AddPhotoStep = ({ btnsBox }) => {
             }}
             validationData={{ maxQuantityFiles: 1 }}
           />
-          <div className='file-uploader__file-name'>
+          <Box>
             {image ? image.name : ''}
-          </div>
+            {errorPhoto && (
+              <Box sx={style.photoError}>
+                {errorPhoto.split('.').map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))}
+              </Box>
+            )}
+          </Box>
         </Box>
         <Box sx={{ marginTop: 'auto' }}>{btnsBox}</Box>
       </Box>
