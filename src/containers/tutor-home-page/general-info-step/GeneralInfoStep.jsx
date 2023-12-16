@@ -1,16 +1,15 @@
 import Box from '@mui/material/Box'
 import generalInfo from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { Autocomplete, TextField, Typography } from '@mui/material'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import useName from '~/hooks/use-name'
 import useCountryCityInfo from '~/hooks/use-country-city-info'
 
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 
+const maxLength = 100
 const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
-  // const [firstName, setFirstName] = useState('')
-  // const [lastName, setLastName] = useState('')
   const { name, setName, lastName, setLastName } = useName()
   const {
     countryList,
@@ -35,6 +34,9 @@ const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
         selectedCity !== null
     )
   }, [name, lastName, selectedCountry, selectedCity, setIsFormValid])
+
+  const memoizedMaxLength = useMemo(() => maxLength, [])
+
   return (
     <Box data-testid='generalBox' sx={styles.container}>
       <Box>
@@ -87,7 +89,7 @@ const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
         </Box>
         <Box data-testid='descField'>
           <TextField
-            inputProps={{ maxLength: 100 }}
+            inputProps={{ maxLength: memoizedMaxLength }}
             multiline
             onChange={changeText}
             placeholder={t('becomeTutor.generalInfo.textFieldLabel')}
@@ -95,7 +97,9 @@ const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
             sx={styles.description}
             value={text}
           />
-          <Typography>{text.length}/100</Typography>
+          <Typography>
+            {text.length}/{memoizedMaxLength}
+          </Typography>
           <Typography sx={styles.warning}>
             {t('becomeTutor.generalInfo.helperText')}
           </Typography>
