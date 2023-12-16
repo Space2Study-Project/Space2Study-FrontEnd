@@ -1,5 +1,5 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react'
-import { beforeEach, vi } from 'vitest'
+import { beforeEach, expect, vi } from 'vitest'
 
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
 
@@ -14,6 +14,13 @@ vi.mock('~/components/app-button/AppButton', () => ({
   __esModule: true,
   default: function AppButtonMock({ children }) {
     return <button>{children}</button>
+  }
+}))
+
+vi.mock('~/components/app-chips-list/AppChipList', () => ({
+  __esModule: true,
+  default: function AppChipList() {
+    return <div>AppChipList</div>
   }
 }))
 

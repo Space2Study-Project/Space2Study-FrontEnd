@@ -64,12 +64,14 @@ const AddPhotoStep = ({ btnsBox }) => {
             }}
             validationData={{ maxQuantityFiles: 1 }}
           />
+
           <Box>
             {image ? image.name : ''}
             <Typography color='error' variant='caption'>
               {errorPhoto}
             </Typography>
           </Box>
+
         </Box>
         <Box sx={{ marginTop: 'auto' }}>{btnsBox}</Box>
       </Box>
