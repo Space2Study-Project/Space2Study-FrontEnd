@@ -66,7 +66,11 @@ const AddPhotoStep = ({ btnsBox }) => {
           />
           <Box>
             {image ? image.name : ''}
-            <Typography color='error' variant='caption'>
+            <Typography
+              color='error'
+              data-testid='ErrorPhoto'
+              variant='caption'
+            >
               {errorPhoto}
             </Typography>
           </Box>
