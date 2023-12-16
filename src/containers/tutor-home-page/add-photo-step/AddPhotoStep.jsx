@@ -50,9 +50,7 @@ const AddPhotoStep = ({ btnsBox }) => {
             }}
             validationData={{ maxQuantityFiles: 1 }}
           />
-          <div className='file-uploader__file-name'>
-            {image ? image.name : ''}
-          </div>
+          <Box>{image ? image.name : ''}</Box>
         </Box>
         <Box sx={{ marginTop: 'auto' }}>{btnsBox}</Box>
       </Box>
