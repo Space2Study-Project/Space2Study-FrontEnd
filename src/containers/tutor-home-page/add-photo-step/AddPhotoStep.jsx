@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Box } from '@mui/material'
-
 import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
 import previewImage from '~/assets/img/guest-home-page/preview.png'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import FileUploader from '~/components/file-uploader/FileUploader'
 import Typography from '@mui/material/Typography'
+
 const AddPhotoStep = ({ btnsBox }) => {
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
