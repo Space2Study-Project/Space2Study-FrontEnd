@@ -5,7 +5,7 @@ import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.
 import previewImage from '~/assets/img/guest-home-page/preview.png'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import FileUploader from '~/components/file-uploader/FileUploader'
-
+import Typography from '@mui/material/Typography'
 const AddPhotoStep = ({ btnsBox }) => {
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
@@ -66,16 +66,9 @@ const AddPhotoStep = ({ btnsBox }) => {
           />
           <Box>
             {image ? image.name : ''}
-            {errorPhoto && (
-              <Box sx={style.photoError}>
-                {errorPhoto.split('.').map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))}
-              </Box>
-            )}
+            <Typography color='error' variant='caption'>
+              {errorPhoto}
+            </Typography>
           </Box>
         </Box>
         <Box sx={{ marginTop: 'auto' }}>{btnsBox}</Box>
