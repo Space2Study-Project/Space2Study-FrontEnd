@@ -33,8 +33,15 @@ vi.mock('react-i18next', () => ({
 }))
 
 describe('Tests for GeneralInfoStep component', () => {
+  let setIsFormValidMock
   beforeEach(() => {
-    render(<GeneralInfoStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
+    setIsFormValidMock = vi.fn()
+    render(
+      <GeneralInfoStep
+        btnsBox={<div data-testid='mockedBtnsBox' />}
+        setIsFormValid={setIsFormValidMock}
+      />
+    )
   })
   afterEach(() => {
     vi.restoreAllMocks()
@@ -49,18 +56,24 @@ describe('Tests for GeneralInfoStep component', () => {
       expect.stringContaining('general-info.svg')
     )
   })
-  it('should check if the buttons passed in props are in the document', () => {
+  it('should check if the buttons and setIsFormValid are passed as props are in the document', () => {
     const mockBtnsBox = (
       <div>
         <button data-testid='button-1'>Button 1</button>
         <button data-testid='button-2'>Button 2</button>
       </div>
     )
-    render(<GeneralInfoStep btnsBox={mockBtnsBox} />)
+    render(
+      <GeneralInfoStep
+        btnsBox={mockBtnsBox}
+        setIsFormValid={setIsFormValidMock}
+      />
+    )
     const button1Element = screen.getByTestId('button-1')
     expect(button1Element).toBeInTheDocument()
     const button2Element = screen.getByTestId('button-2')
     expect(button2Element).toBeInTheDocument()
+    expect(setIsFormValidMock).toHaveBeenCalled()
   })
   it('should render Autocomplete inputs', () => {
     const inputContainer = screen.getByTestId('selects')
