@@ -1,12 +1,14 @@
 import { Box, Autocomplete, TextField, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState, useCallback } from 'react'
+
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import studyCategory from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
 
-import AppButton from '~/components/app-button/AppButton'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
+import AppChipList from '~/components/app-chips-list/AppChipList'
+import AppButton from '~/components/app-button/AppButton'
+import { useEffect, useState, useCallback } from 'react'
 
 import { useSnackBarContext } from '~/context/snackbar-context'
 
@@ -16,6 +18,8 @@ const SubjectsStep = ({ btnsBox }) => {
   const [subjects, setSubjects] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedSubject, setSelectedSubject] = useState(null)
+  const [selectedSubjectName, setSelectedSubjectName] = useState(true)
+  const [selectedSubjects, setSelectedSubjects] = useState([])
 
   const { setAlert } = useSnackBarContext()
 
@@ -59,12 +63,30 @@ const SubjectsStep = ({ btnsBox }) => {
     fetchSubjects()
   }, [selectedCategory, setAlert])
 
+  const dataChipList = {
+    items: [...selectedSubjects],
+    defaultQuantity: 2,
+    handleChipDelete: (deletedItem) =>
+      setSelectedSubjects(
+        selectedSubjects.filter((item) => item !== deletedItem)
+      ),
+    wrapperStyle: styles.chipList
+  }
+
   const handleCategoryChange = (event, newValue) => {
     setSelectedCategory(newValue)
     setSelectedSubject(null)
   }
+  const addSubjects = () => {
+    setSelectedSubject(null)
+    setSelectedSubjectName(true)
+    if (!selectedSubjects.includes(selectedSubject.name)) {
+      setSelectedSubjects([...selectedSubjects, selectedSubject?.name])
+    }
+  }
   const handleSubjectChange = (event, newValue) => {
     setSelectedSubject(newValue)
+    setSelectedSubjectName(false)
   }
 
   return (
@@ -109,9 +131,16 @@ const SubjectsStep = ({ btnsBox }) => {
             value={selectedSubject}
           />
         </Box>
-        <AppButton sx={styles.appButton}>
+        <AppButton
+          disabled={selectedSubjectName}
+          onClick={addSubjects}
+          sx={styles.appButton}
+        >
           {t('becomeTutor.categories.btnText')}
         </AppButton>
+        <Box sx={styles.appChipList}>
+          <AppChipList {...dataChipList} />
+        </Box>
         <Box sx={styles.btnsBox}>{btnsBox}</Box>
       </Box>
     </Box>

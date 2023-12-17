@@ -34,7 +34,7 @@ const useName = () => {
     fetchUser()
   }, [setAlert])
 
-  return { name, lastName }
+  return { name, setName, lastName, setLastName }
 }
 
 export default useName
