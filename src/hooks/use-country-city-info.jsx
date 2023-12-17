@@ -18,7 +18,7 @@ const useCountryCityInfo = () => {
       const response = await LocationService.getCountries()
       setCountryList(response.data)
     } catch (e) {
-      console.log(`Error type: ${e.message}`)
+      console.error(`Error type: ${e.message}`)
       setAlert({
         severity: 'error',
         message: 'common.errorMessages.fetchingData'
