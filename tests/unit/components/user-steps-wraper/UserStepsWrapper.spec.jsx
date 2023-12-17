@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import UserStepsWrapper from '~/components/user-steps-wrapper/UserStepsWrapper'
 
 const mockDispatch = vi.fn()
@@ -16,6 +16,8 @@ vi.mock('react-redux', async () => {
 describe('UserStepsWrapper Component', () => {
   it('renders UserStepsWrapper component', () => {
     render(<UserStepsWrapper userRole='student' />)
-    expect(screen.getByTestId('nameInputs')).toBeInTheDocument()
+    waitFor(() => {
+      expect(screen.getByTestId('nameInputs')).toBeInTheDocument()
+    })
   })
 })
