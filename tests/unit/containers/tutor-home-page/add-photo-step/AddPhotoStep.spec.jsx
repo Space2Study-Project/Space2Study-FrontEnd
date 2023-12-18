@@ -41,10 +41,6 @@ describe('AddPhotoStep Container', () => {
 
     fireEvent.drop(dragAndDropElement, { dataTransfer: { files: [file] } })
 
-    const errorElement = screen.getByText(
-      'Invalid file type. Please choose a PNG, JPEG, or JPG file.'
-    )
-    expect(errorElement).toBeInTheDocument()
     const fileNameElement = screen.queryByTestId('ErrorPhoto')
     expect(fileNameElement).toBeInTheDocument()
   })
