@@ -57,6 +57,7 @@
     "numbersOnly": "Please enter a valid number",
     "positiveNumbersOnly": "Please enter a positive number",
     "errorPhotoValid": "Invalid file type. Please choose a PNG, JPEG, or JPG file."
+    "fetchingData": "Failed to upload data. Please try again."
   },
   "levels": {
     "beginner": "Beginner",
