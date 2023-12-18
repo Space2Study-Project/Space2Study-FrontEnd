@@ -20,16 +20,19 @@ import { StepsDataProvider } from '~/context/steps-data-context'
 
 const UserStepsWrapper = ({ userRole }) => {
   const [isUserFetched, setIsUserFetched] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(markFirstLoginComplete())
   }, [dispatch])
 
+  const stepLabels = userRole === student ? studentStepLabels : tutorStepLabels
   const childrenArr = [
     <GeneralInfoStep
       isUserFetched={isUserFetched}
       key='1'
+      setIsFormValid={setIsFormValid}
       setIsUserFetched={setIsUserFetched}
     />,
     <SubjectsStep key='2' />,
@@ -37,12 +40,12 @@ const UserStepsWrapper = ({ userRole }) => {
     <AddPhotoStep key='4' />
   ]
 
-  const stepLabels = userRole === student ? studentStepLabels : tutorStepLabels
-
   return (
     <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
       <StepsDataProvider>
-        <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
+        <StepWrapper isFormValid={isFormValid} steps={stepLabels}>
+          {childrenArr}
+        </StepWrapper>
       </StepsDataProvider>
     </StepProvider>
   )

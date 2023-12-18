@@ -8,15 +8,18 @@ const GeneralInfoStep = ({ btnsBox }) => {
   const {
     t,
     name,
+    setName,
     lastName,
-    text,
-    changeText,
+    setLastName,
     countryList,
     city,
     selectedCountry,
     setSelectedCountry,
     selectedCity,
-    setSelectedCity
+    setSelectedCity,
+    text,
+    changeText,
+    memoizedMaxLength
   } = useStepsDataContext()
   return (
     <Box data-testid='generalBox' sx={styles.container}>
@@ -27,12 +30,20 @@ const GeneralInfoStep = ({ btnsBox }) => {
         <Typography>{t('becomeTutor.generalInfo.title')}</Typography>
         <Box data-testid='nameInputs' sx={styles.appearance}>
           <TextField
+            error={!name}
+            helperText={!name ? 'This field cannot be empty' : ''}
+            onChange={(e) => setName(e.target.value)}
             placeholder={t('common.labels.firstName')}
+            required
             sx={styles.textField}
             value={name}
           />
           <TextField
+            error={!lastName}
+            helperText={!lastName ? 'This field cannot be empty' : ''}
+            onChange={(e) => setLastName(e.target.value)}
             placeholder={t('common.labels.lastName')}
+            required
             sx={styles.textField}
             value={lastName}
           />
@@ -62,15 +73,17 @@ const GeneralInfoStep = ({ btnsBox }) => {
         </Box>
         <Box data-testid='descField'>
           <TextField
-            inputProps={{ maxLength: 70 }}
+            inputProps={{ maxLength: memoizedMaxLength }}
             multiline
             onChange={changeText}
             placeholder={t('becomeTutor.generalInfo.textFieldLabel')}
-            rows={4}
+            rows={5}
             sx={styles.description}
             value={text}
           />
-          <Typography>{text.length}/70</Typography>
+          <Typography>
+            {text.length}/{memoizedMaxLength}
+          </Typography>
           <Typography sx={styles.warning}>
             {t('becomeTutor.generalInfo.helperText')}
           </Typography>

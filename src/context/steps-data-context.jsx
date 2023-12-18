@@ -3,19 +3,21 @@ import {
   useState,
   useEffect,
   useCallback,
-  useContext
+  useContext,
+  useMemo
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import useName from '~/hooks/use-name'
-import useCountryCityInfo from '~/hooks/use-country-city-info'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
-
+import useName from '~/hooks/use-name'
+import useCountryCityInfo from '~/hooks/use-country-city-info'
 export const SteperContext = createContext()
 
 const StepsDataProvider = ({ children }) => {
-  const { name, lastName } = useName()
+  const { t } = useTranslation()
+  const maxLength = 100
+  const { name, setName, lastName, setLastName } = useName()
   const {
     countryList,
     city,
@@ -24,13 +26,20 @@ const StepsDataProvider = ({ children }) => {
     selectedCity,
     setSelectedCity
   } = useCountryCityInfo()
-  const { t } = useTranslation()
 
   const [text, setText] = useState('')
 
   const changeText = (e) => {
     setText(e.target.value)
   }
+  useEffect(() => {
+    name !== '' &&
+      lastName !== '' &&
+      selectedCountry !== null &&
+      selectedCity !== null
+  }, [name, lastName, selectedCountry, selectedCity])
+
+  const memoizedMaxLength = useMemo(() => maxLength, [])
 
   const [selectedLanguage, setSelectedLanguage] = useState(null)
 
@@ -107,15 +116,18 @@ const StepsDataProvider = ({ children }) => {
 
   const generalInfoStepData = {
     name,
+    setName,
     lastName,
-    text,
-    changeText,
+    setLastName,
     countryList,
     city,
     selectedCountry,
     setSelectedCountry,
     selectedCity,
-    setSelectedCity
+    setSelectedCity,
+    text,
+    changeText,
+    memoizedMaxLength
   }
 
   const subjectsStepData = {
