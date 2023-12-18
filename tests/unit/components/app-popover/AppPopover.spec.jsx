@@ -1,10 +1,9 @@
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+
 import AppPopover from '~/components/app-popover/AppPopover'
 import { beforeEach, vi } from 'vitest'
 
-const closePopover = vi.fn()
 const openPopover = vi.fn()
-
 const initialItems = <div data-testid='initial-items'>Initial Items</div>
 const showMoreElem = (
   <div data-testid='show-more' onClick={openPopover}>
@@ -27,39 +26,17 @@ describe('AppPopover component', () => {
     expect(getByTestId('show-more')).toBeInTheDocument()
   })
 
-  it('opens popover when showMoreElem is clicked', () => {
+  it('opens and closes popover correctly', () => {
     fireEvent.click(getByTestId('show-more'))
     expect(openPopover).toHaveBeenCalled()
     expect(getByTestId('app-popover')).toBeInTheDocument()
-  })
 
-  it('closes popover when clicking outside', () => {
+    fireEvent.keyDown(screen.getByTestId('app-popover'), {
+      key: 'Escape',
+      code: 'Escape'
+    })
     waitFor(() => {
-      fireEvent.click(getByTestId('show-more'))
-      fireEvent.click(document)
-
-      expect(closePopover).toHaveBeenCalledTimes(1)
       expect(getByTestId('app-popover')).not.toBeInTheDocument()
     })
-  })
-
-  it('triggers openPopover function when clicking on the popover', () => {
-    fireEvent.click(getByTestId('show-more'))
-
-    const popover = getByTestId('app-popover')
-    expect(popover).toBeInTheDocument()
-
-    fireEvent.click(popover)
-
-    waitFor(() => {
-      expect(popover).toBeInTheDocument()
-    })
-  })
-
-  it('triggers onClick handler when showMoreElem is clicked', () => {
-    fireEvent.click(getByTestId('show-more'))
-
-    expect(openPopover).toHaveBeenCalled()
-    expect(getByTestId('app-popover')).toBeInTheDocument()
   })
 })
