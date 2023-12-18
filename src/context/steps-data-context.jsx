@@ -114,6 +114,19 @@ const StepsDataProvider = ({ children }) => {
     fetchSubjects()
   }, [selectedCategory])
 
+  const [image, setImage] = useState()
+  const [imageURL, setImageURL] = useState()
+  const fileReader = new FileReader()
+
+  fileReader.onloadend = () => {
+    setImageURL(fileReader.result)
+  }
+
+  const handleFileChange = (file) => {
+    setImage(file)
+    fileReader.readAsDataURL(file)
+  }
+
   const generalInfoStepData = {
     name,
     setName,
@@ -147,12 +160,19 @@ const StepsDataProvider = ({ children }) => {
     handleLanguageChange
   }
 
+  const addPhotoStepData = {
+    image,
+    imageURL,
+    handleFileChange
+  }
+
   return (
     <SteperContext.Provider
       value={{
         ...generalInfoStepData,
         ...subjectsStepData,
         ...languageStepData,
+        ...addPhotoStepData,
         t
       }}
     >

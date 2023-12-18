@@ -1,25 +1,12 @@
-import { useState } from 'react'
+import { useStepsDataContext } from '~/context/steps-data-context'
 import { Box } from '@mui/material'
-
 import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
 import previewImage from '~/assets/img/guest-home-page/preview.png'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import FileUploader from '~/components/file-uploader/FileUploader'
 
 const AddPhotoStep = ({ btnsBox }) => {
-  const [image, setImage] = useState()
-  const [imageURL, setImageURL] = useState()
-  const fileReader = new FileReader()
-
-  fileReader.onloadend = () => {
-    setImageURL(fileReader.result)
-  }
-
-  const handleFileChange = (file) => {
-    setImage(file)
-    fileReader.readAsDataURL(file)
-  }
-
+  const { image, imageURL, handleFileChange } = useStepsDataContext()
   return (
     <Box data-testid='AddPhoto step' sx={style.root}>
       <DragAndDrop
