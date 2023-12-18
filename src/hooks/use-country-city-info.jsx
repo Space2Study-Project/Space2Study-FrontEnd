@@ -1,11 +1,14 @@
 import { useState, useEffect, useCallback } from 'react'
 import { LocationService } from '~/services/location-service'
 
+import { useSnackBarContext } from '~/context/snackbar-context'
+
 const useCountryCityInfo = () => {
   const [countryList, setCountryList] = useState([])
   const [city, setCity] = useState([])
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [selectedCity, setSelectedCity] = useState(null)
+  const { setAlert } = useSnackBarContext()
 
   const fetchCountries = useCallback(async () => {
     if (countryList.length > 0) {
@@ -15,9 +18,13 @@ const useCountryCityInfo = () => {
       const response = await LocationService.getCountries()
       setCountryList(response.data)
     } catch (e) {
-      console.log(`Error type: ${e.message}`)
+      console.error(`Error type: ${e.message}`)
+      setAlert({
+        severity: 'error',
+        message: 'common.errorMessages.fetchingData'
+      })
     }
-  }, [countryList])
+  }, [countryList, setAlert])
 
   useEffect(() => {
     fetchCountries()
@@ -25,15 +32,24 @@ const useCountryCityInfo = () => {
 
   useEffect(() => {
     const fetchCities = async () => {
-      if (selectedCountry) {
-        const response = await LocationService.getCities(selectedCountry)
-        setCity(response.data)
-      } else {
-        setCity([])
+      try {
+        if (selectedCountry) {
+          const response = await LocationService.getCities(selectedCountry)
+          setCity(response.data)
+        } else {
+          setCity([])
+        }
+      } catch (error) {
+        console.error('Error fetching cities:', error)
+        setAlert({
+          severity: 'error',
+          message: 'common.errorMessages.fetchingData'
+        })
       }
     }
+
     fetchCities()
-  }, [selectedCountry])
+  }, [selectedCountry, setAlert])
 
   return {
     countryList,

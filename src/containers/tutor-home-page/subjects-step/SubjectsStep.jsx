@@ -10,6 +10,8 @@ import AppChipList from '~/components/app-chips-list/AppChipList'
 import AppButton from '~/components/app-button/AppButton'
 import { useEffect, useState, useCallback } from 'react'
 
+import { useSnackBarContext } from '~/context/snackbar-context'
+
 const SubjectsStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const [categories, setCategories] = useState([])
@@ -18,6 +20,8 @@ const SubjectsStep = ({ btnsBox }) => {
   const [selectedSubject, setSelectedSubject] = useState(null)
   const [selectedSubjectName, setSelectedSubjectName] = useState(true)
   const [selectedSubjects, setSelectedSubjects] = useState([])
+
+  const { setAlert } = useSnackBarContext()
 
   const fetchCategories = useCallback(async () => {
     if (categories.length > 0) {
@@ -28,8 +32,12 @@ const SubjectsStep = ({ btnsBox }) => {
       setCategories(response.data)
     } catch (error) {
       console.error('Error fetching categories:', error)
+      setAlert({
+        severity: 'error',
+        message: 'common.errorMessages.fetchingData'
+      })
     }
-  }, [categories])
+  }, [categories, setAlert])
 
   useEffect(() => {
     fetchCategories()
@@ -46,10 +54,15 @@ const SubjectsStep = ({ btnsBox }) => {
         }
       } catch (error) {
         console.error('Error fetching subjects:', error)
+        setAlert({
+          severity: 'error',
+          message: 'common.errorMessages.fetchingData'
+        })
       }
     }
     fetchSubjects()
-  }, [selectedCategory])
+  }, [selectedCategory, setAlert])
+
   const dataChipList = {
     items: [...selectedSubjects],
     defaultQuantity: 2,
@@ -59,6 +72,7 @@ const SubjectsStep = ({ btnsBox }) => {
       ),
     wrapperStyle: styles.chipList
   }
+
   const handleCategoryChange = (event, newValue) => {
     setSelectedCategory(newValue)
     setSelectedSubject(null)
