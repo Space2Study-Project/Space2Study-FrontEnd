@@ -5,6 +5,7 @@ import previewImage from '~/assets/img/guest-home-page/preview.png'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import FileUploader from '~/components/file-uploader/FileUploader'
 import Typography from '@mui/material/Typography'
+import common from '~/constants/translations/en/common.json'
 
 const AddPhotoStep = ({ btnsBox }) => {
   const [image, setImage] = useState()
@@ -24,9 +25,7 @@ const AddPhotoStep = ({ btnsBox }) => {
     setErrorPhoto('')
 
     if (!file || !isFileTypeValid(file)) {
-      setErrorPhoto(
-        'Invalid file type. Please choose a PNG, JPEG, or JPG file.'
-      )
+      setErrorPhoto(common.errorMessages.errorPhotoValid)
       setImage(null)
       setImageURL(previewImage)
     } else {
