@@ -1,12 +1,13 @@
 import { useStepsDataContext } from '~/context/steps-data-context'
 import { Box } from '@mui/material'
 import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
-import previewImage from '~/assets/img/guest-home-page/preview.png'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import FileUploader from '~/components/file-uploader/FileUploader'
+import Typography from '@mui/material/Typography'
 
 const AddPhotoStep = ({ btnsBox }) => {
-  const { image, imageURL, handleFileChange } = useStepsDataContext()
+  const { image, imageURL, handleFileChange, errorPhoto, previewImage } =
+    useStepsDataContext()
   return (
     <Box data-testid='AddPhoto step' sx={style.root}>
       <DragAndDrop
@@ -20,7 +21,6 @@ const AddPhotoStep = ({ btnsBox }) => {
         <Box data-testid='AddPhoto-step' sx={style.previewContainer}>
           <img
             alt='AddPhoto step'
-            className='file-uploader__preview'
             src={imageURL ?? previewImage}
             style={style.previewImage}
           />
@@ -37,7 +37,16 @@ const AddPhotoStep = ({ btnsBox }) => {
             }}
             validationData={{ maxQuantityFiles: 1 }}
           />
-          <Box>{image ? image.name : ''}</Box>
+          <Box>
+            {image ? image.name : ''}
+            <Typography
+              color='error'
+              data-testid='ErrorPhoto'
+              variant='caption'
+            >
+              {errorPhoto}
+            </Typography>
+          </Box>
         </Box>
         <Box sx={{ marginTop: 'auto' }}>{btnsBox}</Box>
       </Box>

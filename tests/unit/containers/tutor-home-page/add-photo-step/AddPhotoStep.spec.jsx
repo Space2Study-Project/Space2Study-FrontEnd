@@ -34,4 +34,14 @@ describe('AddPhotoStep Container', () => {
     const fileNameElement = screen.getByTestId('AddPhoto-step')
     expect(fileNameElement).toBeInTheDocument()
   })
+  it('should handle file change on drag-and-drop with invalid file type', () => {
+    render(<AddPhotoStep btnsBox={<div />} />)
+    const dragAndDropElement = screen.getByTestId('AddPhoto-step')
+    const file = new File([''], 'test-image.txt', { type: 'text/plain' })
+
+    fireEvent.drop(dragAndDropElement, { dataTransfer: { files: [file] } })
+
+    const fileNameElement = screen.queryByTestId('ErrorPhoto')
+    expect(fileNameElement).toBeInTheDocument()
+  })
 })

@@ -12,6 +12,9 @@ import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import useName from '~/hooks/use-name'
 import useCountryCityInfo from '~/hooks/use-country-city-info'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import common from '~/constants/translations/en/common.json'
+import previewImage from '~/assets/img/guest-home-page/preview.png'
 export const SteperContext = createContext()
 
 const StepsDataProvider = ({ children }) => {
@@ -54,33 +57,7 @@ const StepsDataProvider = ({ children }) => {
   const [selectedSubjectName, setSelectedSubjectName] = useState(true)
   const [selectedSubjects, setSelectedSubjects] = useState([])
 
-  const dataChipList = {
-    items: [...selectedSubjects],
-    defaultQuantity: 2,
-    handleChipDelete: (deletedItem) =>
-      setSelectedSubjects(
-        selectedSubjects.filter((item) => item !== deletedItem)
-      ),
-    wrapperStyle: styles.chipList
-  }
-
-  const handleCategoryChange = (event, newValue) => {
-    setSelectedCategory(newValue)
-    setSelectedSubject(null)
-  }
-
-  const addSubjects = () => {
-    setSelectedSubject(null)
-    setSelectedSubjectName(true)
-    if (!selectedSubjects.includes(selectedSubject.name)) {
-      setSelectedSubjects([...selectedSubjects, selectedSubject?.name])
-    }
-  }
-
-  const handleSubjectChange = (event, newValue) => {
-    setSelectedSubject(newValue)
-    setSelectedSubjectName(false)
-  }
+  const { setAlert } = useSnackBarContext()
 
   const fetchCategories = useCallback(async () => {
     if (categories.length > 0) {
@@ -91,8 +68,12 @@ const StepsDataProvider = ({ children }) => {
       setCategories(response.data)
     } catch (error) {
       console.error('Error fetching categories:', error)
+      setAlert({
+        severity: 'error',
+        message: 'common.errorMessages.fetchingData'
+      })
     }
-  }, [categories])
+  }, [categories, setAlert])
 
   useEffect(() => {
     fetchCategories()
@@ -109,22 +90,65 @@ const StepsDataProvider = ({ children }) => {
         }
       } catch (error) {
         console.error('Error fetching subjects:', error)
+        setAlert({
+          severity: 'error',
+          message: 'common.errorMessages.fetchingData'
+        })
       }
     }
     fetchSubjects()
-  }, [selectedCategory])
+  }, [selectedCategory, setAlert])
+
+  const dataChipList = {
+    items: [...selectedSubjects],
+    defaultQuantity: 2,
+    handleChipDelete: (deletedItem) =>
+      setSelectedSubjects(
+        selectedSubjects.filter((item) => item !== deletedItem)
+      ),
+    wrapperStyle: styles.chipList
+  }
+
+  const handleCategoryChange = (event, newValue) => {
+    setSelectedCategory(newValue)
+    setSelectedSubject(null)
+  }
+  const addSubjects = () => {
+    setSelectedSubject(null)
+    setSelectedSubjectName(true)
+    if (!selectedSubjects.includes(selectedSubject.name)) {
+      setSelectedSubjects([...selectedSubjects, selectedSubject?.name])
+    }
+  }
+  const handleSubjectChange = (event, newValue) => {
+    setSelectedSubject(newValue)
+    setSelectedSubjectName(false)
+  }
 
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
+  const [errorPhoto, setErrorPhoto] = useState('')
+
   const fileReader = new FileReader()
 
   fileReader.onloadend = () => {
     setImageURL(fileReader.result)
   }
-
+  const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg']
+  const isFileTypeValid = (file) => {
+    return allowedFileTypes.includes(file.type)
+  }
   const handleFileChange = (file) => {
-    setImage(file)
-    fileReader.readAsDataURL(file)
+    setErrorPhoto('')
+
+    if (!file || !isFileTypeValid(file)) {
+      setErrorPhoto(common.errorMessages.errorPhotoValid)
+      setImage(null)
+      setImageURL(previewImage)
+    } else {
+      setImage(file)
+      fileReader.readAsDataURL(file)
+    }
   }
 
   const generalInfoStepData = {
@@ -163,7 +187,9 @@ const StepsDataProvider = ({ children }) => {
   const addPhotoStepData = {
     image,
     imageURL,
-    handleFileChange
+    handleFileChange,
+    errorPhoto,
+    previewImage
   }
 
   return (
