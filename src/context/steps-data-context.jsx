@@ -153,21 +153,26 @@ const StepsDataProvider = ({ children }) => {
 
   const generalInfoStepData = {
     name,
-    setName,
     lastName,
+    selectedCountry,
+    selectedCity,
+    text
+  }
+  const generalInfoStepDataHandl = {
+    setName,
     setLastName,
     countryList,
     city,
-    selectedCountry,
     setSelectedCountry,
-    selectedCity,
     setSelectedCity,
-    text,
     changeText,
     memoizedMaxLength
   }
 
   const subjectsStepData = {
+    selectedSubjects
+  }
+  const subjectsStepDataHandl = {
     categories,
     subjects,
     selectedCategory,
@@ -180,25 +185,41 @@ const StepsDataProvider = ({ children }) => {
   }
 
   const languageStepData = {
-    selectedLanguage,
+    selectedLanguage
+  }
+  const languageStepDataHandl = {
     handleLanguageChange
   }
 
   const addPhotoStepData = {
     image,
-    imageURL,
+    imageURL
+  }
+  const addPhotoStepDataHandl = {
     handleFileChange,
     errorPhoto,
     previewImage
   }
 
+  const allSteperInfoData = {
+    ...generalInfoStepData,
+    ...subjectsStepData,
+    ...languageStepData,
+    ...addPhotoStepData
+  }
+
+  const allSteperHandl = {
+    ...generalInfoStepDataHandl,
+    ...subjectsStepDataHandl,
+    ...languageStepDataHandl,
+    ...addPhotoStepDataHandl
+  }
+
   return (
     <SteperContext.Provider
       value={{
-        ...generalInfoStepData,
-        ...subjectsStepData,
-        ...languageStepData,
-        ...addPhotoStepData,
+        ...allSteperInfoData,
+        ...allSteperHandl,
         t
       }}
     >
