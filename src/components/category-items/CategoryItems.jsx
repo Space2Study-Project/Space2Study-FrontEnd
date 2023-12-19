@@ -3,14 +3,17 @@ import { useEffect, useState, useCallback } from 'react'
 import { categoryService } from '~/services/category-service'
 import CategoryCard from '~/components/category-cards/CategoryCard'
 import * as styles from './CategoryItems.style'
+import { useSearchParams } from 'react-router-dom'
+
 const CategoryItems = () => {
   const [categories, setCategories] = useState([])
   const [visibleCategories, setVisibleCategories] = useState(6)
-
+  const [params] = useSearchParams()
   const fetchCategories = useCallback(async () => {
     try {
       const response = await categoryService.getCategories()
       const data = response.data
+      console.log('Data:', data)
       if (Array.isArray(data.items)) {
         setCategories(data.items)
       } else {
@@ -21,11 +24,18 @@ const CategoryItems = () => {
     }
   }, [])
   const handleViewMore = () => {
-    setVisibleCategories((prevCount) => prevCount + 6)
+    setVisibleCategories((prevCount) => prevCount + 3)
   }
   useEffect(() => {
     fetchCategories()
   }, [fetchCategories])
+
+  useEffect(() => {
+    const limit = params.get('limit')
+    if (limit) {
+      setVisibleCategories(parseInt(limit, 10) || 6)
+    }
+  }, [params])
 
   return (
     <>
@@ -36,7 +46,11 @@ const CategoryItems = () => {
       </Box>
       {categories.length > visibleCategories && (
         <Box sx={styles.buttonContainer}>
-          <Button onClick={handleViewMore} sx={styles.button}>
+          <Button
+            data-testid='ViewmoreButton'
+            onClick={handleViewMore}
+            sx={styles.button}
+          >
             View more
           </Button>
         </Box>
