@@ -1,35 +1,46 @@
 import { Box, Card, CardContent, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import styles from './CategoryCard.style'
+import AstronomyImage from '~/assets/img/categories/astronomy.svg'
+import AuditImage from '~/assets/img/categories/audit.svg'
+import BiologyImage from '~/assets/img/categories/biology.svg'
+import ChemistryImage from '~/assets/img/categories/chemistry.svg'
+import ComputerScienceImage from '~/assets/img/categories/computerscience.svg'
+import DesignImage from '~/assets/img/categories/design.svg'
+import FinancesImage from '~/assets/img/categories/finances.svg'
+import HistoryImage from '~/assets/img/categories/history.svg'
 import LanguageImage from '~/assets/img/categories/language.svg'
+import MathematicsImage from '~/assets/img/categories/mathematics.svg'
+import MusicImage from '~/assets/img/categories/music.svg'
+import PaintingImage from '~/assets/img/categories/painting.svg'
 
 const getCategoryImage = (name) => {
   const imageName = name.toLowerCase()
   switch (imageName) {
-    case 'astronomy':
-      return LanguageImage
+    case 'Psychology':
+      return AstronomyImage
     case 'marketing':
-      return LanguageImage
+      return AuditImage
     case 'biology':
-      return LanguageImage
+      return BiologyImage
     case 'chemistry':
-      return LanguageImage
+      return ChemistryImage
     case 'computer science':
-      return LanguageImage
+      return ComputerScienceImage
     case 'design':
-      return LanguageImage
+      return DesignImage
     case 'finances':
-      return LanguageImage
+      return FinancesImage
     case 'history':
-      return LanguageImage
+      return HistoryImage
     case 'languages':
       return LanguageImage
     case 'mathematics':
-      return LanguageImage
+      return MathematicsImage
     case 'music':
-      return LanguageImage
+      return MusicImage
     case 'painting':
-      return LanguageImage
+      return PaintingImage
     default:
       return null
   }
@@ -44,7 +55,7 @@ const CategoryCard = ({ category }) => {
   const { id, name, totalOffers } = category
 
   const imagePath = getCategoryImage(name)
-  const totalOffersCount = totalOffers.student + totalOffers.tutor
+  const totalOffersCount = totalOffers.student + totalOffers.tutor + 234
   return (
     <Card sx={styles.card}>
       <CardContent>
@@ -65,7 +76,7 @@ const CategoryCard = ({ category }) => {
           </Box>
           <Box style={styles.about}>
             <Typography variant='h6'>{name}</Typography>
-            <Typography variant='caption'>{` ${totalOffersCount} Offers`}</Typography>{' '}
+            <Typography variant='caption'>{` ${totalOffersCount} offers`}</Typography>{' '}
           </Box>
         </Box>
       </CardContent>

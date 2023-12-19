@@ -1,25 +1,16 @@
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { useEffect, useState, useCallback } from 'react'
 import { categoryService } from '~/services/category-service'
 import CategoryCard from '~/components/category-cards/CategoryCard'
-
-const styles = {
-  container: {
-    display: 'flex',
-    gap: '20px',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    padding: '20px'
-  }
-}
+import * as styles from './CategoryItems.style'
 const CategoryItems = () => {
   const [categories, setCategories] = useState([])
+  const [visibleCategories, setVisibleCategories] = useState(6)
 
   const fetchCategories = useCallback(async () => {
     try {
       const response = await categoryService.getCategories()
       const data = response.data
-
       if (Array.isArray(data.items)) {
         setCategories(data.items)
       } else {
@@ -29,21 +20,28 @@ const CategoryItems = () => {
       console.error('Error fetching categories:', error)
     }
   }, [])
-
+  const handleViewMore = () => {
+    setVisibleCategories((prevCount) => prevCount + 6)
+  }
   useEffect(() => {
     fetchCategories()
   }, [fetchCategories])
 
   return (
-    <Box sx={styles.container}>
-      {categories.length > 0 ? (
-        categories.map((category) => (
+    <>
+      <Box sx={styles.container}>
+        {categories.slice(0, visibleCategories).map((category) => (
           <CategoryCard category={category} key={category._id} />
-        ))
-      ) : (
-        <Box>No categories available</Box>
+        ))}
+      </Box>
+      {categories.length > visibleCategories && (
+        <Box sx={styles.buttonContainer}>
+          <Button onClick={handleViewMore} sx={styles.button}>
+            View more
+          </Button>
+        </Box>
       )}
-    </Box>
+    </>
   )
 }
 
