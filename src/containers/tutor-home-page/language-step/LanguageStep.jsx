@@ -20,7 +20,7 @@ const LanguageStep = ({ btnsBox }) => {
       <Box>
         <Box alt='language img' component='img' src={languageImg} />
       </Box>
-      <Box>
+      <Box sx={styles.rightBox}>
         <Box data-testid='inputContainer' sx={styles.inputContainer}>
           <Typography sx={styles.title}>
             {t('becomeTutor.languages.title')}

@@ -17,11 +17,14 @@ export const styles = {
     gap: '20px',
     width: '430px'
   },
-  btnsBox: {
-    marginTop: 'auto',
+  rightBox: {
     display: 'flex',
-    flexDirection: 'column-reverse',
-    marginBottom: 'auto',
-    height: '75%'
+    flexDirection: 'column'
+  },
+  btnsBox: {
+    display: 'flex',
+    marginTop: 'auto',
+    padding: '25px 0 25px',
+    flexDirection: 'column-reverse'
   }
 }
