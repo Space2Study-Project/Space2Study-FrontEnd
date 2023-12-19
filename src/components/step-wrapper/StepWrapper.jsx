@@ -10,8 +10,9 @@ import WestIcon from '@mui/icons-material/West'
 import AppButton from '~/components/app-button/AppButton'
 import { styles } from '~/components/step-wrapper/StepWrapper.styles'
 import useSteps from '~/hooks/use-steps'
-
-const StepWrapper = ({ children, steps, isFormValid }) => {
+import { useStepsDataContext } from '~/context/steps-data-context'
+const StepWrapper = ({ children, steps }) => {
+  const { validForm } = useStepsDataContext()
   const { activeStep, isLastStep, loading, stepOperation } = useSteps({
     steps
   })
@@ -31,7 +32,7 @@ const StepWrapper = ({ children, steps, isFormValid }) => {
 
   const nextButton = isLastStep ? (
     <AppButton
-      disabled={!isFormValid}
+      disabled={validForm}
       loading={loading}
       onClick={handleSubmit}
       size='small'
@@ -69,8 +70,7 @@ const StepWrapper = ({ children, steps, isFormValid }) => {
       <Box sx={styles.stepContent}>
         {cloneElement(children[activeStep], {
           btnsBox,
-          stepLabel: steps[activeStep],
-          isFormValid: isFormValid
+          stepLabel: steps[activeStep]
         })}
       </Box>
     </Container>

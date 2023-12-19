@@ -18,6 +18,7 @@ import previewImage from '~/assets/img/guest-home-page/preview.png'
 export const SteperContext = createContext()
 
 const StepsDataProvider = ({ children }) => {
+  const [validForm, setvalidForm] = useState(true)
   const { t } = useTranslation()
   const maxLength = 100
   const { name, setName, lastName, setLastName } = useName()
@@ -126,7 +127,7 @@ const StepsDataProvider = ({ children }) => {
   }
 
   const [image, setImage] = useState()
-  const [imageURL, setImageURL] = useState()
+  const [imageURL, setImageURL] = useState(null)
   const [errorPhoto, setErrorPhoto] = useState('')
 
   const fileReader = new FileReader()
@@ -192,10 +193,10 @@ const StepsDataProvider = ({ children }) => {
   }
 
   const addPhotoStepData = {
-    image,
     imageURL
   }
   const addPhotoStepDataHandl = {
+    image,
     handleFileChange,
     errorPhoto,
     previewImage
@@ -214,12 +215,36 @@ const StepsDataProvider = ({ children }) => {
     ...languageStepDataHandl,
     ...addPhotoStepDataHandl
   }
+  useMemo(() => {
+    if (
+      name !== '' &&
+      lastName !== '' &&
+      selectedCountry !== null &&
+      selectedCity !== null &&
+      text !== null &&
+      selectedSubjects.length > 0 &&
+      selectedLanguage !== null &&
+      imageURL !== null
+    ) {
+      setvalidForm(false)
+    }
+  }, [
+    name,
+    lastName,
+    imageURL,
+    selectedCountry,
+    selectedCity,
+    text,
+    selectedSubjects,
+    selectedLanguage
+  ])
 
   return (
     <SteperContext.Provider
       value={{
         ...allSteperInfoData,
         ...allSteperHandl,
+        validForm,
         t
       }}
     >
