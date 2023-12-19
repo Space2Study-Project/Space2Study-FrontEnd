@@ -20,7 +20,6 @@ import { StepsDataProvider } from '~/context/steps-data-context'
 
 const UserStepsWrapper = ({ userRole }) => {
   const [isUserFetched, setIsUserFetched] = useState(false)
-  const [isFormValid, setIsFormValid] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -32,7 +31,6 @@ const UserStepsWrapper = ({ userRole }) => {
     <GeneralInfoStep
       isUserFetched={isUserFetched}
       key='1'
-      setIsFormValid={setIsFormValid}
       setIsUserFetched={setIsUserFetched}
     />,
     <SubjectsStep key='2' />,
@@ -43,9 +41,7 @@ const UserStepsWrapper = ({ userRole }) => {
   return (
     <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
       <StepsDataProvider>
-        <StepWrapper isFormValid={isFormValid} steps={stepLabels}>
-          {childrenArr}
-        </StepWrapper>
+        <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
       </StepsDataProvider>
     </StepProvider>
   )
