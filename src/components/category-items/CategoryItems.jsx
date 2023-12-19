@@ -13,7 +13,6 @@ const CategoryItems = () => {
     try {
       const response = await categoryService.getCategories()
       const data = response.data
-      console.log('Data:', data)
       if (Array.isArray(data.items)) {
         setCategories(data.items)
       } else {

@@ -2,6 +2,7 @@ import { Box, Card, CardContent, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import styles from './CategoryCard.style'
 import images from './images.js'
+import { authRoutes } from '~/router/constants/authRoutes'
 
 const getCategoryImage = (name) => {
   const imageName = name.toLowerCase()
@@ -14,7 +15,7 @@ const CategoryCard = ({ category }) => {
     return null
   }
 
-  const { id, name, totalOffers } = category
+  const { name, totalOffers } = category
 
   const imagePath = getCategoryImage(name)
   const totalOffersCount = totalOffers.student + totalOffers.tutor
@@ -31,7 +32,7 @@ const CategoryCard = ({ category }) => {
           <Box sx={styles.iconContainer}>
             <Link
               style={{ textDecoration: 'none' }}
-              to={`/subjects/${id || 'placeholder'}`}
+              to={`${authRoutes.subjects.path}`}
             >
               <img alt={name} src={imagePath} style={styles.icon} />
             </Link>
