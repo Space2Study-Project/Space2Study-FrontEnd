@@ -63,7 +63,7 @@ const CategoryCard = ({ category }) => {
               <img alt={name} src={imagePath} style={styles.icon} />
             </Link>
           </Box>
-          <Box style={styles.about}>
+          <Box data-testid='offers' style={styles.about}>
             <Typography variant='h6'>{name}</Typography>
             <Typography variant='caption'>{` ${totalOffersCount} Offers`}</Typography>{' '}
           </Box>
