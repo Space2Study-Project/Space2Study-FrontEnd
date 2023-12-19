@@ -7,6 +7,8 @@ const useName = () => {
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
   const { setAlert } = useSnackBarContext()
+  const [userId, setUserId] = useState()
+  const [userRole, setUserRole] = useState()
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -16,7 +18,9 @@ const useName = () => {
           const [, payload] = storedToken.split('.')
           const decodedPayload = JSON.parse(atob(payload))
           const userId = decodedPayload.id
+          setUserId(userId)
           const userRole = decodedPayload.role
+          setUserRole(userRole)
           const response = await userService.getUserById(userId, userRole)
           const firstName = response.data.firstName
           setName(firstName)
@@ -34,7 +38,7 @@ const useName = () => {
     fetchUser()
   }, [setAlert])
 
-  return { name, setName, lastName, setLastName }
+  return { name, setName, lastName, setLastName, userId, userRole }
 }
 
 export default useName

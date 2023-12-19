@@ -21,7 +21,7 @@ const StepsDataProvider = ({ children }) => {
   const [validForm, setvalidForm] = useState(true)
   const { t } = useTranslation()
   const maxLength = 100
-  const { name, setName, lastName, setLastName } = useName()
+  const { name, setName, lastName, setLastName, userId, userRole } = useName()
   const {
     countryList,
     city,
@@ -101,7 +101,7 @@ const StepsDataProvider = ({ children }) => {
   }, [selectedCategory, setAlert])
 
   const dataChipList = {
-    items: [...selectedSubjects],
+    items: selectedSubjects.map((subj) => subj.name),
     defaultQuantity: 2,
     handleChipDelete: (deletedItem) =>
       setSelectedSubjects(
@@ -118,7 +118,7 @@ const StepsDataProvider = ({ children }) => {
     setSelectedSubject(null)
     setSelectedSubjectName(true)
     if (!selectedSubjects.includes(selectedSubject.name)) {
-      setSelectedSubjects([...selectedSubjects, selectedSubject?.name])
+      setSelectedSubjects([...selectedSubjects, selectedSubject])
     }
   }
   const handleSubjectChange = (event, newValue) => {
@@ -193,10 +193,10 @@ const StepsDataProvider = ({ children }) => {
   }
 
   const addPhotoStepData = {
-    imageURL
+    image
   }
   const addPhotoStepDataHandl = {
-    image,
+    imageURL,
     handleFileChange,
     errorPhoto,
     previewImage
@@ -206,7 +206,9 @@ const StepsDataProvider = ({ children }) => {
     ...generalInfoStepData,
     ...subjectsStepData,
     ...languageStepData,
-    ...addPhotoStepData
+    ...addPhotoStepData,
+    userId,
+    userRole
   }
 
   const allSteperHandl = {
@@ -224,7 +226,7 @@ const StepsDataProvider = ({ children }) => {
       text !== null &&
       selectedSubjects.length > 0 &&
       selectedLanguage !== null &&
-      imageURL !== null
+      image !== null
     ) {
       setvalidForm(false)
     }
@@ -236,7 +238,8 @@ const StepsDataProvider = ({ children }) => {
     selectedCity,
     text,
     selectedSubjects,
-    selectedLanguage
+    selectedLanguage,
+    image
   ])
 
   return (

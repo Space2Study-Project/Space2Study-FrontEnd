@@ -1,6 +1,7 @@
 import { cloneElement } from 'react'
 import { useTranslation } from 'react-i18next'
-
+import { userService } from '~/services/user-service'
+import { useSnackBarContext } from '~/context/snackbar-context'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 
@@ -12,13 +13,62 @@ import { styles } from '~/components/step-wrapper/StepWrapper.styles'
 import useSteps from '~/hooks/use-steps'
 import { useStepsDataContext } from '~/context/steps-data-context'
 const StepWrapper = ({ children, steps }) => {
-  const { validForm } = useStepsDataContext()
+  const { setAlert } = useSnackBarContext()
+  const {
+    validForm,
+    userId,
+    userRole,
+    name,
+    lastName,
+    selectedCountry,
+    selectedCity,
+    selectedSubjects,
+    selectedLanguage,
+    imageURL
+  } = useStepsDataContext()
   const { activeStep, isLastStep, loading, stepOperation } = useSteps({
     steps
   })
   const { next, back, setActiveStep, handleSubmit } = stepOperation
   const { t } = useTranslation()
+  const handleFinishButtonClick = async () => {
+    try {
+      if (validForm === false) {
+        const updatedMainSubjects = selectedSubjects.map((subj) => subj._id)
 
+        const updatedAddress = {
+          country: selectedCountry,
+          city: selectedCity
+        }
+
+        const updatedNativeLanguage = selectedLanguage
+        const updatedPhoto = imageURL
+        const updatedFirstName = name
+        const updatedLastName = lastName
+        console.log(updatedPhoto)
+        await userService.updateUser(userId, userRole, {
+          firstName: updatedFirstName,
+          lastName: updatedLastName,
+          address: updatedAddress,
+          mainSubjects: updatedMainSubjects,
+          nativeLanguage: updatedNativeLanguage,
+          photoUrl: updatedPhoto
+        })
+        handleSubmit()
+      } else {
+        setAlert({
+          severity: 'error',
+          message: 'Please fill in all required fields'
+        })
+      }
+    } catch (error) {
+      console.error('Error updating user data:', error)
+      setAlert({
+        severity: 'error',
+        message: 'Error updating user data'
+      })
+    }
+  }
   const stepLabels = steps.map((step, index) => (
     <Box
       key={step}
@@ -34,7 +84,7 @@ const StepWrapper = ({ children, steps }) => {
     <AppButton
       disabled={validForm}
       loading={loading}
-      onClick={handleSubmit}
+      onClick={handleFinishButtonClick}
       size='small'
       sx={styles.finishBtn}
       variant='contained'
