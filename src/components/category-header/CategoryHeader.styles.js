@@ -5,16 +5,8 @@ export const styles = {
   showOffers: {
     marginLeft: '10px'
   },
-  showOffersText: {
-    color: '#607D8B',
-    padding: '0',
-    display: 'flex',
-    justifyContent: 'right',
-    alignItems: 'center',
-    margin: '20px 45px 20px auto',
-    textDecoration: 'none'
-  },
   searchField: {
+    marginTop: '30px',
     [`& fieldset`]: {
       borderRadius: '70px'
     }
