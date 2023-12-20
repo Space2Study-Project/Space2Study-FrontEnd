@@ -1,5 +1,5 @@
 import { Box, Autocomplete, TextField, Typography } from '@mui/material'
-import { useStepsDataContext } from '~/context/steps-data-context'
+import useStepsDataContext from '~/context/steps-data-context'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import studyCategory from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
 import AppChipList from '~/components/app-chips-list/AppChipList'

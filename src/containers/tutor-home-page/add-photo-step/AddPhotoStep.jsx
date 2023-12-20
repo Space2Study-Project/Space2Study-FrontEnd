@@ -1,4 +1,4 @@
-import { useStepsDataContext } from '~/context/steps-data-context'
+import useStepsDataContext from '~/context/steps-data-context'
 import { Box } from '@mui/material'
 import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'

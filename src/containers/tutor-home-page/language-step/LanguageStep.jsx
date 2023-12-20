@@ -2,7 +2,7 @@ import { Box, Autocomplete, TextField, Typography } from '@mui/material'
 import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.styles'
 import languageImg from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
 import { languages } from './constants'
-import { useStepsDataContext } from '~/context/steps-data-context'
+import useStepsDataContext from '~/context/steps-data-context'
 
 const LanguageStep = ({ btnsBox }) => {
   const { t, selectedLanguage, handleLanguageChange } = useStepsDataContext()

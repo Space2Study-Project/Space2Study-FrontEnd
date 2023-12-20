@@ -2,7 +2,7 @@ import Box from '@mui/material/Box'
 import generalInfo from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { Autocomplete, TextField, Typography } from '@mui/material'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
-import { useStepsDataContext } from '~/context/steps-data-context'
+import useStepsDataContext from '~/context/steps-data-context'
 
 const GeneralInfoStep = ({ btnsBox }) => {
   const {

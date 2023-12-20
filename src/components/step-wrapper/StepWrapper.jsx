@@ -11,7 +11,7 @@ import WestIcon from '@mui/icons-material/West'
 import AppButton from '~/components/app-button/AppButton'
 import { styles } from '~/components/step-wrapper/StepWrapper.styles'
 import useSteps from '~/hooks/use-steps'
-import { useStepsDataContext } from '~/context/steps-data-context'
+import useStepsDataContext from '~/context/steps-data-context'
 const StepWrapper = ({ children, steps }) => {
   const { setAlert } = useSnackBarContext()
   const {
@@ -45,14 +45,13 @@ const StepWrapper = ({ children, steps }) => {
         const updatedPhoto = imageURL
         const updatedFirstName = name
         const updatedLastName = lastName
-        console.log(updatedPhoto)
         await userService.updateUser(userId, userRole, {
           firstName: updatedFirstName,
           lastName: updatedLastName,
           address: updatedAddress,
           mainSubjects: updatedMainSubjects,
           nativeLanguage: updatedNativeLanguage,
-          photoUrl: updatedPhoto
+          photo: updatedPhoto
         })
         handleSubmit()
       } else {

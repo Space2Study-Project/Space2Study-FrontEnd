@@ -257,4 +257,5 @@ const StepsDataProvider = ({ children }) => {
 }
 const useStepsDataContext = () => useContext(SteperContext)
 
-export { StepsDataProvider, useStepsDataContext }
+export { StepsDataProvider }
+export default useStepsDataContext
