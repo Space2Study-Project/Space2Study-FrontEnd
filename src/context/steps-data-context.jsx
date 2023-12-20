@@ -126,7 +126,7 @@ const StepsDataProvider = ({ children }) => {
     setSelectedSubjectName(false)
   }
 
-  const [image, setImage] = useState()
+  const [image, setImage] = useState(null)
   const [imageURL, setImageURL] = useState(null)
   const [errorPhoto, setErrorPhoto] = useState('')
 
@@ -226,15 +226,13 @@ const StepsDataProvider = ({ children }) => {
       text !== null &&
       selectedSubjects.length > 0 &&
       selectedLanguage !== null &&
-      image !== null &&
-      imageURL !== null
+      image !== null
     ) {
       setvalidForm(false)
     }
   }, [
     name,
     lastName,
-    imageURL,
     selectedCountry,
     selectedCity,
     text,
