@@ -11,6 +11,10 @@ export const styles = {
     flexDirection: { xs: 'column', md: 'row' },
     ...fadeAnimation
   },
+  rightBox: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -31,7 +35,12 @@ export const styles = {
     width: '100%'
   },
   warning: {
-    fontSize: '14px',
-    margin: '15px 0 30px'
+    fontSize: '14px'
+  },
+  btnsBox: {
+    display: 'flex',
+    marginTop: 'auto',
+    paddingBottom: '25px',
+    flexDirection: 'column-reverse'
   }
 }

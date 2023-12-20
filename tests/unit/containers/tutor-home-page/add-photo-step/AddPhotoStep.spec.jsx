@@ -1,6 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (str) => str
+    }
+  }
+}))
+
 describe('AddPhotoStep Container', () => {
   it('should render the container', () => {
     const mockBtnsBox = <div data-testid='mock-btns-box'>Mock Buttons Box</div>

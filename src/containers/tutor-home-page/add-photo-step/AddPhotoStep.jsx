@@ -1,13 +1,17 @@
 import { useState } from 'react'
-import { Box } from '@mui/material'
-import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
+
+import { Box, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+
+import { styles } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
+
 import previewImage from '~/assets/img/guest-home-page/preview.png'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import FileUploader from '~/components/file-uploader/FileUploader'
-import Typography from '@mui/material/Typography'
 import common from '~/constants/translations/en/common.json'
 
 const AddPhotoStep = ({ btnsBox }) => {
+  const { t } = useTranslation()
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
   const [errorPhoto, setErrorPhoto] = useState('')
@@ -35,7 +39,7 @@ const AddPhotoStep = ({ btnsBox }) => {
   }
 
   return (
-    <Box data-testid='AddPhoto step' sx={style.root}>
+    <Box data-testid='AddPhoto step' sx={styles.container}>
       <DragAndDrop
         emitter={({ files, error }) => {
           if (!error && files.length > 0) {
@@ -44,18 +48,21 @@ const AddPhotoStep = ({ btnsBox }) => {
         }}
         validationData={{ maxQuantityFiles: 1 }}
       >
-        <Box data-testid='AddPhoto-step' sx={style.previewContainer}>
+        <Box data-testid='AddPhoto-step' sx={styles.previewContainer}>
           <img
             alt='AddPhoto step'
             src={imageURL ?? previewImage}
-            style={style.previewImage}
+            style={styles.previewImage}
           />
         </Box>
       </DragAndDrop>
-      <Box sx={style.bottomBox}>
-        <Box>
+      <Box sx={styles.rightBox}>
+        <Box sx={styles.uploadContainer}>
+          <Typography sx={styles.title}>
+            {t('becomeTutor.photo.description')}
+          </Typography>
           <FileUploader
-            buttonText='Upload your profile photo'
+            buttonText={t('becomeTutor.photo.button')}
             emitter={({ files, error }) => {
               if (!error && files.length > 0) {
                 handleFileChange(files[0])
@@ -74,7 +81,7 @@ const AddPhotoStep = ({ btnsBox }) => {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ marginTop: 'auto' }}>{btnsBox}</Box>
+        <Box sx={styles.btnsBox}>{btnsBox}</Box>
       </Box>
     </Box>
   )

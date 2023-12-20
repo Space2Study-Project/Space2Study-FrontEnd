@@ -91,7 +91,7 @@ const SubjectsStep = ({ btnsBox }) => {
 
   return (
     <Box sx={styles.container}>
-      <Box sx={styles.imgContainer}>
+      <Box>
         <Box
           alt='subject img'
           component='img'
@@ -99,7 +99,7 @@ const SubjectsStep = ({ btnsBox }) => {
           sx={styles.img}
         />
       </Box>
-      <Box>
+      <Box sx={styles.rightBox}>
         <Box data-testid='inputContainer' sx={styles.inputContainer}>
           <Typography sx={styles.title}>
             {t('becomeTutor.categories.title')}
@@ -114,7 +114,6 @@ const SubjectsStep = ({ btnsBox }) => {
                 label={t('becomeTutor.categories.mainSubjectsLabel')}
               />
             )}
-            sx={styles.inputItem}
             value={selectedCategory}
           />
           <Autocomplete
@@ -127,7 +126,6 @@ const SubjectsStep = ({ btnsBox }) => {
                 label={t('becomeTutor.categories.subjectLabel')}
               />
             )}
-            sx={styles.inputItem}
             value={selectedSubject}
           />
         </Box>
