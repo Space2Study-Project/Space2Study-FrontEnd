@@ -1,38 +1,12 @@
 import { Box, Card, CardContent, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import styles from './CategoryCard.style'
-import LanguageImage from '~/assets/img/categories/language.svg'
+import images from './images.js'
+import { authRoutes } from '~/router/constants/authRoutes'
 
 const getCategoryImage = (name) => {
   const imageName = name.toLowerCase()
-  switch (imageName) {
-    case 'astronomy':
-      return LanguageImage
-    case 'marketing':
-      return LanguageImage
-    case 'biology':
-      return LanguageImage
-    case 'chemistry':
-      return LanguageImage
-    case 'computer science':
-      return LanguageImage
-    case 'design':
-      return LanguageImage
-    case 'finances':
-      return LanguageImage
-    case 'history':
-      return LanguageImage
-    case 'languages':
-      return LanguageImage
-    case 'mathematics':
-      return LanguageImage
-    case 'music':
-      return LanguageImage
-    case 'painting':
-      return LanguageImage
-    default:
-      return null
-  }
+  return images[imageName] || null
 }
 
 const CategoryCard = ({ category }) => {
@@ -41,7 +15,7 @@ const CategoryCard = ({ category }) => {
     return null
   }
 
-  const { id, name, totalOffers } = category
+  const { name, totalOffers } = category
 
   const imagePath = getCategoryImage(name)
   const totalOffersCount = totalOffers.student + totalOffers.tutor
@@ -52,7 +26,7 @@ const CategoryCard = ({ category }) => {
           <Box sx={styles.iconContainer}>
             <Link
               style={{ textDecoration: 'none' }}
-              to={`/subjects/${id || 'placeholder'}`}
+              to={`${authRoutes.subjects.path}`}
             >
               <img alt={name} src={imagePath} style={styles.icon} />
             </Link>
