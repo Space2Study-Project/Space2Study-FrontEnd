@@ -33,7 +33,7 @@ const CategoryCard = ({ category }) => {
           </Box>
           <Box data-testid='offers' style={styles.about}>
             <Typography variant='h6'>{name}</Typography>
-            <Typography variant='caption'>{` ${totalOffersCount} offers`}</Typography>
+            <Typography variant='caption'>{` ${totalOffersCount} Offers`}</Typography>
           </Box>
         </Box>
       </CardContent>

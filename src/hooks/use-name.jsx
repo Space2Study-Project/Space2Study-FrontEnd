@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import { userService } from '~/services/user-service'
 
+import { useSnackBarContext } from '~/context/snackbar-context'
+
 const useName = () => {
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
+  const { setAlert } = useSnackBarContext()
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -22,12 +25,16 @@ const useName = () => {
         }
       } catch (e) {
         console.log(`Error message: ${e.message}`)
+        setAlert({
+          severity: 'error',
+          message: 'common.errorMessages.fetchingData'
+        })
       }
     }
     fetchUser()
-  }, [])
+  }, [setAlert])
 
-  return { name, lastName }
+  return { name, setName, lastName, setLastName }
 }
 
 export default useName

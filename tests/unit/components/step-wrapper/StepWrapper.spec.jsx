@@ -15,17 +15,27 @@ import { renderWithProviders } from '~tests/test-utils'
 const stepsMock = tutorStepLabels || studentStepLabels
 
 const childrenArrMock = [
-  <TempComponent key='1'>1</TempComponent>,
-  <TempComponent key='2'>2</TempComponent>,
-  <TempComponent key='3'>3</TempComponent>,
-  <TempComponent key='4'>4</TempComponent>
+  <TempComponent key='1' setIsFormValid={() => {}}>
+    1
+  </TempComponent>,
+  <TempComponent key='2' setIsFormValid={() => {}}>
+    2
+  </TempComponent>,
+  <TempComponent key='3' setIsFormValid={() => {}}>
+    3
+  </TempComponent>,
+  <TempComponent key='4' setIsFormValid={() => {}}>
+    4
+  </TempComponent>
 ]
 
 describe('StepWrapper test', () => {
   beforeEach(() => {
     renderWithProviders(
       <StepProvider initialValues={initialValues} stepLabels={stepsMock}>
-        <StepWrapper steps={stepsMock}>{childrenArrMock}</StepWrapper>
+        <StepWrapper isFormValid={false} steps={stepsMock}>
+          {childrenArrMock}
+        </StepWrapper>
       </StepProvider>
     )
   })

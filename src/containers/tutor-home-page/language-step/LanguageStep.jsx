@@ -17,15 +17,10 @@ const LanguageStep = ({ btnsBox }) => {
 
   return (
     <Box sx={styles.container}>
-      <Box sx={styles.imgContainer}>
-        <Box
-          alt='language img'
-          component='img'
-          src={languageImg}
-          sx={styles.img}
-        />
-      </Box>
       <Box>
+        <Box alt='language img' component='img' src={languageImg} />
+      </Box>
+      <Box sx={styles.rightBox}>
         <Box data-testid='inputContainer' sx={styles.inputContainer}>
           <Typography sx={styles.title}>
             {t('becomeTutor.languages.title')}
@@ -43,7 +38,6 @@ const LanguageStep = ({ btnsBox }) => {
             value={selectedLanguage}
           />
         </Box>
-
         <Box sx={styles.btnsBox}>{btnsBox}</Box>
       </Box>
     </Box>

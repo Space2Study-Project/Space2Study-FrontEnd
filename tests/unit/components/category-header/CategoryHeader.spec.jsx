@@ -14,10 +14,6 @@ describe('Testing CategoryHeader component', () => {
     const desc = screen.getByText(/categoriesPage.description/i)
     expect(desc).toBeInTheDocument()
   })
-  it('should render showOffers button', () => {
-    const btn = screen.getByText(/categoriesPage.showAllOffers/i)
-    expect(btn).toBeInTheDocument()
-  })
   it('should render input', () => {
     const input = screen.getByPlaceholderText(/categoriesPage.searchLabel/i)
     expect(input).toBeInTheDocument()

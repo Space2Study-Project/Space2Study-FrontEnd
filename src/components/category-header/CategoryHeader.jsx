@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { Box, Button, Icon, TextField, Typography, Link } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { styles } from './CategoryHeader.styles'
-import { ArrowForward } from '@mui/icons-material'
 import SearchIcon from '@mui/icons-material/Search'
 
 const CategoryHeader = () => {
@@ -17,14 +16,10 @@ const CategoryHeader = () => {
     <Box>
       <Box sx={styles.titleBox}>
         <Typography variant='h4'>{t('categoriesPage.title')}</Typography>
-        <Typography sx={styles.description} variant='text'>
+        <Typography variant='text'>
           {t('categoriesPage.description')}
         </Typography>
       </Box>
-      <Link href='~/pages/find-offers/FindOffers' sx={styles.showOffersText}>
-        {t('categoriesPage.showAllOffers')}
-        <Icon component={ArrowForward} sx={styles.showOffers} />
-      </Link>
       <TextField
         InputProps={{
           startAdornment: <SearchIcon />,
