@@ -18,8 +18,5 @@ export const styles = {
     display: 'flex',
     justifyContent: 'center',
     marginTop: '30px'
-  },
-  titleCategories: {
-    marginTop: '20px'
   }
 }
