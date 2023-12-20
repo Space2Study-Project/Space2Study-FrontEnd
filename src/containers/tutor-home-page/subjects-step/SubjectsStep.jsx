@@ -117,7 +117,9 @@ const SubjectsStep = ({ btnsBox }) => {
             value={selectedCategory}
           />
           <Autocomplete
-            getOptionLabel={(option) => (option ? option.name : '')}
+            getOptionLabel={(option) =>
+              option && selectedCategory ? option.name : ''
+            }
             onChange={handleSubjectChange}
             options={subjects}
             renderInput={(params) => (
