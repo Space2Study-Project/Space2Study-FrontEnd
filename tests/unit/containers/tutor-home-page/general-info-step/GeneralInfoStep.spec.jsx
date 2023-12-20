@@ -2,7 +2,8 @@ import { render, screen } from '@testing-library/react'
 import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep'
 
 vi.mock('~/context/steps-data-context', () => ({
-  useStepsDataContext: vi.fn(() => ({
+  __esModule: true,
+  default: vi.fn(() => ({
     t: vi.fn((str) => str),
     name: 'John',
     setName: vi.fn(),
@@ -18,15 +19,6 @@ vi.mock('~/context/steps-data-context', () => ({
     changeText: vi.fn(),
     memoizedMaxLength: 100
   }))
-}))
-
-vi.mock('~/services/location-service', () => ({
-  LocationService: {
-    getCountries: vi.fn(() =>
-      Promise.resolve({ data: ['Country1', 'Country2'] })
-    ),
-    getCities: vi.fn(() => Promise.resolve({ data: ['City1', 'City2'] }))
-  }
 }))
 
 describe('Tests for GeneralInfoStep component', () => {

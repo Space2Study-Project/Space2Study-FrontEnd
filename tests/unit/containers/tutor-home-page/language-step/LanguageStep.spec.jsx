@@ -4,7 +4,8 @@ import LanguageStep from '~/containers/tutor-home-page/language-step/LanguageSte
 
 describe('LanguageStep Container', () => {
   vi.mock('~/context/steps-data-context', () => ({
-    useStepsDataContext: vi.fn(() => ({
+    __esModule: true,
+    default: vi.fn(() => ({
       t: (str) => str,
       selectedLanguage: null,
       handleLanguageChange: vi.fn()

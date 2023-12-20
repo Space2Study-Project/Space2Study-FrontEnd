@@ -5,9 +5,9 @@ import { vi } from 'vitest'
 
 describe('AddPhotoStep Container', () => {
   const mockBtnsBox = <div data-testid='mock-btns-box'>Mock Buttons Box</div>
-
   vi.mock('~/context/steps-data-context', () => ({
-    useStepsDataContext: vi.fn(() => ({
+    __esModule: true,
+    default: vi.fn(() => ({
       image: null,
       imageURL: null,
       handleFileChange: vi.fn(),

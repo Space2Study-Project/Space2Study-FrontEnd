@@ -3,7 +3,8 @@ import { vi } from 'vitest'
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
 
 vi.mock('~/context/steps-data-context', () => ({
-  useStepsDataContext: vi.fn(() => ({
+  __esModule: true,
+  default: vi.fn(() => ({
     t: (str) => str,
     categories: [
       { id: 1, name: 'Category1' },
