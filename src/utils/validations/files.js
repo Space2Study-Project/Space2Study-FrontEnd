@@ -11,6 +11,7 @@ export const filesValidation = (files, validationData) => {
   }
   if (
     files.length > 0 &&
+    validationData.filesTypes &&
     !files.every((file) =>
       validationData.filesTypes.some((type) => file.type === type)
     )

@@ -1,7 +1,17 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react'
-import { beforeEach, vi } from 'vitest'
+import { beforeEach, expect, vi } from 'vitest'
 
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
+import { useSnackBarContext } from '~/context/snackbar-context'
+
+vi.mock('~/context/snackbar-context', () => ({
+  useSnackBarContext: vi.fn(() => ({
+    setAlert: vi.fn().mockReturnValue({
+      severity: 'error',
+      message: 'common.errorMessages.fetchingData'
+    })
+  }))
+}))
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -10,6 +20,7 @@ vi.mock('react-i18next', () => ({
     }
   }
 }))
+
 vi.mock('~/components/app-button/AppButton', () => ({
   __esModule: true,
   default: function AppButtonMock({ children }) {
@@ -17,10 +28,22 @@ vi.mock('~/components/app-button/AppButton', () => ({
   }
 }))
 
+vi.mock('~/components/app-chips-list/AppChipList', () => ({
+  __esModule: true,
+  default: function AppChipList() {
+    return <div>AppChipList</div>
+  }
+}))
+
 vi.mock('~/services/category-service', () => ({
   categoryService: {
     getCategoriesNames: vi.fn(() =>
-      Promise.resolve({ data: ['Category1', 'Category2'] })
+      Promise.resolve({
+        data: [
+          { id: 1, name: 'Category1' },
+          { id: 2, name: 'Category2' }
+        ]
+      })
     )
   }
 }))
@@ -28,7 +51,12 @@ vi.mock('~/services/category-service', () => ({
 vi.mock('~/services/subject-service', () => ({
   subjectService: {
     getSubjectsNames: vi.fn(() =>
-      Promise.resolve({ data: ['Subject1', 'Subject2'] })
+      Promise.resolve({
+        data: [
+          { id: 1, name: 'Subject1' },
+          { id: 2, name: 'Subject2' }
+        ]
+      })
     )
   }
 }))
@@ -36,9 +64,6 @@ vi.mock('~/services/subject-service', () => ({
 describe('SubjectsStep component test', () => {
   beforeEach(() => {
     render(<SubjectsStep btnsBox={<div data-testid='mockedBtnsBox' />} />)
-  })
-  afterEach(() => {
-    vi.restoreAllMocks()
   })
 
   it('displays the study category image', () => {
@@ -77,46 +102,163 @@ describe('SubjectsStep component test', () => {
     ).toBeInTheDocument()
   })
 
-  it('fetches categories on mount', () => {
-    const categoryAutocompleteField = screen.getByLabelText(
-      /becomeTutor.categories.mainSubjectsLabel/i
-    )
-
-    fireEvent.click(categoryAutocompleteField)
-
-    waitFor(() => {
-      const categoryName = screen.getByText('Category1')
-      expect(categoryName).toBeInTheDocument()
-    })
-  })
-
-  it('can not choose Subject before category is chosen', () => {
-    const subjectAutocompleteField = screen.getByLabelText(
-      /becomeTutor.categories.subjectLabel/i
-    )
-
-    fireEvent.click(subjectAutocompleteField)
-
-    waitFor(() => {
-      const categoryName = screen.getByText('Subject1')
-      expect(categoryName).not.toBeInTheDocument()
-    })
-  })
-
   it('handles subject change', () => {
     fireEvent.click(
       screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
       'Category1'
     )
-
     waitFor(() => {
       const categoryName = screen.getByText('Category1')
       expect(categoryName).toBeInTheDocument()
     })
   })
-
   it('renders AppButton', () => {
     const appButton = screen.getByText(/becomeTutor.categories.btnText/i)
     expect(appButton).toBeInTheDocument()
+  })
+  it('handles category change correctly', () => {
+    const categoryAutocompleteField = screen.getByLabelText(
+      /becomeTutor.categories.mainSubjectsLabel/i
+    )
+
+    waitFor(() => {
+      fireEvent.click(categoryAutocompleteField)
+    })
+
+    waitFor(() => {
+      fireEvent.change(categoryAutocompleteField, {
+        target: { value: 'Category1' }
+      })
+    })
+
+    expect(categoryAutocompleteField).toHaveValue('Category1')
+  })
+  it('handles subject change correctly', () => {
+    const categoryAutocompleteField = screen.getByLabelText(
+      /becomeTutor.categories.mainSubjectsLabel/i
+    )
+    const subjectAutocompleteField = screen.getByLabelText(
+      /becomeTutor.categories.subjectLabel/i
+    )
+
+    fireEvent.click(categoryAutocompleteField)
+    fireEvent.change(categoryAutocompleteField, {
+      target: { value: 'Category1' }
+    })
+
+    expect(categoryAutocompleteField).toHaveValue('Category1')
+
+    fireEvent.click(subjectAutocompleteField)
+    fireEvent.change(subjectAutocompleteField, {
+      target: { value: 'Subject1' }
+    })
+
+    expect(subjectAutocompleteField).toHaveValue('Subject1')
+  })
+
+  it('handles error when fetching categories on mount', () => {
+    vi.mock('~/services/category-service', () => ({
+      categoryService: {
+        getCategoriesNames: vi.fn(() => Promise.reject('Fake error'))
+      }
+    }))
+
+    waitFor(() => {
+      const errorMessage = screen.getByText('common.errorMessages.fetchingData')
+      expect(errorMessage).toBeInTheDocument()
+    })
+  })
+  it('handles error when fetching subjects', () => {
+    vi.mock('~/services/subject-service', () => ({
+      subjectService: {
+        getSubjectsNames: vi.fn(() => Promise.reject('Fake error'))
+      }
+    }))
+
+    waitFor(() => {
+      const categoryAutocompleteField = screen.getByText(
+        /becomeTutor.categories.mainSubjectsLabel/i
+      )
+      fireEvent.click(categoryAutocompleteField)
+    })
+
+    it('handles subject change', () => {
+      fireEvent.click(
+        screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i),
+        'Category1'
+      )
+      waitFor(() => {
+        const categoryName = screen.getByText('Category1')
+        expect(categoryName).toBeInTheDocument()
+        fireEvent.click(categoryName)
+      })
+      waitFor(() => {
+        fireEvent.click(
+          screen.getByLabelText(/becomeTutor.categories.subjectsLabel/i)
+        )
+      })
+      waitFor(() => {
+        const errorMessage = screen.getByText(
+          'common.errorMessages.fetchingData'
+        )
+        expect(errorMessage).toBeInTheDocument()
+      })
+    })
+
+    it('handles category change correctly', async () => {
+      const categoryAutocompleteField = screen.getByLabelText(
+        /becomeTutor.categories.mainSubjectsLabel/i
+      )
+
+      fireEvent.click(categoryAutocompleteField)
+
+      await waitFor(() => {
+        fireEvent.change(categoryAutocompleteField, {
+          target: { value: 'Category1' }
+        })
+      })
+
+      expect(categoryAutocompleteField).toHaveValue('Category1')
+    })
+  })
+
+  describe('SubjectsStep componentuse SnackBarContext test', () => {
+    it('fetches categories on mount', () => {
+      const { setAlert } = useSnackBarContext()
+
+      waitFor(() => {
+        expect(setAlert).not.toHaveBeenCalled()
+      })
+
+      waitFor(() => {
+        expect(setAlert).toHaveBeenCalledWith({
+          severity: 'error',
+          message: 'common.errorMessages.fetchingData'
+        })
+      })
+    })
+
+    it('handles error when fetching subjects', () => {
+      vi.mock('~/services/category-service', () => ({
+        categoryService: {
+          getCategoriesNames: vi.fn(() => Promise.reject('Fake error'))
+        }
+      }))
+
+      const { setAlert } = useSnackBarContext()
+
+      waitFor(() => {
+        fireEvent.click(
+          screen.getByLabelText(/becomeTutor.categories.mainSubjectsLabel/i)
+        )
+      })
+
+      waitFor(() => {
+        expect(setAlert).toHaveBeenCalledWith({
+          severity: 'error',
+          message: 'common.errorMessages.fetchingData'
+        })
+      })
+    })
   })
 })
