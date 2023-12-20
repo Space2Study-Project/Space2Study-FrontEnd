@@ -15,7 +15,9 @@ const CategoryHeader = () => {
   return (
     <Box>
       <Box sx={styles.titleBox}>
-        <Typography sx={styles.titleCategories} variant='h4'>{t('categoriesPage.title')}</Typography>
+        <Typography sx={styles.titleCategories} variant='h4'>
+          {t('categoriesPage.title')}
+        </Typography>
         <Typography variant='text'>
           {t('categoriesPage.description')}
         </Typography>
