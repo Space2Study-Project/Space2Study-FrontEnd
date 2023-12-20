@@ -12,6 +12,10 @@ import {
 
 import { renderWithProviders } from '~tests/test-utils'
 
+vi.mock('~/context/steps-data-context', () => ({
+  __esModule: true,
+  default: vi.fn(() => ({}))
+}))
 const stepsMock = tutorStepLabels || studentStepLabels
 
 const childrenArrMock = [

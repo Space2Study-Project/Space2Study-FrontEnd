@@ -11,8 +11,11 @@ export const userService = {
       createUrlPath(URLs.users.get, userId, { role: userRole })
     )
   },
-  updateUser: (userId, params) => {
-    return axiosClient.patch(createUrlPath(URLs.users.update, userId), params)
+  updateUser: (userId, userRole, params) => {
+    return axiosClient.patch(
+      createUrlPath(URLs.users.update, userId, { role: userRole }),
+      params
+    )
   },
   deleteUser: (userId) => {
     return axiosClient.delete(createUrlPath(URLs.users.get, userId))

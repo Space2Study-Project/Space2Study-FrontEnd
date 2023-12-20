@@ -1,42 +1,26 @@
 import Box from '@mui/material/Box'
 import generalInfo from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { Autocomplete, TextField, Typography } from '@mui/material'
-import { useState, useEffect, useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
-import useName from '~/hooks/use-name'
-import useCountryCityInfo from '~/hooks/use-country-city-info'
-
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
+import useStepsDataContext from '~/context/steps-data-context'
 
-const maxLength = 100
-const GeneralInfoStep = ({ btnsBox, setIsFormValid }) => {
-  const { name, setName, lastName, setLastName } = useName()
+const GeneralInfoStep = ({ btnsBox }) => {
   const {
+    t,
+    name,
+    setName,
+    lastName,
+    setLastName,
     countryList,
     city,
     selectedCountry,
     setSelectedCountry,
     selectedCity,
-    setSelectedCity
-  } = useCountryCityInfo()
-  const { t } = useTranslation()
-
-  const [text, setText] = useState('')
-
-  const changeText = (e) => {
-    setText(e.target.value)
-  }
-  useEffect(() => {
-    setIsFormValid(
-      name !== '' &&
-        lastName !== '' &&
-        selectedCountry !== null &&
-        selectedCity !== null
-    )
-  }, [name, lastName, selectedCountry, selectedCity, setIsFormValid])
-
-  const memoizedMaxLength = useMemo(() => maxLength, [])
-
+    setSelectedCity,
+    text,
+    changeText,
+    memoizedMaxLength
+  } = useStepsDataContext()
   return (
     <Box data-testid='generalBox' sx={styles.container}>
       <Box>
