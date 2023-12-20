@@ -70,7 +70,7 @@ const CreateRequest = () => {
     } catch (error) {
       console.error('Error fetching categories:', error)
     }
-  }, [reqCategory])
+  }, [reqCategory, setReqCategory])
 
   useEffect(() => {
     fetchCategories()
