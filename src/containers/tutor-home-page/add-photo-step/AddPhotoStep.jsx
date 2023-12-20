@@ -1,15 +1,14 @@
 import useStepsDataContext from '~/context/steps-data-context'
-import { Box } from '@mui/material'
-import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
+import { Box, Typography } from '@mui/material'
+import { styles } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import FileUploader from '~/components/file-uploader/FileUploader'
-import Typography from '@mui/material/Typography'
 
 const AddPhotoStep = ({ btnsBox }) => {
-  const { image, imageURL, handleFileChange, errorPhoto, previewImage } =
+  const { t, image, imageURL, handleFileChange, errorPhoto, previewImage } =
     useStepsDataContext()
   return (
-    <Box data-testid='AddPhoto step' sx={style.root}>
+    <Box data-testid='AddPhoto step' sx={styles.container}>
       <DragAndDrop
         emitter={({ files, error }) => {
           if (!error && files.length > 0) {
@@ -18,18 +17,21 @@ const AddPhotoStep = ({ btnsBox }) => {
         }}
         validationData={{ maxQuantityFiles: 1 }}
       >
-        <Box data-testid='AddPhoto-step' sx={style.previewContainer}>
+        <Box data-testid='AddPhoto-step' sx={styles.previewContainer}>
           <img
             alt='AddPhoto step'
             src={imageURL ?? previewImage}
-            style={style.previewImage}
+            style={styles.previewImage}
           />
         </Box>
       </DragAndDrop>
-      <Box sx={style.bottomBox}>
-        <Box>
+      <Box sx={styles.rightBox}>
+        <Box sx={styles.uploadContainer}>
+          <Typography sx={styles.title}>
+            {t('becomeTutor.photo.description')}
+          </Typography>
           <FileUploader
-            buttonText='Upload your profile photo'
+            buttonText={t('becomeTutor.photo.button')}
             emitter={({ files, error }) => {
               if (!error && files.length > 0) {
                 handleFileChange(files[0])
@@ -48,7 +50,7 @@ const AddPhotoStep = ({ btnsBox }) => {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ marginTop: 'auto' }}>{btnsBox}</Box>
+        <Box sx={styles.btnsBox}>{btnsBox}</Box>
       </Box>
     </Box>
   )

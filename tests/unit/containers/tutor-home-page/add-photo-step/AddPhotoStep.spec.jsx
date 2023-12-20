@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
-
 import { vi } from 'vitest'
 
 describe('AddPhotoStep Container', () => {
@@ -8,6 +7,7 @@ describe('AddPhotoStep Container', () => {
   vi.mock('~/context/steps-data-context', () => ({
     __esModule: true,
     default: vi.fn(() => ({
+      t: vi.fn((str) => str),
       image: null,
       imageURL: null,
       handleFileChange: vi.fn(),

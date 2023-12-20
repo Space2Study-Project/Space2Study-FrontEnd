@@ -4,44 +4,33 @@ export const styles = {
   container: {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: { md: '25px', lg: '80px' },
-    height: { sm: '485px' },
+    gap: { md: '10px', lg: '80px' },
     paddingBottom: { xs: '30px', sm: '0px' },
+    height: { sm: '485px' },
+    width: '100%',
     flexDirection: { xs: 'column', md: 'row' },
     ...fadeAnimation
   },
-  imgContainer: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    width: { sm: '100%', md: '38%', lg: '50%' },
-    maxWidth: { md: '370px', lg: '472px' },
-    maxHeight: 'inherit'
-  },
-  img: {
-    objectFit: 'contain',
-    width: '100%',
-    marginBottom: '30px'
-  },
+
   inputContainer: {
     display: 'flex',
     flexDirection: 'column',
-    width: { sm: '100%', md: '100%', lg: '100%' },
-    maxWidth: { md: '430px', lg: '455px' }
+    gap: '20px',
+    width: '430px'
+  },
+  rightBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px'
   },
   btnsBox: {
-    marginTop: 'auto',
     display: 'flex',
-    flexDirection: 'column-reverse',
-    marginBottom: 'auto',
-    height: '25%'
+    marginTop: 'auto',
+    padding: '25px 0 25px',
+    flexDirection: 'column-reverse'
   },
   appButton: {
     width: '100%'
-  },
-  inputItem: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '30px'
   },
   title: {
     marginBottom: '30px'

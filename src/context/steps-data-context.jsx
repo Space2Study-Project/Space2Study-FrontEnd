@@ -226,7 +226,8 @@ const StepsDataProvider = ({ children }) => {
       text !== null &&
       selectedSubjects.length > 0 &&
       selectedLanguage !== null &&
-      image !== null
+      image !== null &&
+      imageURL !== null
     ) {
       setvalidForm(false)
     }
