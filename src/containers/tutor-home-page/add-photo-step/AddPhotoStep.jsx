@@ -1,25 +1,41 @@
 import { useState } from 'react'
+
 import { Box, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
 import { styles } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
+
 import previewImage from '~/assets/img/guest-home-page/preview.png'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import FileUploader from '~/components/file-uploader/FileUploader'
+import common from '~/constants/translations/en/common.json'
 
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
+  const [errorPhoto, setErrorPhoto] = useState('')
+
   const fileReader = new FileReader()
 
   fileReader.onloadend = () => {
     setImageURL(fileReader.result)
   }
-
+  const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg']
+  const isFileTypeValid = (file) => {
+    return allowedFileTypes.includes(file.type)
+  }
   const handleFileChange = (file) => {
-    setImage(file)
-    fileReader.readAsDataURL(file)
+    setErrorPhoto('')
+
+    if (!file || !isFileTypeValid(file)) {
+      setErrorPhoto(common.errorMessages.errorPhotoValid)
+      setImage(null)
+      setImageURL(previewImage)
+    } else {
+      setImage(file)
+      fileReader.readAsDataURL(file)
+    }
   }
 
   return (
@@ -35,7 +51,6 @@ const AddPhotoStep = ({ btnsBox }) => {
         <Box data-testid='AddPhoto-step' sx={styles.previewContainer}>
           <img
             alt='AddPhoto step'
-            className='file-uploader__preview'
             src={imageURL ?? previewImage}
             style={styles.previewImage}
           />
@@ -55,7 +70,16 @@ const AddPhotoStep = ({ btnsBox }) => {
             }}
             validationData={{ maxQuantityFiles: 1 }}
           />
-          <Box>{image ? image.name : ''}</Box>
+          <Box>
+            {image ? image.name : ''}
+            <Typography
+              color='error'
+              data-testid='ErrorPhoto'
+              variant='caption'
+            >
+              {errorPhoto}
+            </Typography>
+          </Box>
         </Box>
         <Box sx={styles.btnsBox}>{btnsBox}</Box>
       </Box>
