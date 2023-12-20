@@ -218,7 +218,7 @@ const StepsDataProvider = ({ children }) => {
     ...addPhotoStepDataHandl
   }
   useMemo(() => {
-    if (
+    const isFormValid =
       name !== '' &&
       lastName !== '' &&
       selectedCountry !== null &&
@@ -226,10 +226,9 @@ const StepsDataProvider = ({ children }) => {
       text !== null &&
       selectedSubjects.length > 0 &&
       selectedLanguage !== null &&
-      image !== null
-    ) {
-      setvalidForm(false)
-    }
+      image !== null &&
+      imageURL !== null
+    setvalidForm(!isFormValid)
   }, [
     name,
     lastName,
@@ -238,9 +237,11 @@ const StepsDataProvider = ({ children }) => {
     text,
     selectedSubjects,
     selectedLanguage,
-    image
+    image,
+    imageURL
   ])
-
+  console.log(image)
+  console.log(imageURL)
   return (
     <SteperContext.Provider
       value={{
