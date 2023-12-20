@@ -240,8 +240,7 @@ const StepsDataProvider = ({ children }) => {
     image,
     imageURL
   ])
-  console.log(image)
-  console.log(imageURL)
+
   return (
     <SteperContext.Provider
       value={{
