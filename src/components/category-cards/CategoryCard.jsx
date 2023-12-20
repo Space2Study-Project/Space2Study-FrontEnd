@@ -48,13 +48,7 @@ const CategoryCard = ({ category }) => {
   return (
     <Card sx={styles.card}>
       <CardContent>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            marginTop: '7px'
-          }}
-        >
+        <Box sx={styles.cardContent}>
           <Box sx={styles.iconContainer}>
             <Link
               style={{ textDecoration: 'none' }}
@@ -65,7 +59,7 @@ const CategoryCard = ({ category }) => {
           </Box>
           <Box data-testid='offers' style={styles.about}>
             <Typography variant='h6'>{name}</Typography>
-            <Typography variant='caption'>{` ${totalOffersCount} Offers`}</Typography>{' '}
+            <Typography variant='caption'>{` ${totalOffersCount} Offers`}</Typography>
           </Box>
         </Box>
       </CardContent>
