@@ -10,6 +10,11 @@ const styles = {
       transform: 'scale(1.05)'
     }
   },
+  cardContent: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: '7px'
+  },
   iconContainer: {
     width: '62px',
     height: '62px',

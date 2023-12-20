@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material'
 import { useEffect, useState, useCallback } from 'react'
 import { categoryService } from '~/services/category-service'
 import CategoryCard from '~/components/category-cards/CategoryCard'
-import * as styles from './CategoryItems.style'
+import styles from './CategoryItems.style'
 import { useSearchParams } from 'react-router-dom'
 
 const CategoryItems = () => {

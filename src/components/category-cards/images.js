@@ -12,7 +12,8 @@ import MusicImage from '~/assets/img/categories/music.svg'
 import PaintingImage from '~/assets/img/categories/painting.svg'
 
 const images = {
-  Psychology: AstronomyImage,
+  psychology: AstronomyImage,
+  astronomy: AstronomyImage,
   marketing: AuditImage,
   biology: BiologyImage,
   chemistry: ChemistryImage,
@@ -22,6 +23,7 @@ const images = {
   history: HistoryImage,
   languages: LanguageImage,
   mathematics: MathematicsImage,
+  physics: MathematicsImage,
   music: MusicImage,
   painting: PaintingImage
 }
