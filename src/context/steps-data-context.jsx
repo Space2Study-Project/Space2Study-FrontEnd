@@ -126,7 +126,7 @@ const StepsDataProvider = ({ children }) => {
     setSelectedSubjectName(false)
   }
 
-  const [image, setImage] = useState()
+  const [image, setImage] = useState(null)
   const [imageURL, setImageURL] = useState(null)
   const [errorPhoto, setErrorPhoto] = useState('')
 
@@ -218,7 +218,7 @@ const StepsDataProvider = ({ children }) => {
     ...addPhotoStepDataHandl
   }
   useMemo(() => {
-    if (
+    const isFormValid =
       name !== '' &&
       lastName !== '' &&
       selectedCountry !== null &&
@@ -228,19 +228,17 @@ const StepsDataProvider = ({ children }) => {
       selectedLanguage !== null &&
       image !== null &&
       imageURL !== null
-    ) {
-      setvalidForm(false)
-    }
+    setvalidForm(!isFormValid)
   }, [
     name,
     lastName,
-    imageURL,
     selectedCountry,
     selectedCity,
     text,
     selectedSubjects,
     selectedLanguage,
-    image
+    image,
+    imageURL
   ])
 
   return (
